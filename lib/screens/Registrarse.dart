@@ -16,6 +16,8 @@ class Registrarse extends StatefulWidget {
 class _RegistrarseState extends State<Registrarse> {
   String? _genero;
   bool _aceptaTerminos = false;
+  // Form key
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   // Controladores para los campos de texto
   final TextEditingController _nombreController = TextEditingController();
@@ -42,231 +44,221 @@ class _RegistrarseState extends State<Registrarse> {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Registros',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 20),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const Text(
+                'Registros',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 20),
 
-            // Tratamiento (Sr./Sra.)
-            Text(
-              'Tratamiento:',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: ListTile(
-                    title: Text('Sr.'),
-                    leading: Radio(
-                      value: 'Sr',
-                      groupValue: _genero,
-                      onChanged: (value) {
-                        setState(() {
-                          _genero = value!;
-                        });
-                      },
+              const Text(
+                'Tratamiento:',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+
+              Row(
+                children: [
+                  Expanded(
+                    child: ListTile(
+                      title: const Text('Sr.'),
+                      leading: Radio<String>(
+                        value: 'Sr',
+                        groupValue: _genero,
+                        onChanged: (value) => setState(() => _genero = value),
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: ListTile(
-                    title: Text('Sra.'),
-                    leading: Radio(
-                      value: 'Sra',
-                      groupValue: _genero,
-                      onChanged: (value) {
-                        setState(() {
-                          _genero = value!;
-                        });
-                      },
+                  Expanded(
+                    child: ListTile(
+                      title: const Text('Sra.'),
+                      leading: Radio<String>(
+                        value: 'Sra',
+                        groupValue: _genero,
+                        onChanged: (value) => setState(() => _genero = value),
+                      ),
                     ),
                   ),
+                ],
+              ),
+
+              const SizedBox(height: 16),
+
+              // Nombre
+              TextFormField(
+                controller: _nombreController,
+                decoration: const InputDecoration(
+                  labelText: 'Nombre',
+                  border: OutlineInputBorder(),
                 ),
-              ],
-            ),
-
-            SizedBox(height: 16),
-
-            // Nombre
-            TextFormField(
-              controller: _nombreController,
-              decoration: InputDecoration(
-                labelText: 'Nombre',
-                border: OutlineInputBorder(),
+                validator: (value) => Validators.validateEmpty(value, 'nombre'),
               ),
-            ),
 
-            SizedBox(height: 16),
+              const SizedBox(height: 16),
 
-            // Contraseña
-            TextFormField(
-              controller: _passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Contraseña',
-                border: OutlineInputBorder(),
+              // Contraseña
+              TextFormField(
+                controller: _passwordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  labelText: 'Contraseña',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) =>
+                    Validators.validateEmpty(value, 'contraseña'),
               ),
-            ),
 
-            SizedBox(height: 16),
+              const SizedBox(height: 16),
 
-            // Repetir contraseña
-            TextFormField(
-              controller: _confirmPasswordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Repite la contraseña',
-                border: OutlineInputBorder(),
+              // Repetir contraseña
+              TextFormField(
+                controller: _confirmPasswordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  labelText: 'Repite la contraseña',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) => Validators.validatePasswordMatch(
+                  _passwordController.text,
+                  value,
+                ),
               ),
-            ),
 
-            SizedBox(height: 16),
+              const SizedBox(height: 16),
 
-            // Añadir imagen
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton.icon(
-                    onPressed: () {
-                      // Aquí iría la lógica para seleccionar imagen
-                      final ImagePicker _picker = ImagePicker();
-                      _picker.pickImage(source: ImageSource.gallery);
+              // Imagen botones
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton.icon(
+                      onPressed: () {
+                        final ImagePicker _picker = ImagePicker();
+                        _picker.pickImage(source: ImageSource.gallery);
+                      },
+                      icon: const Icon(Icons.add_photo_alternate),
+                      label: const Text('Añadir imagen'),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: OutlinedButton.icon(
+                      onPressed: () {
+                        final ImagePicker _picker = ImagePicker();
+                        _picker.pickImage(source: ImageSource.gallery);
+                      },
+                      icon: const Icon(Icons.upload),
+                      label: const Text('Cargar imagen'),
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 16),
+
+              // Edad
+              TextFormField(
+                controller: _edadController,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  labelText: 'Edad',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) => Validators.validateAge(value),
+              ),
+
+              const SizedBox(height: 16),
+
+              // Lugar de nacimiento
+              DropdownButtonFormField<String?>(
+                decoration: const InputDecoration(
+                  labelText: 'Lugar de Nacimiento',
+                  border: OutlineInputBorder(),
+                ),
+                items: const [
+                  DropdownMenuItem(value: null, child: Text('-')),
+                  DropdownMenuItem(value: 'Zaragoza', child: Text('Zaragoza')),
+                  DropdownMenuItem(
+                    value: 'Barcelona',
+                    child: Text('Barcelona'),
+                  ),
+                  DropdownMenuItem(value: 'Madrid', child: Text('Madrid')),
+                ],
+                onChanged: (value) {
+                  setState(() {
+                    _lugarNacimientoController.text = value ?? '';
+                  });
+                },
+                validator: (value) =>
+                    Validators.validateEmpty(value, 'lugar de nacimiento'),
+              ),
+
+              const SizedBox(height: 16),
+
+              // Términos y condiciones
+              Row(
+                children: [
+                  Checkbox(
+                    value: _aceptaTerminos,
+                    onChanged: (value) {
+                      setState(() {
+                        _aceptaTerminos = value!;
+                      });
                     },
-                    icon: Icon(Icons.add_photo_alternate),
-                    label: Text('Añadir imagen'),
+                  ),
+                  const Expanded(
+                    child: Text('Aceptas los términos y condiciones'),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 24),
+
+              // Botón de registro
+              Center(
+                child: ElevatedButton(
+                  onPressed: _aceptaTerminos ? _registrarUsuario : null,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 8, 179, 2),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 40,
+                      vertical: 15,
+                    ),
+                  ),
+                  child: const Text(
+                    'Registrarse',
+                    style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
                 ),
-                SizedBox(width: 10),
-                Expanded(
-                  child: OutlinedButton.icon(
-                    onPressed: () {
-                      final ImagePicker _picker = ImagePicker();
-                      _picker.pickImage(source: ImageSource.gallery);
-                    },
-                    icon: Icon(Icons.upload),
-                    label: Text('Cargar imagen'),
-                  ),
-                ),
-              ],
-            ),
-
-            SizedBox(height: 16),
-
-            // Edad
-            TextFormField(
-              controller: _edadController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: 'Edad',
-                border: OutlineInputBorder(),
               ),
-            ),
-
-            SizedBox(height: 16),
-
-            // Lugar de nacimiento
-            DropdownButtonFormField(
-              decoration: InputDecoration(
-                labelText: 'Lugar de Nacimiento',
-                border: OutlineInputBorder(),
-              ),
-              items: [
-                DropdownMenuItem(value: null, child: Text('-')),
-                DropdownMenuItem(value: 'Zaragoza', child: Text('Zaragoza')),
-                DropdownMenuItem(value: 'Barcelona', child: Text('Barcelona')),
-                DropdownMenuItem(value: 'Madrid', child: Text('Madrid')),
-              ],
-              onChanged: (value) {
-                setState(() {
-                  _lugarNacimientoController.text = value ?? '';
-                });
-              },
-              validator: (value) => Validators.validateEmpty(value),
-            ),
-
-            SizedBox(height: 16),
-
-            // Términos y condiciones
-            Row(
-              children: [
-                Checkbox(
-                  value: _aceptaTerminos,
-                  onChanged: (value) {
-                    setState(() {
-                      _aceptaTerminos = value!;
-                    });
-                  },
-                ),
-                Expanded(child: Text('Aceptas los términos y condiciones')),
-              ],
-            ),
-
-            SizedBox(height: 24),
-
-            // Botón de registro
-            Center(
-              child: ElevatedButton(
-                onPressed: _aceptaTerminos ? _registrarUsuario : null,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 8, 179, 2),
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                ),
-                child: Text(
-                  'Registrarse',
-                  style: TextStyle(fontSize: 18, color: Colors.white),
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 
   void _registrarUsuario() {
-    // Validaciones básicas
-    if (_nombreController.text.isEmpty) {
-      _mostrarError('Por favor ingresa tu nombre');
+    // Usa los validators en el Form: valida todo el formulario
+    if (!_formKey.currentState!.validate()) {
+      // Si algún campo falla, el Form mostrará los errores en cada campo.
       return;
     }
-
-    if (_passwordController.text.isEmpty) {
-      _mostrarError('Por favor ingresa una contraseña');
-      return;
-    }
-
-    if (_passwordController.text != _confirmPasswordController.text) {
-      _mostrarError('Las contraseñas no coinciden');
-      return;
-    }
-
-    if (_edadController.text.isEmpty) {
-      _mostrarError('Por favor ingresa tu edad');
-      return;
-    }
-
-    if (_lugarNacimientoController.text.isEmpty) {
-      _mostrarError('Por favor ingresa tu lugar de nacimiento');
-      return;
-    }
-
-    // Mostrar mensaje de éxito
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Registro exitoso'),
-        backgroundColor: Colors.green,
-      ),
-    );
 
     final nombre = _nombreController.text.trim();
     final contrasena = _passwordController.text.trim();
     final tratamiento = _genero ?? 'Sr'; // Valor por defecto
     final edad = _edadController.text.trim();
     final fechaNacimiento = _lugarNacimientoController.text.trim();
+
+    // Verificar si el nombre ya existe
+    final existente = LogicaUsuarios().buscarUsuarioPorNombre(nombre);
+    if (existente != null) {
+      _mostrarError('El nombre de usuario ya existe');
+      return;
+    }
 
     final nuevoUsuario = User(
       nombre: nombre,
@@ -277,6 +269,14 @@ class _RegistrarseState extends State<Registrarse> {
     );
 
     LogicaUsuarios().registrarUsuario(nuevoUsuario);
+
+    // Mostrar mensaje de éxito después de registrar
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Registro exitoso'),
+        backgroundColor: Colors.green,
+      ),
+    );
 
     // Volver a la pantalla principal
     Navigator.push(

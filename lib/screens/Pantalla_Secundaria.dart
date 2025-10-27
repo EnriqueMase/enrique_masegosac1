@@ -1,3 +1,4 @@
+import 'package:enrique_masegosac1/config/utils/music.dart';
 import 'package:flutter/material.dart';
 import 'package:enrique_masegosac1/services/LogicaUsuarios.dart';
 import 'dart:io';
@@ -56,6 +57,32 @@ class _Pantalla_SecundariaState extends State<Pantalla_Secundaria> {
               child: photoPath != null
                   ? Image(image: FileImage(File(photoPath!)), fit: BoxFit.fill)
                   : Container(),
+            ),
+            const Text(
+              'Botones de Reproducción',
+              style: TextStyle(fontSize: 16),
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: Music.anadirMusica,
+                  child: Text("cargar musica"),
+                ),
+                const SizedBox(width: 20),
+                ElevatedButton.icon(
+                  onPressed: Music.reproducir,
+                  icon: const Icon(Icons.play_arrow),
+                  label: const Text(''),
+                ),
+                const SizedBox(width: 20),
+                ElevatedButton.icon(
+                  onPressed: Music.pausar,
+                  icon: const Icon(Icons.pause),
+                  label: const Text(''),
+                ),
+              ],
             ),
           ],
         ),

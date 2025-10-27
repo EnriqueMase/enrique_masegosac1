@@ -29,9 +29,7 @@ class PantallaPerfil extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 50,
-              backgroundImage: AssetImage(
-                'assets/images/Bob.png',
-              ), // Cambia la ruta según tu imagen
+              backgroundImage: AssetImage('assets/images/Bob.png'),
             ),
             SizedBox(height: 16),
             Text(
@@ -43,15 +41,14 @@ class PantallaPerfil extends StatelessWidget {
               '${usuarioActual.nombre}@email.com',
               style: TextStyle(fontSize: 16, color: Colors.grey[600]),
             ),
-            // quiero que salga la edad, fecha y si es sr o sra
             SizedBox(height: 8),
             Text(
-              'Edad: ${usuarioActual.edad} años', // Reemplaza con la edad real
+              'Edad: ${usuarioActual.edad} años',
               style: TextStyle(fontSize: 16, color: Colors.grey[600]),
             ),
             SizedBox(height: 8),
             Text(
-              'Lugar de nacimiento: ${usuarioActual.lugarnacimiento}', // Reemplaza con la fecha real
+              'Lugar de nacimiento: ${usuarioActual.lugarnacimiento}',
               style: TextStyle(fontSize: 16, color: Colors.grey[600]),
             ),
             SizedBox(height: 8),
@@ -73,7 +70,13 @@ class PantallaPerfil extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.logout),
               title: Text('Cerrar sesión'),
-              onTap: () {},
+              onTap: () {
+                LogicaUsuarios().cerrarSesion();
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => Pantalla_Principal()),
+                );
+              },
             ),
           ],
         ),
