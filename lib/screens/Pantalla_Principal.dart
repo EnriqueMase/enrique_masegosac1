@@ -5,6 +5,7 @@ import 'package:enrique_masegosac1/screens/Registrarse.dart';
 import 'package:flutter/material.dart';
 import 'package:enrique_masegosac1/services/LogicaUsuarios.dart';
 import 'package:enrique_masegosac1/models/user.dart';
+import 'package:enrique_masegosac1/config/utils/music.dart';
 
 class Pantalla_Principal extends StatefulWidget {
   const Pantalla_Principal({super.key});
@@ -160,7 +161,10 @@ class _Pantalla_PrincipalState extends State<Pantalla_Principal> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: _PantallaSecundaria,
+                onPressed: () {
+                  Music.reproducir();
+                  _PantallaSecundaria();
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 153, 117, 173),
                 ),

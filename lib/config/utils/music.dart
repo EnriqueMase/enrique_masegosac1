@@ -8,11 +8,12 @@ class Music {
 
   static Future<void> reproducir() async {
     try {
+      final player = AudioPlayer();
       if (_localFilePath != null) {
-        await audioPlayer.play(DeviceFileSource(_localFilePath!));
+        await player.play(DeviceFileSource(_localFilePath!));
       } else {
-        await audioPlayer.play(AssetSource('assets/music/golden.mp3'));
-        print('Reproduciendo música...');
+        await player.play(AssetSource('music/applepay.mp3'));
+        print('Reproduciendo sonido de inicio de sesión...');
       }
     } catch (e) {
       print('Error al reproducir la música: $e');
