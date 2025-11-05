@@ -39,36 +39,49 @@ class LogicaUsuarios {
   }
 
   LogicaUsuarios._internal() {
-    // Añadir usuario admin por defecto
-    _usuarios.add(
-      User(
-        nombre: 'admin',
-        contrasena: 'admin',
-        tratamiento: 'Sr',
-        edad: '20',
-        lugarnacimiento: 'zaragoza',
-      ),
-    );
+    _garantizarAdmin();
+  }
+
+  void _garantizarAdmin() {
+    // Asegurar que admin existe
+    if (!_usuarios.any((u) => u.nombre == 'admin')) {
+      _usuarios.add(
+        User(
+          nombre: 'admin',
+          contrasena: 'admin',
+          tratamiento: 'Sr',
+          edad: '20',
+          lugarnacimiento: 'zaragoza',
+        ),
+      );
+    }
   }
 
   void registrarUsuario(User usuario) {
+    // Asegurar admin antes de cada operación
+    _garantizarAdmin();
+
+    // No permitir duplicados
+    if (_usuarios.any((u) => u.nombre == usuario.nombre)) return;
     _usuarios.add(usuario);
   }
 
-  // Retorna true si las credenciales son válidas, false en caso contrario
-  bool validarLogin(String nombre, String contrasena) {
+  // Valida credenciales y retorna el usuario si son correctas
+  User? validarCredenciales(String nombre, String contrasena) {
+    // Asegurar admin antes de cada operación
+    _garantizarAdmin();
+
     print("=== VALIDANDO LOGIN ===");
     print("Buscando: Nombre=$nombre, Contraseña=$contrasena");
 
-    for (var usuario in _usuarios) {
-      print("Comparando con: ${usuario.nombre}, ${usuario.contrasena}");
-      if (usuario.nombre == nombre && usuario.contrasena == contrasena) {
-        print("¡COINCIDENCIA ENCONTRADA!");
-        return true;
-      }
+    final usuario = buscarUsuarioPorNombre(nombre);
+    if (usuario != null && usuario.contrasena == contrasena) {
+      print("¡COINCIDENCIA ENCONTRADA!");
+      return usuario;
     }
+
     print("NO SE ENCONTRÓ COINCIDENCIA");
-    return false;
+    return null;
   }
 
   List<User> get usuarios => _usuarios;

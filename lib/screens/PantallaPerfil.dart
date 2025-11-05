@@ -3,11 +3,59 @@ import 'package:flutter/material.dart';
 import 'package:enrique_masegosac1/widgets/drawer.dart';
 import 'package:enrique_masegosac1/services/LogicaUsuarios.dart';
 import 'package:enrique_masegosac1/models/user.dart';
+import 'dart:io';
+import 'dart:typed_data';
 
-class PantallaPerfil extends StatelessWidget {
+class PantallaPerfil extends StatefulWidget {
+  const PantallaPerfil({super.key});
+
+  @override
+  _PantallaPerfilState createState() => _PantallaPerfilState();
+}
+
+class _PantallaPerfilState extends State<PantallaPerfil> {
+  User? _usuarioActual;
+
+  final bool _isWeb = identical(0, 0.0);
+
+  @override
+  void initState() {
+    super.initState();
+    _usuarioActual = LogicaUsuarios().getUsuarioActual();
+  }
+
+  Widget _Avatar() {
+    // PARA WEB: usar imagen desde bytes
+    /* aqui lo que hace eso ir al usuario 
+    para ver la imagen con la que se registro*/
+    if (_isWeb && _usuarioActual?.fotoBytes != null) {
+      return CircleAvatar(
+        radius: 60,
+        backgroundImage: MemoryImage(_usuarioActual!.fotoBytes!),
+      );
+    }
+    // PARA MÓVIL: usar imagen desde archivo
+    else if (!_isWeb &&
+        _usuarioActual?.fotoPath != null &&
+        _usuarioActual!.fotoPath!.isNotEmpty) {
+      return CircleAvatar(
+        radius: 60,
+        backgroundImage: FileImage(File(_usuarioActual!.fotoPath!)),
+      );
+    }
+    // usar icono por defecto si no hay imagen
+    else {
+      return CircleAvatar(
+        radius: 60,
+        backgroundColor: Colors.blue.shade100,
+        child: const Icon(Icons.person, size: 60, color: Colors.blue),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    User? usuarioActual = LogicaUsuarios().getUsuarioActual();
+    User? usuarioActual = _usuarioActual;
     if (usuarioActual == null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Navigator.pushReplacement(
@@ -27,10 +75,7 @@ class PantallaPerfil extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            CircleAvatar(
-              radius: 50,
-              backgroundImage: AssetImage('assets/images/Bob.png'),
-            ),
+            _Avatar(),
             SizedBox(height: 16),
             Text(
               usuarioActual.nombre,

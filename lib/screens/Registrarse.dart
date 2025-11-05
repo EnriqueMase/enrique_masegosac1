@@ -4,7 +4,11 @@ import 'package:enrique_masegosac1/services/LogicaUsuarios.dart';
 import 'package:enrique_masegosac1/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:enrique_masegosac1/screens/Pantalla_Principal.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import 'dart:typed_data';
+import 'package:enrique_masegosac1/config/utils/button_styles.dart';
 
 class Registrarse extends StatefulWidget {
   const Registrarse({super.key});
@@ -27,6 +31,10 @@ class _RegistrarseState extends State<Registrarse> {
   final TextEditingController _edadController = TextEditingController();
   final TextEditingController _lugarNacimientoController =
       TextEditingController();
+
+  final ImagePicker _picker = ImagePicker();
+  XFile? _pickedImage;
+  Uint8List? _pickedImageBytes;
 
   @override
   Widget build(BuildContext context) {
@@ -134,27 +142,58 @@ class _RegistrarseState extends State<Registrarse> {
                 children: [
                   Expanded(
                     child: OutlinedButton.icon(
-                      onPressed: () {
-                        final ImagePicker _picker = ImagePicker();
-                        _picker.pickImage(source: ImageSource.gallery);
+                      onPressed: () async {
+                        final XFile? image = await _picker.pickImage(
+                          source: ImageSource.gallery,
+                        );
+                        if (image != null) {
+                          final bytes = await image.readAsBytes();
+                          setState(() {
+                            _pickedImage = image;
+                            _pickedImageBytes = bytes;
+                          });
+                        }
                       },
-                      icon: const Icon(Icons.add_photo_alternate),
-                      label: const Text('Añadir imagen'),
+                      icon: Icon(Icons.add_photo_alternate),
+                      label: Text('Añadir imagen'),
                     ),
                   ),
                   const SizedBox(width: 10),
                   Expanded(
                     child: OutlinedButton.icon(
-                      onPressed: () {
-                        final ImagePicker _picker = ImagePicker();
-                        _picker.pickImage(source: ImageSource.gallery);
+                      onPressed: () async {
+                        final XFile? image = await _picker.pickImage(
+                          source: ImageSource.camera,
+                        );
+                        if (image != null) {
+                          final bytes = await image.readAsBytes();
+                          setState(() {
+                            _pickedImage = image;
+                            _pickedImageBytes = bytes;
+                          });
+                        }
                       },
-                      icon: const Icon(Icons.upload),
-                      label: const Text('Cargar imagen'),
+                      icon: Icon(Icons.camera_alt),
+                      label: Text('Tomar foto'),
                     ),
                   ),
                 ],
               ),
+
+              if (_pickedImageBytes != null)
+                Center(
+                  child: CircleAvatar(
+                    radius: 50,
+                    backgroundImage: MemoryImage(_pickedImageBytes!),
+                  ),
+                )
+              else
+                Center(
+                  child: CircleAvatar(
+                    radius: 50,
+                    child: Icon(Icons.person, size: 48),
+                  ),
+                ),
 
               const SizedBox(height: 16),
 
@@ -162,6 +201,9 @@ class _RegistrarseState extends State<Registrarse> {
               TextFormField(
                 controller: _edadController,
                 keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
                 decoration: const InputDecoration(
                   labelText: 'Edad',
                   border: OutlineInputBorder(),
@@ -216,20 +258,62 @@ class _RegistrarseState extends State<Registrarse> {
 
               const SizedBox(height: 24),
 
-              // Botón de registro
-              Center(
-                child: ElevatedButton(
-                  onPressed: _aceptaTerminos ? _registrarUsuario : null,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 8, 179, 2),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 40,
-                      vertical: 15,
+              // Botones de registro y cancelar
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Pantalla_Principal(),
+                        ),
+                      );
+                    },
+                    style: ButtonStyles.cancelButton,
+                    child: const Text(
+                      'Cancelar',
+                      style: TextStyle(fontSize: 18, color: Colors.white),
                     ),
                   ),
+                  ElevatedButton(
+                    onPressed: _aceptaTerminos ? _registrarUsuario : null,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 8, 179, 2),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 40,
+                        vertical: 15,
+                      ),
+                    ),
+                    child: const Text(
+                      'Registrarse',
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 24),
+
+              // Link para iniciar sesión
+              Center(
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Pantalla_Principal(),
+                      ),
+                    );
+                  },
                   child: const Text(
-                    'Registrarse',
-                    style: TextStyle(fontSize: 18, color: Colors.white),
+                    '¿Ya tienes una cuenta? Inicia sesión',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Color.fromARGB(255, 8, 179, 2),
+                      decoration: TextDecoration.underline,
+                    ),
                   ),
                 ),
               ),
@@ -266,6 +350,8 @@ class _RegistrarseState extends State<Registrarse> {
       tratamiento: tratamiento,
       edad: edad,
       lugarnacimiento: fechaNacimiento,
+      fotoPath: _pickedImage?.path ?? '',
+      fotoBytes: _pickedImageBytes,
     );
 
     LogicaUsuarios().registrarUsuario(nuevoUsuario);

@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:enrique_masegosac1/services/LogicaUsuarios.dart';
 import 'package:enrique_masegosac1/models/user.dart';
 import 'package:enrique_masegosac1/config/utils/music.dart';
+import 'package:enrique_masegosac1/config/utils/Validators.dart';
+import 'package:enrique_masegosac1/config/utils/button_styles.dart';
 
 class Pantalla_Principal extends StatefulWidget {
   const Pantalla_Principal({super.key});
@@ -16,51 +18,38 @@ class Pantalla_Principal extends StatefulWidget {
 
 class _Pantalla_PrincipalState extends State<Pantalla_Principal> {
   bool _obscurePassword = true;
-  String _nombre = "";
-  String _contrasena = "";
+  final _formKey = GlobalKey<FormState>();
+  final _nombreController = TextEditingController();
+  final _contrasenaController = TextEditingController();
+
+  @override
+  void dispose() {
+    _nombreController.dispose();
+    _contrasenaController.dispose();
+    super.dispose();
+  }
+
   void _PantallaSecundaria() {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
     // Limpiar espacios
-    String nombre = _nombre.trim();
-    String contrasena = _contrasena.trim();
+    String nombre = _nombreController.text.trim();
+    String contrasena = _contrasenaController.text.trim();
 
-    if (nombre.isEmpty) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text("El campo Nombre está vacío")));
-      return;
-    }
-
-    if (contrasena.isEmpty) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text("El campo Contraseña está vacío")));
-      return;
-    }
-
-    // **MÉTODO SIMPLIFICADO Y ROBUSTO**
+    // Validar credenciales
     LogicaUsuarios logica = LogicaUsuarios();
+    logica.imprimirUsuarios(); // Debug: muestra usuarios registrados
 
-    // Debug
-    logica.imprimirUsuarios();
-    print("Buscando: '$nombre' con contraseña '$contrasena'");
-
-    // Buscar usuario
-    User? usuario = logica.buscarUsuarioPorNombre(nombre);
-
+    User? usuario = logica.validarCredenciales(nombre, contrasena);
     if (usuario == null) {
-      print("Usuario no encontrado");
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text("Usuario no encontrado")));
-      return;
-    }
-
-    // Verificar contraseña
-    if (usuario.contrasena != contrasena) {
-      print("Contraseña incorrecta");
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text("Contraseña incorrecta")));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Usuario o contraseña incorrectos"),
+          backgroundColor: Colors.red,
+        ),
+      );
       return;
     }
 
@@ -78,119 +67,125 @@ class _Pantalla_PrincipalState extends State<Pantalla_Principal> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
+        title: const Row(
           children: [
             Icon(Icons.person),
             SizedBox(width: 10),
-            const Text("Lord Team"),
+            Text("Lord Team"),
           ],
         ),
         backgroundColor: const Color.fromARGB(255, 8, 179, 2),
       ),
-      body: Container(
-        decoration: const BoxDecoration(),
-        child: Center(
-          child: Column(
-            children: [
-              const SizedBox(height: 20),
-              const Text(
-                "Bienvenido a la App de Lord Team",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 35),
-              const Image(
-                image: AssetImage("assets/images/Logo.png"),
-                width: 100,
-                height: 100,
-                //Esto hace que ocupe su espacio entero.
-                fit: BoxFit.cover,
-              ),
-              const SizedBox(height: 35),
-              // Nombre
-              SizedBox(
-                width: 500,
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Nombre',
-                    hintText: 'Ingresa tu nombre',
-                    icon: Icon(Icons.person),
-                  ),
-                  style: const TextStyle(fontSize: 18, color: Colors.black),
-                  onChanged: (value) {
-                    setState(() {
-                      _nombre = value;
-                    });
-                  },
+      body: Center(
+        child: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: 20),
+                const Text(
+                  "Bienvenido a la App de Lord Team",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
-                // Contraseña
-              ),
-              SizedBox(height: 20),
-              SizedBox(
-                width: 500,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Contraseña',
-                    hintText: 'Ingresa tu contraseña',
-                    icon: Icon(Icons.lock),
-                    // ver lo que se escribe
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        _obscurePassword
-                            ? Icons.visibility_off
-                            : Icons.visibility,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _obscurePassword = !_obscurePassword;
-                        });
-                      },
+                const SizedBox(height: 35),
+                const Image(
+                  image: AssetImage("assets/images/Logo.png"),
+                  width: 100,
+                  height: 100,
+                  fit: BoxFit.cover,
+                ),
+                const SizedBox(height: 35),
+                // Nombre
+                SizedBox(
+                  width: 500,
+                  child: TextFormField(
+                    controller: _nombreController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Nombre',
+                      hintText: 'Ingresa tu nombre',
+                      icon: Icon(Icons.person),
                     ),
+                    style: const TextStyle(fontSize: 18, color: Colors.black),
+                    validator: (value) =>
+                        Validators.validateEmpty(value, 'nombre'),
                   ),
-                  style: const TextStyle(fontSize: 18, color: Colors.black),
-                  onChanged: (value) {
-                    setState(() {
-                      _contrasena = value;
-                    });
+                ),
+                const SizedBox(height: 20),
+                // Contraseña
+                SizedBox(
+                  width: 500,
+                  child: TextFormField(
+                    controller: _contrasenaController,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: 'Contraseña',
+                      hintText: 'Ingresa tu contraseña',
+                      icon: const Icon(Icons.lock),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscurePassword
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _obscurePassword = !_obscurePassword;
+                          });
+                        },
+                      ),
+                    ),
+                    style: const TextStyle(fontSize: 18, color: Colors.black),
+                    validator: (value) =>
+                        Validators.validateEmpty(value, 'contraseña'),
+                    obscureText: _obscurePassword,
+                    keyboardType: TextInputType.visiblePassword,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                // Botón de login
+                ElevatedButton(
+                  onPressed: () {
+                    Music.reproducir();
+                    _PantallaSecundaria();
                   },
-                  // Esconde el texto ingresado
-                  obscureText: _obscurePassword,
-                  keyboardType: TextInputType.visiblePassword,
+                  style: ButtonStyles.primaryButton,
+                  child: const Text(
+                    'Inicio de sesión',
+                    style: TextStyle(fontSize: 18, color: Colors.white),
+                  ),
                 ),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  Music.reproducir();
-                  _PantallaSecundaria();
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 153, 117, 173),
+                const SizedBox(height: 20),
+                // Botón de registro
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Registrarse(),
+                      ),
+                    );
+                  },
+                  style: ButtonStyles.secondaryButton,
+                  child: const Text(
+                    'Registrarse',
+                    style: TextStyle(fontSize: 18, color: Colors.white),
+                  ),
                 ),
-                child: const Text(
-                  'Inicio de sesion',
-                  style: TextStyle(fontSize: 18, color: Colors.white),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    // Lógica para recuperar la contraseña
+                  },
+                  style: ButtonStyles.secondaryButton,
+                  child: const Text(
+                    '¿Olvidaste la contraseña?',
+                    style: TextStyle(fontSize: 18, color: Colors.white),
+                  ),
                 ),
-              ),
-              // registrarse
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Registrarse()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 153, 117, 173),
-                ),
-                child: const Text(
-                  'Registrarse',
-                  style: TextStyle(fontSize: 18, color: Colors.white),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
