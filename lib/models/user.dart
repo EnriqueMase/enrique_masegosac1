@@ -8,6 +8,7 @@ class User {
   final String? lugarnacimiento;
   final String? fotoPath;
   final Uint8List? fotoBytes;
+  final bool isAdmin;
 
   User({
     required this.nombre,
@@ -17,6 +18,7 @@ class User {
     this.lugarnacimiento = "",
     this.fotoPath = "",
     this.fotoBytes,
+    this.isAdmin = false,
   });
 
   String getNombre() {
@@ -41,5 +43,9 @@ class User {
 
   String getFotoPath() {
     return fotoPath ?? "";
+  }
+
+  bool getisAdmin() {
+    return isAdmin;
   }
 }

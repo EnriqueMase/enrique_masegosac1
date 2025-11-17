@@ -21,6 +21,8 @@ class _Pantalla_PrincipalState extends State<Pantalla_Principal> {
   final _formKey = GlobalKey<FormState>();
   final _nombreController = TextEditingController();
   final _contrasenaController = TextEditingController();
+  String _mensajeContrasena =
+      ''; // Variable para mostrar la contraseña en pantalla
 
   @override
   void dispose() {
@@ -63,6 +65,104 @@ class _Pantalla_PrincipalState extends State<Pantalla_Principal> {
     );
   }
 
+  void _mostrarDialogoRecuperarContrasena() {
+    final _usuarioController = TextEditingController();
+    final _recuperarFormKey = GlobalKey<FormState>();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Recuperar contraseña'),
+          content: Form(
+            key: _recuperarFormKey,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    'Ingresa tu nombre de usuario para recuperar tu contraseña',
+                    style: TextStyle(fontSize: 14),
+                  ),
+                  const SizedBox(height: 20),
+                  TextFormField(
+                    controller: _usuarioController,
+                    decoration: const InputDecoration(
+                      labelText: 'Nombre de usuario',
+                      border: OutlineInputBorder(),
+                      icon: Icon(Icons.person),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor ingresa tu nombre de usuario';
+                      }
+                      return null;
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Cancelar'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (_recuperarFormKey.currentState!.validate()) {
+                  String usuario = _usuarioController.text.trim();
+                  _mostrarContrasenaEnPantalla(usuario);
+                  Navigator.of(context).pop();
+                }
+              },
+              child: const Text('Enviar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _mostrarContrasenaEnPantalla(String nombreUsuario) {
+    LogicaUsuarios logica = LogicaUsuarios();
+
+    // Buscar el usuario por nombre
+    User? usuario = logica.obtenerUsuarioPorNombre(nombreUsuario);
+
+    if (usuario != null) {
+      // mostrar la contraseña directamente en la pantalla principal
+      setState(() {
+        _mensajeContrasena =
+            'Usuario: ${usuario.nombre}\nContraseña: ${usuario.contrasena}';
+      });
+
+      // esto es para que cuando pasesn 10 segundos se elimine el mensaje
+      Future.delayed(const Duration(seconds: 10), () {
+        if (mounted) {
+          setState(() {
+            _mensajeContrasena = '';
+          });
+        }
+      });
+    } else {
+      // mostrar mensaje en pantalla de usuario no encontrado
+      setState(() {
+        _mensajeContrasena = 'Usuario "$nombreUsuario" no encontrado';
+      });
+
+      // esto es por si el usuario no existe
+      // y que en 5 segundos se elimine el mensaje
+      Future.delayed(const Duration(seconds: 5), () {
+        if (mounted) {
+          setState(() {
+            _mensajeContrasena = '';
+          });
+        }
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,6 +196,44 @@ class _Pantalla_PrincipalState extends State<Pantalla_Principal> {
                   fit: BoxFit.cover,
                 ),
                 const SizedBox(height: 35),
+
+                // Mostrar mensaje de contraseña si existe
+                if (_mensajeContrasena.isNotEmpty)
+                  Container(
+                    width: 500,
+                    padding: const EdgeInsets.all(16),
+                    margin: const EdgeInsets.only(bottom: 20),
+                    decoration: BoxDecoration(
+                      color: Colors.green[100],
+                      border: Border.all(color: Colors.green),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Column(
+                      children: [
+                        const Icon(
+                          Icons.lock_open,
+                          color: Colors.green,
+                          size: 40,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          _mensajeContrasena,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 10),
+                        const Text(
+                          'Esta información se borrará automáticamente',
+                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                  ),
+
                 // Nombre
                 SizedBox(
                   width: 500,
@@ -174,9 +312,10 @@ class _Pantalla_PrincipalState extends State<Pantalla_Principal> {
                   ),
                 ),
                 const SizedBox(height: 20),
+                // Botón de recuperar contraseña
                 ElevatedButton(
                   onPressed: () {
-                    // Lógica para recuperar la contraseña
+                    _mostrarDialogoRecuperarContrasena();
                   },
                   style: ButtonStyles.secondaryButton,
                   child: const Text(

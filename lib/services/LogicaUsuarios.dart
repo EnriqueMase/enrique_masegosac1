@@ -5,6 +5,25 @@ class LogicaUsuarios {
   final List<User> _usuarios = [];
   static User? _usuarioActual;
 
+  User? obtenerUsuarioPorNombre(String nombre) {
+    // Verifica que la lista de usuarios no esté vacía
+    if (usuarios.isEmpty) {
+      print("La lista de usuarios está vacía");
+      return null;
+    }
+
+    // Busca el usuario
+    for (var user in usuarios) {
+      print("Comparando: ${user.nombre} con $nombre");
+      if (user.nombre.toLowerCase() == nombre.toLowerCase()) {
+        return user;
+      }
+    }
+
+    print("Usuario $nombre no encontrado en la lista");
+    return null;
+  }
+
   factory LogicaUsuarios() {
     return _instancia;
   }
@@ -37,6 +56,7 @@ class LogicaUsuarios {
     }
     return null;
   }
+  // quiero añadir un usuario por defecto user con contraseña user si no existe
 
   LogicaUsuarios._internal() {
     _garantizarAdmin();
@@ -44,11 +64,29 @@ class LogicaUsuarios {
 
   void _garantizarAdmin() {
     // Asegurar que admin existe
-    if (!_usuarios.any((u) => u.nombre == 'admin')) {
+    if (buscarUsuarioPorNombre('admin') == null) {
       _usuarios.add(
         User(
           nombre: 'admin',
           contrasena: 'admin',
+          tratamiento: 'Sr',
+          edad: '20',
+          lugarnacimiento: 'zaragoza',
+        ),
+      );
+      _usuarios.add(
+        User(
+          nombre: 'Enrique',
+          contrasena: 'Enrique',
+          tratamiento: 'Sr',
+          edad: '20',
+          lugarnacimiento: 'zaragoza',
+        ),
+      );
+      _usuarios.add(
+        User(
+          nombre: 'Ruben',
+          contrasena: 'Ruben',
           tratamiento: 'Sr',
           edad: '20',
           lugarnacimiento: 'zaragoza',
