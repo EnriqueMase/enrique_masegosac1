@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:enrique_masegosac1/screens/Pantalla_Principal.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
-import 'dart:typed_data';
 import 'package:enrique_masegosac1/config/utils/button_styles.dart';
 
 class Registrarse extends StatefulWidget {

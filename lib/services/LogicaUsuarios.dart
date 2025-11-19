@@ -72,6 +72,7 @@ class LogicaUsuarios {
           tratamiento: 'Sr',
           edad: '20',
           lugarnacimiento: 'zaragoza',
+          isAdmin: true,
         ),
       );
       _usuarios.add(
@@ -81,6 +82,7 @@ class LogicaUsuarios {
           tratamiento: 'Sr',
           edad: '20',
           lugarnacimiento: 'zaragoza',
+          isAdmin: true,
         ),
       );
       _usuarios.add(
@@ -90,6 +92,7 @@ class LogicaUsuarios {
           tratamiento: 'Sr',
           edad: '20',
           lugarnacimiento: 'zaragoza',
+          isAdmin: true,
         ),
       );
     }

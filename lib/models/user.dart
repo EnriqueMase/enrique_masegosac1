@@ -9,6 +9,9 @@ class User {
   final String? fotoPath;
   final Uint8List? fotoBytes;
   final bool isAdmin;
+  // parte de la pantalla user
+  final String email;
+  final String telefono;
 
   User({
     required this.nombre,
@@ -19,6 +22,9 @@ class User {
     this.fotoPath = "",
     this.fotoBytes,
     this.isAdmin = false,
+    // parte de la pantalla user
+    this.email = "",
+    this.telefono = "",
   });
 
   String getNombre() {

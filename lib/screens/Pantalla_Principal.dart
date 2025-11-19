@@ -1,7 +1,8 @@
 // ignore_for_file: camel_case_types, non_constant_identifier_names
 
-import 'package:enrique_masegosac1/screens/Pantalla_Secundaria.dart';
 import 'package:enrique_masegosac1/screens/Registrarse.dart';
+import 'package:enrique_masegosac1/screens/admin/Pantalla_Admin.dart';
+import 'package:enrique_masegosac1/screens/users/Pantalla_Usuario.dart';
 import 'package:flutter/material.dart';
 import 'package:enrique_masegosac1/services/LogicaUsuarios.dart';
 import 'package:enrique_masegosac1/models/user.dart';
@@ -61,8 +62,20 @@ class _Pantalla_PrincipalState extends State<Pantalla_Principal> {
 
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => Pantalla_Secundaria()),
+      MaterialPageRoute(builder: (context) => Pantalla_Admin()),
     );
+
+    if (usuario.isAdmin) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const Pantalla_Admin()),
+      );
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Pantalla_Usuario()),
+      );
+    }
   }
 
   void _mostrarDialogoRecuperarContrasena() {

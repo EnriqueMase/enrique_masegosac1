@@ -7,14 +7,14 @@ import 'package:enrique_masegosac1/models/user.dart';
 
 String? photoPath;
 
-class Pantalla_Secundaria extends StatefulWidget {
-  const Pantalla_Secundaria({super.key});
+class Pantalla_Admin extends StatefulWidget {
+  const Pantalla_Admin({super.key});
 
   @override
-  State<Pantalla_Secundaria> createState() => _Pantalla_SecundariaState();
+  State<Pantalla_Admin> createState() => _Pantalla_AdminState();
 }
 
-class _Pantalla_SecundariaState extends State<Pantalla_Secundaria> {
+class _Pantalla_AdminState extends State<Pantalla_Admin> {
   @override
   Widget build(BuildContext context) {
     User? usuario = LogicaUsuarios().getUsuarioActual();
