@@ -4,7 +4,6 @@ import 'package:enrique_masegosac1/widgets/drawer.dart';
 import 'package:enrique_masegosac1/services/LogicaUsuarios.dart';
 import 'package:enrique_masegosac1/models/user.dart';
 import 'dart:io';
-import 'dart:typed_data';
 
 class PantallaPerfil extends StatefulWidget {
   const PantallaPerfil({super.key});
