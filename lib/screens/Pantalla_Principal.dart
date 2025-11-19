@@ -9,6 +9,7 @@ import 'package:enrique_masegosac1/models/user.dart';
 import 'package:enrique_masegosac1/config/utils/music.dart';
 import 'package:enrique_masegosac1/config/utils/Validators.dart';
 import 'package:enrique_masegosac1/config/utils/button_styles.dart';
+import 'package:enrique_masegosac1/controllers/user_controller.dart';
 
 class Pantalla_Principal extends StatefulWidget {
   const Pantalla_Principal({super.key});
@@ -137,6 +138,7 @@ class _Pantalla_PrincipalState extends State<Pantalla_Principal> {
     );
   }
 
+  // zona para poner la contraseña
   void _mostrarContrasenaEnPantalla(String nombreUsuario) {
     LogicaUsuarios logica = LogicaUsuarios();
 
@@ -335,6 +337,22 @@ class _Pantalla_PrincipalState extends State<Pantalla_Principal> {
                     '¿Olvidaste la contraseña?',
                     style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
+                ),
+                const SizedBox(height: 40),
+                ElevatedButton(
+                  onPressed: () async {
+                    final userCredential =
+                        await UserController.signInWithGoogleWeb();
+                    if (userCredential != null) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Pantalla_Usuario(),
+                        ),
+                      );
+                    }
+                  },
+                  child: const Text('Iniciar sesión con Google'),
                 ),
               ],
             ),
