@@ -1,18 +1,13 @@
-import 'package:enrique_masegosac1/screens/PantallaPerfil.dart';
-import 'package:enrique_masegosac1/services/LogicaUsuarios.dart';
+import 'package:enrique_masegosac1/screens/auth/Login_screen.dart';
+import 'package:enrique_masegosac1/screens/users/Pagina_Yo.dart';
+import 'package:enrique_masegosac1/services/Logica_Usuarios.dart';
 import 'package:flutter/material.dart';
-import 'package:enrique_masegosac1/screens/Ajustes.dart';
-import 'package:enrique_masegosac1/screens/Pantalla_Principal.dart';
 import 'package:flutter/services.dart';
+import 'package:enrique_masegosac1/screens/Ajustes.dart';
 
-class Cdrawer extends StatefulWidget {
+class Cdrawer extends StatelessWidget {
   const Cdrawer({super.key});
 
-  @override
-  State<Cdrawer> createState() => _CdrawerState();
-}
-
-class _CdrawerState extends State<Cdrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -20,70 +15,71 @@ class _CdrawerState extends State<Cdrawer> {
         padding: EdgeInsets.zero,
         children: [
           const DrawerHeader(
-            decoration: BoxDecoration(color: Color.fromARGB(255, 10, 255, 2)),
-            child: Text('Menu'),
+            decoration: BoxDecoration(color: Color.fromARGB(255, 8, 179, 2)),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Menú',
+                style: TextStyle(color: Colors.white, fontSize: 24),
+              ),
+            ),
           ),
-          ListTile(
-            leading: const Icon(Icons.home),
-            title: const Text('Pantalla Principal'),
-            onTap: () {
-              Navigator.pop(context);
 
-              LogicaUsuarios().cerrarSesion();
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => Pantalla_Principal()),
-              );
-            },
-          ),
           ListTile(
             leading: const Icon(Icons.person),
-            title: const Text('Mi perfil'),
+            title: const Text('Perfil'),
             onTap: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => PantallaPerfil()),
+                MaterialPageRoute(builder: (_) => const PaginaYo()),
               );
             },
           ),
+
           ListTile(
             leading: const Icon(Icons.settings),
             title: const Text('Ajustes'),
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Ajustes()),
+                MaterialPageRoute(builder: (_) => const Ajustes()),
               );
             },
           ),
           ListTile(
-            leading: Icon(Icons.exit_to_app),
-            title: Text('Salir de la aplicación'),
+            leading: const Icon(Icons.logout),
+            title: const Text('Cerrar sesión'),
             onTap: () {
-              // Mostrar diálogo de confirmación
+              LogicaUsuarios().cerrarSesion();
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (_) => const Login_screen()),
+                (route) => false,
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.exit_to_app),
+            title: const Text('Salir de la aplicación'),
+            onTap: () {
               showDialog(
                 context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: Text("Salir de la aplicación"),
-                    content: Text("¿Estás seguro de que quieres salir?"),
-                    actions: [
-                      TextButton(
-                        child: Text("Cancelar"),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      TextButton(
-                        child: Text("Salir"),
-                        onPressed: () {
-                          // Cerrar la aplicación
-                          SystemNavigator.pop();
-                        },
-                      ),
-                    ],
-                  );
-                },
+                builder: (_) => AlertDialog(
+                  title: const Text('Salir de la aplicación'),
+                  content: const Text('¿Estás seguro de que quieres salir?'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text('Cancelar'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        SystemNavigator.pop();
+                      },
+                      child: const Text('Salir'),
+                    ),
+                  ],
+                ),
               );
             },
           ),

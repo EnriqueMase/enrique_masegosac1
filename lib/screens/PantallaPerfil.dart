@@ -1,7 +1,7 @@
-import 'package:enrique_masegosac1/screens/Pantalla_Principal.dart';
+import 'package:enrique_masegosac1/screens/auth/Login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:enrique_masegosac1/widgets/drawer.dart';
-import 'package:enrique_masegosac1/services/LogicaUsuarios.dart';
+import 'package:enrique_masegosac1/services/Logica_Usuarios.dart';
 import 'package:enrique_masegosac1/models/user.dart';
 import 'dart:io';
 
@@ -59,7 +59,7 @@ class _PantallaPerfilState extends State<PantallaPerfil> {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => Pantalla_Principal()),
+          MaterialPageRoute(builder: (context) => Login_screen()),
         );
       });
       return Scaffold(body: Center(child: CircularProgressIndicator()));
@@ -118,7 +118,7 @@ class _PantallaPerfilState extends State<PantallaPerfil> {
                 LogicaUsuarios().cerrarSesion();
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => Pantalla_Principal()),
+                  MaterialPageRoute(builder: (context) => const Login_screen()),
                 );
               },
             ),

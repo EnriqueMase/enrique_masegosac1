@@ -5,6 +5,7 @@ class UserController {
   static String? email;
   static String? foto;
 
+  /// Login con Google en web usando FirebaseAuth.
   static Future<UserCredential?> signInWithGoogleWeb() async {
     try {
       final provider = GoogleAuthProvider();
@@ -14,15 +15,15 @@ class UserController {
       final userCredential = await FirebaseAuth.instance.signInWithPopup(
         provider,
       );
-      final user = userCredential.user;
 
+      final user = userCredential.user;
       nombre = user?.displayName;
       email = user?.email;
       foto = user?.photoURL;
 
       return userCredential;
     } catch (e) {
-      print('Error during Google sign-in (web): $e');
+      print('Error durante el inicio de sesión con Google (web): $e');
       return null;
     }
   }

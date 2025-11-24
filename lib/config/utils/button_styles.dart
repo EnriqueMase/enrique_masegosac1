@@ -3,7 +3,7 @@ import 'package:enrique_masegosac1/config/utils/button_color.dart';
 
 class ButtonStyles {
   static final ButtonStyle primaryButton = ElevatedButton.styleFrom(
-    backgroundColor: AppColors.primaryColor,
+    backgroundColor: const Color.fromARGB(255, 65, 172, 61),
     padding: const EdgeInsets.symmetric(
       horizontal: AppSizes.buttonHorizontalPadding,
       vertical: AppSizes.buttonVerticalPadding,

@@ -3,16 +3,18 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 class Music {
-  static final AudioPlayer audioPlayer = AudioPlayer();
+  static final AudioPlayer _audioPlayer = AudioPlayer();
   static String? _localFilePath;
 
+  /// Reproduce la música actual.
+  /// - Si hay archivo local seleccionado -> lo usa.
+  /// - Si no -> reproduce el asset por defecto.
   static Future<void> reproducir() async {
     try {
-      final player = AudioPlayer();
       if (_localFilePath != null) {
-        await player.play(DeviceFileSource(_localFilePath!));
+        await _audioPlayer.play(DeviceFileSource(_localFilePath!));
       } else {
-        await player.play(AssetSource('music/applepay.mp3'));
+        await _audioPlayer.play(AssetSource('music/applepay.mp3'));
         print('Reproduciendo sonido de inicio de sesión...');
       }
     } catch (e) {
@@ -20,15 +22,18 @@ class Music {
     }
   }
 
+  /// Pausa la música actual.
   static Future<void> pausar() async {
     try {
-      await audioPlayer.pause();
+      await _audioPlayer.pause();
       print('⏸ Música pausada.');
     } catch (e) {
       print('Error al pausar la música: $e');
     }
   }
 
+  /// Permite elegir un archivo de música y lo guarda como pista actual.
+  /// Devuelve un mensaje para mostrar al usuario.
   static Future<String> anadirMusica() async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
@@ -38,26 +43,16 @@ class Music {
     if (result != null && result.files.isNotEmpty) {
       final filePath = result.files.single.path!;
       _localFilePath = filePath;
-      return "Se ha cargado la musica correctamente";
+      return 'Se ha cargado la música correctamente';
     } else {
-      print('Error al seleccionar el archivo de música.');
-      return '';
+      return 'No se ha seleccionado ningún archivo de música.';
     }
   }
 
+  /// Helper para usar desde la UI (por ejemplo, un botón en Ajustes).
   void cargarMusica(BuildContext context) async {
-    String audioCargado = await Music.anadirMusica();
-    var snackBar = SnackBar(content: Text(audioCargado));
+    final audioCargado = await Music.anadirMusica();
+    final snackBar = SnackBar(content: Text(audioCargado));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
-
-  // ignore: unused_element
-  void _reproducir() async {
-    await Music.reproducir();
-  }
-
-  // ignore: unused_element
-  void _pausar() async {
-    await Music.pausar();
   }
 }

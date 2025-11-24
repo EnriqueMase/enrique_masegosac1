@@ -1,0 +1,17 @@
+class Product {
+  final String id;
+  final String nombre;
+  final double precio;
+  int stock;
+  final String descripcion;
+  final String imagenAsset;
+
+  Product({
+    required this.id,
+    required this.nombre,
+    required this.precio,
+    required this.stock,
+    required this.descripcion,
+    required this.imagenAsset,
+  });
+}
