@@ -1,11 +1,9 @@
-import 'package:enrique_masegosac1/controllers/shop_controler.dart';
-import 'package:enrique_masegosac1/screens/auth/Login_screen.dart';
+import 'package:enrique_masegosac1/screens/auth/Pantalla_login.dart';
 import 'package:enrique_masegosac1/services/Logica_Usuarios.dart';
-import 'package:enrique_masegosac1/services/shop_services.dart';
-import 'package:enrique_masegosac1/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 
-import 'package:enrique_masegosac1/models/product.dart';
+import 'package:enrique_masegosac1/controllers/usuario/controlador_productos.dart';
+import 'package:enrique_masegosac1/models/productos.dart';
 
 class PaginaCompras extends StatefulWidget {
   const PaginaCompras({super.key});
@@ -15,11 +13,11 @@ class PaginaCompras extends StatefulWidget {
 }
 
 class _PaginaComprasState extends State<PaginaCompras> {
-  final ShopController _shopController = ShopController();
+  final ControladorProductos _controladorProductos = ControladorProductos();
   final LogicaUsuarios _usuarios = LogicaUsuarios();
 
   void _incrementar(int index) {
-    final error = _shopController.incrementarCantidad(index);
+    final error = _controladorProductos.incrementarCantidad(index);
     if (error != null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(error), backgroundColor: Colors.red),
@@ -30,23 +28,22 @@ class _PaginaComprasState extends State<PaginaCompras> {
   }
 
   void _decrementar(int index) {
-    _shopController.decrementarCantidad(index);
+    _controladorProductos.decrementarCantidad(index);
     setState(() {});
   }
 
   void _realizarCompra() {
     final user = _usuarios.getUsuarioActual();
     if (user == null) {
+      // Si por algún motivo no hay usuario logueado, volvemos al login
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => const Login_screen()),
+        MaterialPageRoute(builder: (_) => const PantallaLogin()),
       );
       return;
     }
 
-    final OrderResult result = _shopController.realizarCompraParaUsuario(
-      user.nombre,
-    );
+    final result = _controladorProductos.realizarCompraParaUsuario(user.nombre);
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -61,7 +58,7 @@ class _PaginaComprasState extends State<PaginaCompras> {
   }
 
   Widget _productoCard({
-    required Product producto,
+    required Productos producto,
     required int cantidad,
     required VoidCallback onAdd,
     required VoidCallback onRemove,
@@ -74,6 +71,7 @@ class _PaginaComprasState extends State<PaginaCompras> {
         padding: const EdgeInsets.all(12),
         child: Row(
           children: [
+            // IMAGEN DEL PRODUCTO (pondrás la tuya en assets)
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image.asset(
@@ -86,6 +84,8 @@ class _PaginaComprasState extends State<PaginaCompras> {
               ),
             ),
             const SizedBox(width: 12),
+
+            // INFO DEL PRODUCTO
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,6 +106,8 @@ class _PaginaComprasState extends State<PaginaCompras> {
                 ],
               ),
             ),
+
+            // CONTROLES CANTIDAD
             Row(
               children: [
                 IconButton(
@@ -133,14 +135,13 @@ class _PaginaComprasState extends State<PaginaCompras> {
 
   @override
   Widget build(BuildContext context) {
-    final productos = _shopController.productos;
-    final cantidades = _shopController.cantidades;
-    final user = _usuarios.getUsuarioActual();
+    final productos = _controladorProductos.productos;
+    final cantidades = _controladorProductos.cantidades;
 
+    final user = _usuarios.getUsuarioActual();
     final titulo = user != null ? 'Bienvenido ${user.nombre}' : 'Bienvenido';
 
     return Scaffold(
-      drawer: Cdrawer(),
       appBar: AppBar(
         title: Text(titulo),
         backgroundColor: const Color.fromARGB(255, 120, 190, 255),
@@ -154,6 +155,7 @@ class _PaginaComprasState extends State<PaginaCompras> {
               itemBuilder: (context, index) {
                 final producto = productos[index];
                 final cantidad = cantidades[index];
+
                 return _productoCard(
                   producto: producto,
                   cantidad: cantidad,
@@ -168,9 +170,33 @@ class _PaginaComprasState extends State<PaginaCompras> {
             child: SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
-                onPressed: _realizarCompra,
                 icon: const Icon(Icons.shopping_cart_outlined),
                 label: const Text('Realizar compra'),
+                onPressed: () async {
+                  final confirmar = await showDialog<bool>(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('Confirmar compra'),
+                      content: const Text(
+                        '¿Estás seguro de que quieres realizar la compra?',
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(false),
+                          child: const Text('Cancelar'),
+                        ),
+                        ElevatedButton(
+                          onPressed: () => Navigator.of(context).pop(true),
+                          child: const Text('Confirmar'),
+                        ),
+                      ],
+                    ),
+                  );
+
+                  if (confirmar == true) {
+                    _realizarCompra();
+                  }
+                },
               ),
             ),
           ),

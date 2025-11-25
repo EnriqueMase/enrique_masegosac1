@@ -1,19 +1,19 @@
-import 'package:enrique_masegosac1/models/order.dart';
+import 'package:enrique_masegosac1/models/pedidos.dart';
 import 'package:enrique_masegosac1/services/Logica_Usuarios.dart';
-import 'package:enrique_masegosac1/services/shop_services.dart';
+import 'package:enrique_masegosac1/services/Logica_pedidos.dart';
 
-class OrdersController {
+class ControladorPedidos {
   final LogicaUsuarios _usuarios = LogicaUsuarios();
-  final ShopService _shopService = ShopService();
+  final LogicaPedidos _logicaPedidos = LogicaPedidos();
 
   String? get currentUserName {
     final user = _usuarios.getUsuarioActual();
     return user?.nombre;
   }
 
-  List<Order> getOrdersForCurrentUser() {
+  List<Order> getMyOrders() {
     final name = currentUserName;
     if (name == null) return [];
-    return _shopService.getOrdersForUser(name);
+    return _logicaPedidos.getOrdersForUser(name);
   }
 }

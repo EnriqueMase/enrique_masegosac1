@@ -1,8 +1,8 @@
-import 'package:enrique_masegosac1/screens/auth/Login_screen.dart';
+import 'package:enrique_masegosac1/screens/auth/Pantalla_login.dart';
 import 'package:flutter/material.dart';
 import 'package:enrique_masegosac1/widgets/drawer.dart';
 import 'package:enrique_masegosac1/services/Logica_Usuarios.dart';
-import 'package:enrique_masegosac1/models/user.dart';
+import 'package:enrique_masegosac1/models/usuarios.dart';
 import 'dart:io';
 
 class PantallaPerfil extends StatefulWidget {
@@ -13,7 +13,7 @@ class PantallaPerfil extends StatefulWidget {
 }
 
 class _PantallaPerfilState extends State<PantallaPerfil> {
-  User? _usuarioActual;
+  Usuarios? _usuarioActual;
 
   final bool _isWeb = identical(0, 0.0);
 
@@ -54,12 +54,12 @@ class _PantallaPerfilState extends State<PantallaPerfil> {
 
   @override
   Widget build(BuildContext context) {
-    User? usuarioActual = _usuarioActual;
+    Usuarios? usuarioActual = _usuarioActual;
     if (usuarioActual == null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => Login_screen()),
+          MaterialPageRoute(builder: (context) => PantallaLogin()),
         );
       });
       return Scaffold(body: Center(child: CircularProgressIndicator()));
@@ -118,7 +118,9 @@ class _PantallaPerfilState extends State<PantallaPerfil> {
                 LogicaUsuarios().cerrarSesion();
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => const Login_screen()),
+                  MaterialPageRoute(
+                    builder: (context) => const PantallaLogin(),
+                  ),
                 );
               },
             ),

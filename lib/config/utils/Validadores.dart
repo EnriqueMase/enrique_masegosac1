@@ -1,4 +1,4 @@
-class Validators {
+class Validadores {
   static String? validateEmpty(String? value, [String fieldName = 'campo']) {
     if (value == null || value.trim().isEmpty) {
       return 'Por favor ingresa tu $fieldName';

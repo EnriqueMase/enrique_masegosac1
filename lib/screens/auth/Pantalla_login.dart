@@ -4,27 +4,28 @@ import 'package:enrique_masegosac1/screens/auth/Registrarse.dart';
 import 'package:flutter/material.dart';
 
 import 'package:enrique_masegosac1/screens/users/Pantalla_Usuario.dart';
-import 'package:enrique_masegosac1/config/utils/music.dart';
-import 'package:enrique_masegosac1/config/utils/Validators.dart';
-import 'package:enrique_masegosac1/config/utils/button_styles.dart';
-import 'package:enrique_masegosac1/controllers/user_controller.dart';
-import 'package:enrique_masegosac1/controllers/auth_controller.dart';
+import 'package:enrique_masegosac1/config/utils/musica.dart';
+import 'package:enrique_masegosac1/config/utils/Validadores.dart';
+import 'package:enrique_masegosac1/config/resources/botones_estilo.dart';
+import 'package:enrique_masegosac1/controllers/usuario/user_controller.dart';
+import 'package:enrique_masegosac1/controllers/controlador_autenticacion.dart';
 
-class Login_screen extends StatefulWidget {
-  const Login_screen({super.key});
+class PantallaLogin extends StatefulWidget {
+  const PantallaLogin({super.key});
 
   @override
-  State<Login_screen> createState() => Login_screenState();
+  State<PantallaLogin> createState() => PantallaLoginState();
 }
 
-class Login_screenState extends State<Login_screen> {
+class PantallaLoginState extends State<PantallaLogin> {
   final _formKey = GlobalKey<FormState>();
   final _nombreController = TextEditingController();
   final _contrasenaController = TextEditingController();
   bool _obscurePassword = true;
   String _mensajeContrasena = '';
 
-  final AuthController _authController = AuthController();
+  final ControladorAutenticacion _controladorAutenticacion =
+      ControladorAutenticacion();
 
   @override
   void dispose() {
@@ -36,9 +37,9 @@ class Login_screenState extends State<Login_screen> {
   Future<void> _iniciarSesion() async {
     if (!_formKey.currentState!.validate()) return;
 
-    await Music.reproducir();
+    await Musica.reproducir();
 
-    await _authController.iniciarSesion(
+    await _controladorAutenticacion.iniciarSesion(
       context: context,
       nombre: _nombreController.text,
       contrasena: _contrasenaController.text,
@@ -46,7 +47,7 @@ class Login_screenState extends State<Login_screen> {
   }
 
   Future<void> _loginConGoogle() async {
-    final cred = await UserController.signInWithGoogleWeb();
+    final cred = await controladorUsuario.signInWithGoogleWeb();
 
     if (!mounted) return;
 
@@ -80,7 +81,7 @@ class Login_screenState extends State<Login_screen> {
               icon: Icon(Icons.person),
             ),
             validator: (value) =>
-                Validators.validateEmpty(value, 'nombre de usuario'),
+                Validadores.validateEmpty(value, 'nombre de usuario'),
           ),
         ),
         actions: [
@@ -102,7 +103,9 @@ class Login_screenState extends State<Login_screen> {
   }
 
   void _mostrarContrasenaEnPantalla(String nombreUsuario) {
-    final usuario = _authController.obtenerUsuarioPorNombre(nombreUsuario);
+    final usuario = _controladorAutenticacion.obtenerUsuarioPorNombre(
+      nombreUsuario,
+    );
 
     if (!mounted) return;
 
@@ -151,6 +154,10 @@ class Login_screenState extends State<Login_screen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    Image(
+                      image: AssetImage('assets/images/Logo.png'),
+                      height: 100,
+                    ),
                     const Text(
                       'Inicio de sesión',
                       style: TextStyle(
@@ -172,7 +179,7 @@ class Login_screenState extends State<Login_screen> {
                               border: OutlineInputBorder(),
                             ),
                             validator: (value) =>
-                                Validators.validateEmpty(value, 'usuario'),
+                                Validadores.validateEmpty(value, 'usuario'),
                           ),
                           const SizedBox(height: 16),
                           TextFormField(
@@ -196,7 +203,7 @@ class Login_screenState extends State<Login_screen> {
                               ),
                             ),
                             validator: (value) =>
-                                Validators.validateEmpty(value, 'contraseña'),
+                                Validadores.validateEmpty(value, 'contraseña'),
                           ),
                         ],
                       ),
@@ -233,7 +240,7 @@ class Login_screenState extends State<Login_screen> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: _iniciarSesion,
-                        style: ButtonStyles.primaryButton,
+                        style: BotonesEstilo.primaryButton,
                         child: const Text('Iniciar sesión'),
                       ),
                     ),

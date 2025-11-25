@@ -1,4 +1,4 @@
-import 'package:enrique_masegosac1/screens/auth/Login_screen.dart';
+import 'package:enrique_masegosac1/screens/auth/Pantalla_login.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const Login_screen(),
+      home: const PantallaLogin(),
     );
   }
 }

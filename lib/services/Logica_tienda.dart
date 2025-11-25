@@ -1,22 +1,22 @@
-import 'package:enrique_masegosac1/models/order.dart';
-import 'package:enrique_masegosac1/models/product.dart';
+import 'package:enrique_masegosac1/models/pedidos.dart';
+import 'package:enrique_masegosac1/models/productos.dart';
 
-class OrderResult {
+class LogicaTienda {
   final bool success;
   final String message;
 
-  OrderResult({required this.success, required this.message});
+  LogicaTienda({required this.success, required this.message});
 }
 
-class ShopService {
-  static final ShopService _instance = ShopService._internal();
+class LogicaTiendas {
+  static final LogicaTiendas _instance = LogicaTiendas._internal();
 
-  factory ShopService() => _instance;
+  factory LogicaTiendas() => _instance;
 
-  final List<Product> _productos = [];
+  final List<Productos> _productos = [];
   final Map<String, List<Order>> _ordersByUser = {};
 
-  ShopService._internal() {
+  LogicaTiendas._internal() {
     _initProductos();
   }
 
@@ -24,25 +24,25 @@ class ShopService {
     if (_productos.isNotEmpty) return;
     //Cambiar fotos
     _productos.addAll([
-      Product(
+      Productos(
         id: 'p1',
-        nombre: 'Producto 1',
+        nombre: 'Super Light 2 LG',
         precio: 19.99,
         stock: 10,
         descripcion: 'Descripción del Producto 1',
-        imagenAsset: 'assets/images/producto1.jpg',
+        imagenAsset: 'assets/images/raton.jpg',
       ),
-      Product(
+      Productos(
         id: 'p2',
-        nombre: 'Producto 2',
+        nombre: 'Forgeon Meteor Teclado Gaming Wireless',
         precio: 9.99,
         stock: 5,
         descripcion: 'Descripción del Producto 2',
-        imagenAsset: 'assets/images/producto2.png',
+        imagenAsset: 'assets/images/teclado.jpg',
       ),
-      Product(
+      Productos(
         id: 'p3',
-        nombre: 'Producto 3',
+        nombre: 'Kind of homeless',
         precio: 29.99,
         stock: 8,
         descripcion: 'Descripción del Producto 3',
@@ -51,13 +51,13 @@ class ShopService {
     ]);
   }
 
-  List<Product> get productos => List.unmodifiable(_productos);
+  List<Productos> get productos => List.unmodifiable(_productos);
 
   List<Order> getOrdersForUser(String userName) {
     return List.unmodifiable(_ordersByUser[userName] ?? []);
   }
 
-  OrderResult realizarCompra({
+  LogicaTienda realizarCompra({
     required String userName,
     required List<int> cantidades,
   }) {
@@ -68,7 +68,7 @@ class ShopService {
     }
 
     if (totalUnidades == 0) {
-      return OrderResult(
+      return LogicaTienda(
         success: false,
         message: 'No has seleccionado ningún producto',
       );
@@ -77,7 +77,7 @@ class ShopService {
     // Comprobar stock suficiente
     for (int i = 0; i < _productos.length; i++) {
       if (cantidades[i] > _productos[i].stock) {
-        return OrderResult(
+        return LogicaTienda(
           success: false,
           message: 'No hay stock suficiente de ${_productos[i].nombre}',
         );
@@ -85,14 +85,14 @@ class ShopService {
     }
 
     // Crear items de pedido y descontar stock
-    final List<OrderItem> items = [];
+    final List<ObjectoPedido> items = [];
 
     for (int i = 0; i < _productos.length; i++) {
       final qty = cantidades[i];
       if (qty > 0) {
         final p = _productos[i];
         p.stock -= qty;
-        items.add(OrderItem(product: p, cantidad: qty));
+        items.add(ObjectoPedido(productos: p, cantidad: qty));
       }
     }
 
@@ -106,7 +106,7 @@ class ShopService {
     _ordersByUser.putIfAbsent(userName, () => []);
     _ordersByUser[userName]!.add(order);
 
-    return OrderResult(
+    return LogicaTienda(
       success: true,
       message:
           'Compra realizada por un total de ${order.total.toStringAsFixed(2)} €',

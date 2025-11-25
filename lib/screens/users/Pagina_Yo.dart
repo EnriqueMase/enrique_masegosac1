@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:enrique_masegosac1/screens/auth/Login_screen.dart';
+import 'package:enrique_masegosac1/screens/auth/Pantalla_login.dart';
 import 'package:enrique_masegosac1/services/Logica_Usuarios.dart';
 import 'package:enrique_masegosac1/widgets/drawer.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ class PaginaYo extends StatelessWidget {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (_) => const Login_screen()),
+          MaterialPageRoute(builder: (_) => const PantallaLogin()),
         );
       });
 

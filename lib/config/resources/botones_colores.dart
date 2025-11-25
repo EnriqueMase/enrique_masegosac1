@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const Color primaryColor = Color.fromARGB(255, 8, 179, 2);
-  static const Color secondaryColor = Color.fromARGB(255, 153, 117, 173);
-  static const Color cancelColor = Color.fromARGB(255, 92, 57, 57);
-  static const Color errorColor = Colors.red;
-  static const Color successColor = Colors.green;
+  static const Color colorPrincipal = Color.fromARGB(255, 8, 179, 2);
+  static const Color colorSecundario = Color.fromARGB(255, 153, 117, 173);
+  static const Color colordecancelar = Color.fromARGB(255, 92, 57, 57);
+  static const Color colordeError = Colors.red;
+  static const Color Exito = Colors.green;
 }
 
 class AppSizes {

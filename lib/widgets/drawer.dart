@@ -1,4 +1,4 @@
-import 'package:enrique_masegosac1/screens/auth/Login_screen.dart';
+import 'package:enrique_masegosac1/screens/auth/Pantalla_login.dart';
 import 'package:enrique_masegosac1/screens/users/Pagina_Yo.dart';
 import 'package:enrique_masegosac1/services/Logica_Usuarios.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +53,7 @@ class Cdrawer extends StatelessWidget {
               LogicaUsuarios().cerrarSesion();
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (_) => const Login_screen()),
+                MaterialPageRoute(builder: (_) => const PantallaLogin()),
                 (route) => false,
               );
             },

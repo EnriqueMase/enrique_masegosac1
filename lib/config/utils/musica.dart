@@ -2,7 +2,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
-class Music {
+class Musica {
   static final AudioPlayer _audioPlayer = AudioPlayer();
   static String? _localFilePath;
 
@@ -51,7 +51,7 @@ class Music {
 
   /// Helper para usar desde la UI (por ejemplo, un botón en Ajustes).
   void cargarMusica(BuildContext context) async {
-    final audioCargado = await Music.anadirMusica();
+    final audioCargado = await Musica.anadirMusica();
     final snackBar = SnackBar(content: Text(audioCargado));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }

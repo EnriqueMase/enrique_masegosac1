@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CustomStyles {
+class EstilosPersonalizados {
   // Tamaño por defecto del logo
   static const double logoImageWidth = 150.0;
   static const double logoImageHeight = 150.0;

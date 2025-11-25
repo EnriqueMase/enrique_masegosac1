@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:enrique_masegosac1/widgets/drawer.dart';
-import 'package:enrique_masegosac1/config/translations/languages.dart';
 
 class Ajustes extends StatefulWidget {
   const Ajustes({super.key});
@@ -10,38 +9,11 @@ class Ajustes extends StatefulWidget {
 }
 
 class _AjustesState extends State<Ajustes> {
-  void _cambiarIdioma(int nuevoIdioma) {
-    setState(() {
-      Languages.idiomaseleccionado = nuevoIdioma;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const Cdrawer(),
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 8, 179, 2),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [Text('Ajustes'), Text('Seleccionar idioma:')],
-        ),
-        actions: [
-          DropdownButton<int>(
-            icon: const Icon(Icons.language, color: Colors.black),
-            value: Languages.idiomaseleccionado,
-            items: const [
-              DropdownMenuItem(value: 0, child: Text('Español')),
-              DropdownMenuItem(value: 1, child: Text('Inglés')),
-              DropdownMenuItem(value: 2, child: Text('Francés')),
-            ],
-            onChanged: (int? value) {
-              if (value == null) return;
-              _cambiarIdioma(value);
-            },
-          ),
-        ],
-      ),
+      appBar: AppBar(backgroundColor: const Color.fromARGB(255, 8, 179, 2)),
       body: Center(
         child: Column(
           children: const [

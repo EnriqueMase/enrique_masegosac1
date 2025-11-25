@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-class UserController {
+class controladorUsuario {
   static String? nombre;
   static String? email;
   static String? foto;

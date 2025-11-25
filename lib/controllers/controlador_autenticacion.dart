@@ -1,10 +1,10 @@
 import 'package:enrique_masegosac1/services/Logica_Usuarios.dart';
 import 'package:flutter/material.dart';
-import 'package:enrique_masegosac1/models/user.dart';
-import 'package:enrique_masegosac1/screens/admin/Admin_Screen.dart';
+import 'package:enrique_masegosac1/models/usuarios.dart';
+import 'package:enrique_masegosac1/screens/admin/Pantalla_admin.dart';
 import 'package:enrique_masegosac1/screens/users/Pantalla_Usuario.dart';
 
-class AuthController {
+class ControladorAutenticacion {
   final LogicaUsuarios _usuarios = LogicaUsuarios();
 
   Future<void> iniciarSesion({
@@ -29,7 +29,7 @@ class AuthController {
     if (user.isAdmin) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => const Admin_Screen()),
+        MaterialPageRoute(builder: (_) => const PantallaAdmin()),
       );
     } else {
       Navigator.pushReplacement(
@@ -39,7 +39,7 @@ class AuthController {
     }
   }
 
-  User? obtenerUsuarioPorNombre(String nombre) {
+  Usuarios? obtenerUsuarioPorNombre(String nombre) {
     return _usuarios.obtenerUsuarioPorNombre(nombre);
   }
 }

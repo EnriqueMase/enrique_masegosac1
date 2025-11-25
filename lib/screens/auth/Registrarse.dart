@@ -1,13 +1,14 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:enrique_masegosac1/screens/auth/Login_screen.dart';
+import 'package:enrique_masegosac1/screens/auth/Pantalla_login.dart';
 import 'package:enrique_masegosac1/services/Logica_Usuarios.dart';
+import 'package:enrique_masegosac1/widgets/custom_radio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'package:enrique_masegosac1/config/utils/Validators.dart';
-import 'package:enrique_masegosac1/models/user.dart';
+import 'package:enrique_masegosac1/config/utils/Validadores.dart';
+import 'package:enrique_masegosac1/models/usuarios.dart';
 
 class Registrarse extends StatefulWidget {
   const Registrarse({super.key});
@@ -67,7 +68,7 @@ class _RegistrarseState extends State<Registrarse> {
       return;
     }
 
-    final nuevoUsuario = User(
+    final nuevoUsuario = Usuarios(
       nombre: nombre,
       contrasena: contrasena,
       tratamiento: _genero,
@@ -90,7 +91,7 @@ class _RegistrarseState extends State<Registrarse> {
 
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (_) => const Login_screen()),
+      MaterialPageRoute(builder: (_) => const PantallaLogin()),
     );
   }
 
@@ -126,7 +127,9 @@ class _RegistrarseState extends State<Registrarse> {
                 ),
               ),
               const SizedBox(height: 16),
-
+              // botones radio
+              custom_radio(text: 'Sr'),
+              custom_radio(text: 'Sra'),
               TextFormField(
                 controller: _nombreController,
                 decoration: const InputDecoration(
@@ -134,7 +137,7 @@ class _RegistrarseState extends State<Registrarse> {
                   border: OutlineInputBorder(),
                 ),
                 validator: (value) =>
-                    Validators.validateEmpty(value, 'nombre de usuario'),
+                    Validadores.validateEmpty(value, 'nombre de usuario'),
               ),
               const SizedBox(height: 12),
 
@@ -146,27 +149,10 @@ class _RegistrarseState extends State<Registrarse> {
                   border: OutlineInputBorder(),
                 ),
                 validator: (value) =>
-                    Validators.validateEmpty(value, 'contraseña'),
+                    Validadores.validateEmpty(value, 'contraseña'),
               ),
               const SizedBox(height: 12),
 
-              DropdownButtonFormField<String>(
-                value: _genero,
-                items: const [
-                  DropdownMenuItem(value: 'Sr', child: Text('Sr')),
-                  DropdownMenuItem(value: 'Sra', child: Text('Sra')),
-                  DropdownMenuItem(value: 'Otro', child: Text('Otro')),
-                ],
-                decoration: const InputDecoration(
-                  labelText: 'Tratamiento',
-                  border: OutlineInputBorder(),
-                ),
-                onChanged: (value) {
-                  setState(() {
-                    _genero = value;
-                  });
-                },
-              ),
               const SizedBox(height: 12),
 
               TextFormField(
