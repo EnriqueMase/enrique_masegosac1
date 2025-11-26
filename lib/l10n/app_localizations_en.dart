@@ -55,13 +55,48 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String userNotFound(Object username) {
-    return 'User \"$username\" not found';
+    return 'User $username not found';
   }
 
   @override
   String userAndPassword(Object password, Object username) {
     return 'User: $username\nPassword: $password';
   }
+
+  @override
+  String userExists(Object username) {
+    return 'User $username already exists';
+  }
+
+  @override
+  String get menu => 'Menu';
+
+  @override
+  String get settings => 'Settings';
+
+  @override
+  String get logout => 'Logout';
+
+  @override
+  String get exitApp => 'Exit app';
+
+  @override
+  String get exitAppTitle => 'Exit application';
+
+  @override
+  String get exitAppConfirm => 'Are you sure you want to exit?';
+
+  @override
+  String get exit => 'Exit';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get spanish => 'Spanish';
+
+  @override
+  String get english => 'English';
 
   @override
   String get gender => 'Gender';
@@ -92,11 +127,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get registrationCompleted => 'Registration completed';
-
-  @override
-  String userExists(Object username) {
-    return 'User \"$username\" already exists';
-  }
 
   @override
   String get name => 'Name';
@@ -145,6 +175,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get add => 'Add';
+
+  @override
+  String get enterYourName => 'Enter your name';
+
+  @override
+  String get enterAMessage => 'Enter a message';
+
+  @override
+  String get home => 'Home';
+
+  @override
+  String get me => 'Me';
 
   @override
   String get adminPanel => 'Administration Panel';

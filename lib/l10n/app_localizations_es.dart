@@ -55,13 +55,48 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String userNotFound(Object username) {
-    return 'Usuario \"$username\" no encontrado';
+    return 'Usuario $username no encontrado';
   }
 
   @override
   String userAndPassword(Object password, Object username) {
     return 'Usuario: $username\nContraseña: $password';
   }
+
+  @override
+  String userExists(Object username) {
+    return 'El usuario $username ya existe';
+  }
+
+  @override
+  String get menu => 'Menú';
+
+  @override
+  String get settings => 'Ajustes';
+
+  @override
+  String get logout => 'Cerrar sesión';
+
+  @override
+  String get exitApp => 'Salir de la aplicación';
+
+  @override
+  String get exitAppTitle => 'Salir de la aplicación';
+
+  @override
+  String get exitAppConfirm => '¿Estás seguro de que quieres salir?';
+
+  @override
+  String get exit => 'Salir';
+
+  @override
+  String get language => 'Idioma';
+
+  @override
+  String get spanish => 'Español';
+
+  @override
+  String get english => 'Inglés';
 
   @override
   String get gender => 'Género';
@@ -92,11 +127,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get registrationCompleted => 'Registro completado';
-
-  @override
-  String userExists(Object username) {
-    return 'El usuario \"$username\" ya existe';
-  }
 
   @override
   String get name => 'Nombre';
@@ -145,6 +175,18 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get add => 'Añadir';
+
+  @override
+  String get enterYourName => 'Introduce tu nombre';
+
+  @override
+  String get enterAMessage => 'Introduce un mensaje';
+
+  @override
+  String get home => 'Home';
+
+  @override
+  String get me => 'Yo';
 
   @override
   String get adminPanel => 'Panel de administración';

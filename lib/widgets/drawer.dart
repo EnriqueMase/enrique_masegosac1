@@ -1,3 +1,4 @@
+import 'package:enrique_masegosac1/l10n/app_localizations.dart';
 import 'package:enrique_masegosac1/locale_bloc/locale_bloc.dart';
 import 'package:enrique_masegosac1/locale_bloc/locale_state.dart';
 import 'package:enrique_masegosac1/screens/auth/Pantalla_login.dart';
@@ -14,19 +15,22 @@ class Cdrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Drawer(
       backgroundColor: Colors.white,
       child: SafeArea(
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(color: Color.fromARGB(255, 8, 179, 2)),
+            DrawerHeader(
+              decoration:
+                  BoxDecoration(color: const Color.fromARGB(255, 8, 179, 2)),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Menú',
-                  style: TextStyle(color: Colors.white, fontSize: 24),
+                  l10n.menu,
+                  style: const TextStyle(color: Colors.white, fontSize: 24),
                 ),
               ),
             ),
@@ -45,7 +49,7 @@ class Cdrawer extends StatelessWidget {
             // Ajustes
             ListTile(
               leading: const Icon(Icons.settings),
-              title: const Text('Ajustes'),
+              title: Text(l10n.settings),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -58,7 +62,7 @@ class Cdrawer extends StatelessWidget {
             // Cerrar sesión
             ListTile(
               leading: const Icon(Icons.logout),
-              title: const Text('Cerrar sesión'),
+              title: Text(l10n.logout),
               onTap: () {
                 LogicaUsuarios().cerrarSesion();
                 Navigator.pushAndRemoveUntil(
@@ -72,23 +76,23 @@ class Cdrawer extends StatelessWidget {
             // Salir de la aplicación
             ListTile(
               leading: const Icon(Icons.exit_to_app),
-              title: const Text('Salir de la aplicación'),
+              title: Text(l10n.exitApp),
               onTap: () {
                 showDialog(
                   context: context,
                   builder: (_) => AlertDialog(
-                    title: const Text('Salir de la aplicación'),
-                    content: const Text('¿Estás seguro de que quieres salir?'),
+                    title: Text(l10n.exitAppTitle),
+                    content: Text(l10n.exitAppConfirm),
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.pop(context),
-                        child: const Text('Cancelar'),
+                        child: Text(l10n.cancel),
                       ),
                       TextButton(
                         onPressed: () {
                           SystemNavigator.pop();
                         },
-                        child: const Text('Salir'),
+                        child: Text(l10n.exit),
                       ),
                     ],
                   ),

@@ -118,9 +118,8 @@ class _RegistrarseState extends State<Registrarse> {
                 onTap: _seleccionarImagen,
                 child: CircleAvatar(
                   radius: 48,
-                  backgroundImage: _pickedImage != null
-                      ? FileImage(_pickedImage!)
-                      : null,
+                  backgroundImage:
+                      _pickedImage != null ? FileImage(_pickedImage!) : null,
                   child: _pickedImage == null
                       ? const Icon(Icons.camera_alt, size: 32)
                       : null,

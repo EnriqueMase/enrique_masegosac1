@@ -154,7 +154,7 @@ class _PaginaComprasState extends State<PaginaCompras> {
       drawer: Cdrawer(),
       appBar: AppBar(
         title: Text(titulo),
-        backgroundColor: const Color.fromARGB(255, 120, 190, 255),
+        backgroundColor: const Color.fromARGB(255, 8, 179, 2),
       ),
       body: Column(
         children: [

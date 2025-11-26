@@ -44,7 +44,7 @@ class _PaginaContactoState extends State<PaginaContacto> {
       drawer: Cdrawer(),
       appBar: AppBar(
         title: Text(l10n.contact),
-        backgroundColor: const Color.fromARGB(255, 120, 190, 255),
+        backgroundColor: const Color.fromARGB(255, 8, 179, 2),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),

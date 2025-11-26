@@ -16,8 +16,20 @@
   "recoverPasswordTitle": "Recover Password",
   "send": "Send",
   "cancel": "Cancel",
-  "userNotFound": "User \"{username}\" not found",
+  "userNotFound": "User {username} not found",
   "userAndPassword": "User: {username}\nPassword: {password}",
+  "userExists": "User {username} already exists",
+  
+  "menu": "Menu",
+  "settings": "Settings",
+  "logout": "Logout",
+  "exitApp": "Exit app",
+  "exitAppTitle": "Exit application",
+  "exitAppConfirm": "Are you sure you want to exit?",
+  "exit": "Exit",
+  "language": "Language",
+  "spanish": "Spanish",
+  "english": "English",
   
   "gender": "Gender",
   "mr": "Mr",
@@ -29,7 +41,6 @@
   "phone": "Phone",
   "selectImage": "Select image",
   "registrationCompleted": "Registration completed",
-  "userExists": "User \"{username}\" already exists",
   
   "name": "Name",
   "description": "Description",
@@ -47,6 +58,11 @@
   "save": "Save",
   "create": "Create",
   "add": "Add",
+  "enterYourName": "Enter your name",
+  "enterAMessage": "Enter a message",
+  
+  "home": "Home",
+  "me": "Me",
   
   "adminPanel": "Administration Panel",
   "userManagement": "User Management",
@@ -97,6 +113,6 @@
   "message": "Message",
   "sendMessage": "Send",
   "messageSent": "Message sent (simulated)",
-  "myProfile": "My Profile",
-  "birthPlace": "Place of birth"
+  
+  "myProfile": "My Profile"
 }

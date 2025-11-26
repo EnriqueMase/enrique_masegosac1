@@ -16,8 +16,20 @@
   "recoverPasswordTitle": "Recuperar Contraseña",
   "send": "Enviar",
   "cancel": "Cancelar",
-  "userNotFound": "Usuario \"{username}\" no encontrado",
+  "userNotFound": "Usuario {username} no encontrado",
   "userAndPassword": "Usuario: {username}\nContraseña: {password}",
+  "userExists": "El usuario {username} ya existe",
+  
+  "menu": "Menú",
+  "settings": "Ajustes",
+  "logout": "Cerrar sesión",
+  "exitApp": "Salir de la aplicación",
+  "exitAppTitle": "Salir de la aplicación",
+  "exitAppConfirm": "¿Estás seguro de que quieres salir?",
+  "exit": "Salir",
+  "language": "Idioma",
+  "spanish": "Español",
+  "english": "Inglés",
   
   "gender": "Género",
   "mr": "Sr",
@@ -29,7 +41,6 @@
   "phone": "Teléfono",
   "selectImage": "Seleccionar imagen",
   "registrationCompleted": "Registro completado",
-  "userExists": "El usuario \"{username}\" ya existe",
   
   "name": "Nombre",
   "description": "Descripción",
@@ -47,6 +58,11 @@
   "save": "Guardar",
   "create": "Crear",
   "add": "Añadir",
+  "enterYourName": "Introduce tu nombre",
+  "enterAMessage": "Introduce un mensaje",
+  
+  "home": "Home",
+  "me": "Yo",
   
   "adminPanel": "Panel de administración",
   "userManagement": "Gestión de usuarios",
@@ -97,6 +113,6 @@
   "message": "Mensaje",
   "sendMessage": "Enviar",
   "messageSent": "Mensaje enviado (simulado)",
-  "myProfile": "Mi perfil",
-  "birthPlace": "Lugar de nacimiento"
+  
+  "myProfile": "Mi perfil"
 }

@@ -191,7 +191,7 @@ abstract class AppLocalizations {
   /// No description provided for @userNotFound.
   ///
   /// In es, this message translates to:
-  /// **'Usuario \"{username}\" no encontrado'**
+  /// **'Usuario {username} no encontrado'**
   String userNotFound(Object username);
 
   /// No description provided for @userAndPassword.
@@ -199,6 +199,72 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Usuario: {username}\nContraseña: {password}'**
   String userAndPassword(Object password, Object username);
+
+  /// No description provided for @userExists.
+  ///
+  /// In es, this message translates to:
+  /// **'El usuario {username} ya existe'**
+  String userExists(Object username);
+
+  /// No description provided for @menu.
+  ///
+  /// In es, this message translates to:
+  /// **'Menú'**
+  String get menu;
+
+  /// No description provided for @settings.
+  ///
+  /// In es, this message translates to:
+  /// **'Ajustes'**
+  String get settings;
+
+  /// No description provided for @logout.
+  ///
+  /// In es, this message translates to:
+  /// **'Cerrar sesión'**
+  String get logout;
+
+  /// No description provided for @exitApp.
+  ///
+  /// In es, this message translates to:
+  /// **'Salir de la aplicación'**
+  String get exitApp;
+
+  /// No description provided for @exitAppTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Salir de la aplicación'**
+  String get exitAppTitle;
+
+  /// No description provided for @exitAppConfirm.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Estás seguro de que quieres salir?'**
+  String get exitAppConfirm;
+
+  /// No description provided for @exit.
+  ///
+  /// In es, this message translates to:
+  /// **'Salir'**
+  String get exit;
+
+  /// No description provided for @language.
+  ///
+  /// In es, this message translates to:
+  /// **'Idioma'**
+  String get language;
+
+  /// No description provided for @spanish.
+  ///
+  /// In es, this message translates to:
+  /// **'Español'**
+  String get spanish;
+
+  /// No description provided for @english.
+  ///
+  /// In es, this message translates to:
+  /// **'Inglés'**
+  String get english;
 
   /// No description provided for @gender.
   ///
@@ -259,12 +325,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Registro completado'**
   String get registrationCompleted;
-
-  /// No description provided for @userExists.
-  ///
-  /// In es, this message translates to:
-  /// **'El usuario \"{username}\" ya existe'**
-  String userExists(Object username);
 
   /// No description provided for @name.
   ///
@@ -361,6 +421,30 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Añadir'**
   String get add;
+
+  /// No description provided for @enterYourName.
+  ///
+  /// In es, this message translates to:
+  /// **'Introduce tu nombre'**
+  String get enterYourName;
+
+  /// No description provided for @enterAMessage.
+  ///
+  /// In es, this message translates to:
+  /// **'Introduce un mensaje'**
+  String get enterAMessage;
+
+  /// No description provided for @home.
+  ///
+  /// In es, this message translates to:
+  /// **'Home'**
+  String get home;
+
+  /// No description provided for @me.
+  ///
+  /// In es, this message translates to:
+  /// **'Yo'**
+  String get me;
 
   /// No description provided for @adminPanel.
   ///

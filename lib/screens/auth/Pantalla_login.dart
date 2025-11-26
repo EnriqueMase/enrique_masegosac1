@@ -1,7 +1,11 @@
 // ignore_for_file: camel_case_types, non_constant_identifier_names
 
+import 'package:enrique_masegosac1/l10n/app_localizations.dart';
+import 'package:enrique_masegosac1/locale_bloc/locale_bloc.dart';
+import 'package:enrique_masegosac1/locale_bloc/locale_state.dart';
 import 'package:enrique_masegosac1/screens/auth/Registrarse.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:enrique_masegosac1/config/utils/EstilosPersonalizados.dart';
 import 'package:enrique_masegosac1/screens/users/Pantalla_Usuario.dart';
 import 'package:enrique_masegosac1/config/utils/musica.dart';
@@ -9,6 +13,7 @@ import 'package:enrique_masegosac1/config/utils/Validadores.dart';
 import 'package:enrique_masegosac1/config/resources/Botones/botones_estilo.dart';
 import 'package:enrique_masegosac1/controllers/usuario/user_controller.dart';
 import 'package:enrique_masegosac1/controllers/controlador_autenticacion.dart';
+import 'package:enrique_masegosac1/widgets/cambio_lenguajes.dart';
 
 class PantallaLogin extends StatefulWidget {
   const PantallaLogin({super.key});
@@ -64,30 +69,31 @@ class PantallaLoginState extends State<PantallaLogin> {
   }
 
   void _mostrarDialogoRecuperarContrasena() {
+    final l10n = AppLocalizations.of(context)!;
     final usuarioController = TextEditingController();
     final formKey = GlobalKey<FormState>();
 
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: const Text('Recuperar contraseña'),
+        title: Text(l10n.recoverPasswordTitle),
         content: Form(
           key: formKey,
           child: TextFormField(
             controller: usuarioController,
-            decoration: const InputDecoration(
-              labelText: 'Nombre de usuario',
-              border: OutlineInputBorder(),
-              icon: Icon(Icons.person),
+            decoration: InputDecoration(
+              labelText: l10n.username,
+              border: const OutlineInputBorder(),
+              icon: const Icon(Icons.person),
             ),
             validator: (value) =>
-                Validadores.validateEmpty(value, 'nombre de usuario'),
+                Validadores.validateEmpty(value, l10n.username),
           ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancelar'),
+            child: Text(l10n.cancel),
           ),
           ElevatedButton(
             onPressed: () {
@@ -95,7 +101,7 @@ class PantallaLoginState extends State<PantallaLogin> {
               _mostrarContrasenaEnPantalla(usuarioController.text.trim());
               Navigator.pop(context);
             },
-            child: const Text('Enviar'),
+            child: Text(l10n.send),
           ),
         ],
       ),
@@ -103,6 +109,7 @@ class PantallaLoginState extends State<PantallaLogin> {
   }
 
   void _mostrarContrasenaEnPantalla(String nombreUsuario) {
+    final l10n = AppLocalizations.of(context)!;
     final usuario = _controladorAutenticacion.obtenerUsuarioPorNombre(
       nombreUsuario,
     );
@@ -112,7 +119,7 @@ class PantallaLoginState extends State<PantallaLogin> {
     if (usuario != null) {
       setState(() {
         _mensajeContrasena =
-            'Usuario: ${usuario.nombre}\nContraseña: ${usuario.contrasena}';
+            l10n.userAndPassword(usuario.nombre, usuario.contrasena);
       });
       Future.delayed(const Duration(seconds: 10), () {
         if (!mounted) return;
@@ -120,7 +127,7 @@ class PantallaLoginState extends State<PantallaLogin> {
       });
     } else {
       setState(() {
-        _mensajeContrasena = 'Usuario "$nombreUsuario" no encontrado';
+        _mensajeContrasena = l10n.userNotFound(nombreUsuario);
       });
       Future.delayed(const Duration(seconds: 5), () {
         if (!mounted) return;
@@ -138,137 +145,141 @@ class PantallaLoginState extends State<PantallaLogin> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 420),
-            child: Card(
-              elevation: 6,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    CircleAvatar(child: EstilosPersonalizados.logoImage()),
+            child: Column(
+              children: [
+                // Selector de idioma - Igual que en el drawer
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 16),
+                  child: BlocBuilder<LocaleBloc, LocaleState>(
+                    builder: (context, state) =>
+                        buildLanguageSwitch(context, Theme.of(context), state),
+                  ),
+                ),
 
-                    const Text(
-                      'Inicio de sesión',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 24),
-
-                    Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          TextFormField(
-                            controller: _nombreController,
-                            decoration: const InputDecoration(
-                              labelText: 'Usuario',
-                              prefixIcon: Icon(Icons.person),
-                              border: OutlineInputBorder(),
-                            ),
-                            validator: (value) =>
-                                Validadores.validateEmpty(value, 'usuario'),
-                          ),
-                          const SizedBox(height: 16),
-                          TextFormField(
-                            controller: _contrasenaController,
-                            obscureText: _obscurePassword,
-                            decoration: InputDecoration(
-                              labelText: 'Contraseña',
-                              prefixIcon: const Icon(Icons.lock),
-                              border: const OutlineInputBorder(),
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  _obscurePassword
-                                      ? Icons.visibility_off
-                                      : Icons.visibility,
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    _obscurePassword = !_obscurePassword;
-                                  });
-                                },
-                              ),
-                            ),
-                            validator: (value) =>
-                                Validadores.validateEmpty(value, 'contraseña'),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    const SizedBox(height: 12),
-
-                    if (_mensajeContrasena.isNotEmpty)
-                      Container(
-                        width: double.infinity,
-                        margin: const EdgeInsets.only(bottom: 8),
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade200,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(
-                          _mensajeContrasena,
-                          style: const TextStyle(fontSize: 14),
-                        ),
-                      ),
-
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        onPressed: _mostrarDialogoRecuperarContrasena,
-                        child: const Text('¿Has olvidado tu contraseña?'),
-                      ),
-                    ),
-
-                    const SizedBox(height: 8),
-
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: _iniciarSesion,
-                        style: BotonesEstilo.primary,
-                        child: const Text('Iniciar sesión'),
-                      ),
-                    ),
-
-                    const SizedBox(height: 12),
-
-                    SizedBox(
-                      width: double.infinity,
-                      child: OutlinedButton.icon(
-                        onPressed: _loginConGoogle,
-                        icon: const Icon(Icons.login),
-                        label: const Text('Iniciar sesión con Google'),
-                      ),
-                    ),
-
-                    const SizedBox(height: 16),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                // Card con el formulario de login
+                Card(
+                  elevation: 6,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(24),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Text('¿No tienes cuenta?'),
-                        TextButton(
-                          onPressed: _irARegistro,
-                          child: const Text('Regístrate'),
+                        CircleAvatar(child: EstilosPersonalizados.logoImage()),
+                        Text(
+                          l10n.loginTitle,
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              TextFormField(
+                                controller: _nombreController,
+                                decoration: InputDecoration(
+                                  labelText: l10n.username,
+                                  prefixIcon: const Icon(Icons.person),
+                                  border: const OutlineInputBorder(),
+                                ),
+                                validator: (value) => Validadores.validateEmpty(
+                                    value, l10n.username),
+                              ),
+                              const SizedBox(height: 16),
+                              TextFormField(
+                                controller: _contrasenaController,
+                                obscureText: _obscurePassword,
+                                decoration: InputDecoration(
+                                  labelText: l10n.password,
+                                  prefixIcon: const Icon(Icons.lock),
+                                  border: const OutlineInputBorder(),
+                                  suffixIcon: IconButton(
+                                    icon: Icon(
+                                      _obscurePassword
+                                          ? Icons.visibility_off
+                                          : Icons.visibility,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _obscurePassword = !_obscurePassword;
+                                      });
+                                    },
+                                  ),
+                                ),
+                                validator: (value) => Validadores.validateEmpty(
+                                    value, l10n.password),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        if (_mensajeContrasena.isNotEmpty)
+                          Container(
+                            width: double.infinity,
+                            margin: const EdgeInsets.only(bottom: 8),
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade200,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              _mensajeContrasena,
+                              style: const TextStyle(fontSize: 14),
+                            ),
+                          ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: TextButton(
+                            onPressed: _mostrarDialogoRecuperarContrasena,
+                            child: Text(l10n.forgotPassword),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: _iniciarSesion,
+                            style: BotonesEstilo.primary,
+                            child: Text(l10n.signIn),
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        SizedBox(
+                          width: double.infinity,
+                          child: OutlinedButton.icon(
+                            onPressed: _loginConGoogle,
+                            icon: const Icon(Icons.login),
+                            label: Text(l10n.signInWithGoogle),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(l10n.noAccount),
+                            TextButton(
+                              onPressed: _irARegistro,
+                              child: Text(l10n.register),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
         ),

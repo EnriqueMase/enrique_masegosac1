@@ -29,7 +29,7 @@ class PaginaYo extends StatelessWidget {
       drawer: Cdrawer(),
       appBar: AppBar(
         title: Text(l10n.myProfile),
-        backgroundColor: const Color.fromARGB(255, 120, 190, 255),
+        backgroundColor: const Color.fromARGB(255, 8, 179, 2),
       ),
       body: Center(
         child: Column(
@@ -39,8 +39,8 @@ class PaginaYo extends StatelessWidget {
               radius: 50,
               backgroundImage:
                   user.fotoPath != null && user.fotoPath!.isNotEmpty
-                  ? FileImage(File(user.fotoPath!))
-                  : null,
+                      ? FileImage(File(user.fotoPath!))
+                      : null,
               child: (user.fotoPath == null || user.fotoPath!.isEmpty)
                   ? const Icon(Icons.person, size: 40)
                   : null,

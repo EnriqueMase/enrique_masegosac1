@@ -35,10 +35,9 @@ class _PaginaPedidosState extends State<PaginaPedidos> {
 
     return Scaffold(
       drawer: Cdrawer(),
-
       appBar: AppBar(
         title: Text(l10n.myOrders),
-        backgroundColor: const Color.fromARGB(255, 120, 190, 255),
+        backgroundColor: const Color.fromARGB(255, 8, 179, 2),
       ),
       body: pedidos.isEmpty
           ? Center(child: Text(l10n.noOrdersYet))
