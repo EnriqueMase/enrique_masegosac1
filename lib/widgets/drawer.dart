@@ -31,7 +31,7 @@ class Cdrawer extends StatelessWidget {
               ),
             ),
 
-            // 🔄 Selector de idioma
+            // Selector de idioma
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: BlocBuilder<LocaleBloc, LocaleState>(
@@ -42,20 +42,7 @@ class Cdrawer extends StatelessWidget {
 
             const Divider(),
 
-            // 👤 Mi perfil
-            ListTile(
-              leading: const Icon(Icons.person),
-              title: const Text('Mi perfil'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const PaginaYo()),
-                );
-              },
-            ),
-
-            // ⚙ Ajustes
+            // Ajustes
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Ajustes'),
@@ -68,7 +55,7 @@ class Cdrawer extends StatelessWidget {
               },
             ),
 
-            // 🚪 Cerrar sesión
+            // Cerrar sesión
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text('Cerrar sesión'),
@@ -82,7 +69,7 @@ class Cdrawer extends StatelessWidget {
               },
             ),
 
-            // ❌ Salir de la aplicación
+            // Salir de la aplicación
             ListTile(
               leading: const Icon(Icons.exit_to_app),
               title: const Text('Salir de la aplicación'),
