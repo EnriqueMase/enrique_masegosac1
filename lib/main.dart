@@ -1,6 +1,10 @@
 import 'package:enrique_masegosac1/l10n/app_localizations.dart';
 import 'package:enrique_masegosac1/screens/auth/Pantalla_login.dart';
+import 'package:enrique_masegosac1/locale_bloc/locale_bloc.dart';
+import 'package:enrique_masegosac1/locale_bloc/locale_state.dart';
+import 'package:enrique_masegosac1/config/utils/lenguajes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'firebase_options.dart';
@@ -8,7 +12,8 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const MyApp());
+
+  runApp(BlocProvider(create: (_) => LocaleBloc(), child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -16,16 +21,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const PantallaLogin(),
+    return BlocBuilder<LocaleBloc, LocaleState>(
+      builder: (context, state) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          // Locale controlada por el Bloc
+          locale: state.selectedLanguage.localeValue,
+          onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
+          ),
+          home: const PantallaLogin(),
+        );
+      },
     );
   }
 }

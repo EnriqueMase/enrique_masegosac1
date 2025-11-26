@@ -18,11 +18,6 @@ class EstilosPersonalizados {
     double height = logoImageHeight,
     BoxFit fit = BoxFit.contain,
   }) {
-    return Image.asset(
-      'assets/logo.png',
-      width: width,
-      height: height,
-      fit: fit,
-    );
+    return Image.asset('assets/images/Logo.png', fit: fit);
   }
 }

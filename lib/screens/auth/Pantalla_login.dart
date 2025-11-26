@@ -2,7 +2,7 @@
 
 import 'package:enrique_masegosac1/screens/auth/Registrarse.dart';
 import 'package:flutter/material.dart';
-
+import 'package:enrique_masegosac1/config/utils/EstilosPersonalizados.dart';
 import 'package:enrique_masegosac1/screens/users/Pantalla_Usuario.dart';
 import 'package:enrique_masegosac1/config/utils/musica.dart';
 import 'package:enrique_masegosac1/config/utils/Validadores.dart';
@@ -154,10 +154,8 @@ class PantallaLoginState extends State<PantallaLogin> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Image(
-                      image: AssetImage('assets/images/Logo.png'),
-                      height: 100,
-                    ),
+                    CircleAvatar(child: EstilosPersonalizados.logoImage()),
+
                     const Text(
                       'Inicio de sesión',
                       style: TextStyle(
@@ -192,8 +190,8 @@ class PantallaLoginState extends State<PantallaLogin> {
                               suffixIcon: IconButton(
                                 icon: Icon(
                                   _obscurePassword
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
                                 ),
                                 onPressed: () {
                                   setState(() {
