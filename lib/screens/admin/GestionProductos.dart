@@ -1,3 +1,5 @@
+import 'package:enrique_masegosac1/l10n/app_localizations.dart';
+import 'package:enrique_masegosac1/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 
 import 'package:enrique_masegosac1/controllers/administrador/controlados_productos_admin.dart';
@@ -14,6 +16,7 @@ class _GestionProductosPageState extends State<GestionProductosPage> {
       ControladosProductosAdmin();
 
   void _mostrarDialogoCrearProducto() {
+    final l10n = AppLocalizations.of(context)!;
     final formKey = GlobalKey<FormState>();
     final idController = TextEditingController();
     final nombreController = TextEditingController();
@@ -27,7 +30,7 @@ class _GestionProductosPageState extends State<GestionProductosPage> {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: const Text('Crear producto'),
+        title: Text(l10n.createProduct),
         content: Form(
           key: formKey,
           child: SingleChildScrollView(
@@ -36,41 +39,39 @@ class _GestionProductosPageState extends State<GestionProductosPage> {
               children: [
                 TextFormField(
                   controller: idController,
-                  decoration: const InputDecoration(labelText: 'ID producto'),
+                  decoration: InputDecoration(labelText: l10n.productId),
                   validator: (v) =>
-                      v == null || v.isEmpty ? 'Obligatorio' : null,
+                      v == null || v.isEmpty ? l10n.requiredField : null,
                 ),
                 TextFormField(
                   controller: nombreController,
-                  decoration: const InputDecoration(labelText: 'Nombre'),
+                  decoration: InputDecoration(labelText: l10n.name),
                   validator: (v) =>
-                      v == null || v.isEmpty ? 'Obligatorio' : null,
+                      v == null || v.isEmpty ? l10n.requiredField : null,
                 ),
                 TextFormField(
                   controller: descripcionController,
-                  decoration: const InputDecoration(labelText: 'Descripción'),
+                  decoration: InputDecoration(labelText: l10n.description),
                 ),
                 TextFormField(
                   controller: precioController,
-                  decoration: const InputDecoration(labelText: 'Precio'),
+                  decoration: InputDecoration(labelText: l10n.price),
                   keyboardType: const TextInputType.numberWithOptions(
                     decimal: true,
                   ),
                   validator: (v) =>
-                      v == null || v.isEmpty ? 'Obligatorio' : null,
+                      v == null || v.isEmpty ? l10n.requiredField : null,
                 ),
                 TextFormField(
                   controller: stockController,
-                  decoration: const InputDecoration(labelText: 'Stock'),
+                  decoration: InputDecoration(labelText: l10n.stock),
                   keyboardType: TextInputType.number,
                   validator: (v) =>
-                      v == null || v.isEmpty ? 'Obligatorio' : null,
+                      v == null || v.isEmpty ? l10n.requiredField : null,
                 ),
                 TextFormField(
                   controller: imagenController,
-                  decoration: const InputDecoration(
-                    labelText: 'Ruta imagen (asset)',
-                  ),
+                  decoration: InputDecoration(labelText: l10n.imagePath),
                 ),
               ],
             ),
@@ -79,7 +80,7 @@ class _GestionProductosPageState extends State<GestionProductosPage> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancelar'),
+            child: Text(l10n.cancel),
           ),
           ElevatedButton(
             onPressed: () {
@@ -100,7 +101,7 @@ class _GestionProductosPageState extends State<GestionProductosPage> {
               Navigator.pop(context);
               setState(() {});
             },
-            child: const Text('Crear'),
+            child: Text(l10n.create),
           ),
         ],
       ),
@@ -108,6 +109,7 @@ class _GestionProductosPageState extends State<GestionProductosPage> {
   }
 
   void _mostrarDialogoEditarProducto(Productos p) {
+    final l10n = AppLocalizations.of(context)!;
     final formKey = GlobalKey<FormState>();
     final idController = TextEditingController(text: p.id);
     final nombreController = TextEditingController(text: p.nombre);
@@ -119,7 +121,7 @@ class _GestionProductosPageState extends State<GestionProductosPage> {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: Text('Editar producto: ${p.nombre}'),
+        title: Text(l10n.editProduct(p.nombre)),
         content: Form(
           key: formKey,
           child: SingleChildScrollView(
@@ -128,37 +130,35 @@ class _GestionProductosPageState extends State<GestionProductosPage> {
               children: [
                 TextFormField(
                   controller: idController,
-                  decoration: const InputDecoration(labelText: 'ID producto'),
+                  decoration: InputDecoration(labelText: l10n.productId),
                   validator: (v) =>
-                      v == null || v.isEmpty ? 'Obligatorio' : null,
+                      v == null || v.isEmpty ? l10n.requiredField : null,
                 ),
                 TextFormField(
                   controller: nombreController,
-                  decoration: const InputDecoration(labelText: 'Nombre'),
+                  decoration: InputDecoration(labelText: l10n.name),
                   validator: (v) =>
-                      v == null || v.isEmpty ? 'Obligatorio' : null,
+                      v == null || v.isEmpty ? l10n.requiredField : null,
                 ),
                 TextFormField(
                   controller: descripcionController,
-                  decoration: const InputDecoration(labelText: 'Descripción'),
+                  decoration: InputDecoration(labelText: l10n.description),
                 ),
                 TextFormField(
                   controller: precioController,
-                  decoration: const InputDecoration(labelText: 'Precio'),
+                  decoration: InputDecoration(labelText: l10n.price),
                   keyboardType: const TextInputType.numberWithOptions(
                     decimal: true,
                   ),
                 ),
                 TextFormField(
                   controller: stockController,
-                  decoration: const InputDecoration(labelText: 'Stock'),
+                  decoration: InputDecoration(labelText: l10n.stock),
                   keyboardType: TextInputType.number,
                 ),
                 TextFormField(
                   controller: imagenController,
-                  decoration: const InputDecoration(
-                    labelText: 'Ruta imagen (asset)',
-                  ),
+                  decoration: InputDecoration(labelText: l10n.imagePath),
                 ),
               ],
             ),
@@ -167,7 +167,7 @@ class _GestionProductosPageState extends State<GestionProductosPage> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancelar'),
+            child: Text(l10n.cancel),
           ),
           ElevatedButton(
             onPressed: () {
@@ -195,7 +195,7 @@ class _GestionProductosPageState extends State<GestionProductosPage> {
               Navigator.pop(context);
               setState(() {});
             },
-            child: const Text('Guardar'),
+            child: Text(l10n.save),
           ),
         ],
       ),
@@ -204,11 +204,12 @@ class _GestionProductosPageState extends State<GestionProductosPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final productos = _controladosProductosAdmin.getProductos();
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Gestión de productos'),
+        title: Text(l10n.productManagement),
         backgroundColor: const Color.fromARGB(255, 120, 190, 255),
       ),
       floatingActionButton: FloatingActionButton(
@@ -216,7 +217,7 @@ class _GestionProductosPageState extends State<GestionProductosPage> {
         child: const Icon(Icons.add),
       ),
       body: productos.isEmpty
-          ? const Center(child: Text('No hay productos'))
+          ? Center(child: Text(l10n.noProducts))
           : ListView.builder(
               itemCount: productos.length,
               itemBuilder: (context, index) {
@@ -240,8 +241,8 @@ class _GestionProductosPageState extends State<GestionProductosPage> {
                     ),
                     title: Text(p.nombre),
                     subtitle: Text(
-                      'Precio: ${p.precio.toStringAsFixed(2)} €\n'
-                      'Stock: ${p.stock}',
+                      '${l10n.price}: ${p.precio.toStringAsFixed(2)} €\n'
+                      '${l10n.stock}: ${p.stock}',
                     ),
                     trailing: PopupMenuButton<String>(
                       onSelected: (value) {
@@ -253,15 +254,12 @@ class _GestionProductosPageState extends State<GestionProductosPage> {
                         }
                       },
                       itemBuilder: (context) => [
-                        const PopupMenuItem(
-                          value: 'editar',
-                          child: Text('Editar'),
-                        ),
-                        const PopupMenuItem(
+                        PopupMenuItem(value: 'editar', child: Text(l10n.edit)),
+                        PopupMenuItem(
                           value: 'eliminar',
                           child: Text(
-                            'Eliminar',
-                            style: TextStyle(color: Colors.red),
+                            l10n.delete,
+                            style: const TextStyle(color: Colors.red),
                           ),
                         ),
                       ],

@@ -1,3 +1,4 @@
+import 'package:enrique_masegosac1/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 import 'package:enrique_masegosac1/controllers/administrador/controlador_usuarios_admin.dart';
@@ -14,6 +15,7 @@ class _GestionUsuariosPageState extends State<GestionUsuariosPage> {
       ControladorUsuariosAdmin();
 
   void _mostrarDialogoCrearUsuario() {
+    final l10n = AppLocalizations.of(context)!;
     final formKey = GlobalKey<FormState>();
     final nombreController = TextEditingController();
     final passController = TextEditingController();
@@ -24,7 +26,7 @@ class _GestionUsuariosPageState extends State<GestionUsuariosPage> {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: const Text('Crear usuario'),
+        title: Text(l10n.createUser),
         content: Form(
           key: formKey,
           child: SingleChildScrollView(
@@ -33,26 +35,24 @@ class _GestionUsuariosPageState extends State<GestionUsuariosPage> {
               children: [
                 TextFormField(
                   controller: nombreController,
-                  decoration: const InputDecoration(
-                    labelText: 'Nombre de usuario',
-                  ),
+                  decoration: InputDecoration(labelText: l10n.userName),
                   validator: (v) =>
-                      v == null || v.isEmpty ? 'Obligatorio' : null,
+                      v == null || v.isEmpty ? l10n.requiredField : null,
                 ),
                 TextFormField(
                   controller: passController,
-                  decoration: const InputDecoration(labelText: 'Contraseña'),
+                  decoration: InputDecoration(labelText: l10n.password),
                   obscureText: true,
                   validator: (v) =>
-                      v == null || v.isEmpty ? 'Obligatorio' : null,
+                      v == null || v.isEmpty ? l10n.requiredField : null,
                 ),
                 TextFormField(
                   controller: emailController,
-                  decoration: const InputDecoration(labelText: 'Email'),
+                  decoration: InputDecoration(labelText: l10n.email),
                 ),
                 TextFormField(
                   controller: telefonoController,
-                  decoration: const InputDecoration(labelText: 'Teléfono'),
+                  decoration: InputDecoration(labelText: l10n.phone),
                 ),
                 const SizedBox(height: 8),
                 SwitchListTile(
@@ -62,7 +62,7 @@ class _GestionUsuariosPageState extends State<GestionUsuariosPage> {
                       esAdmin = value;
                     });
                   },
-                  title: const Text('Es administrador'),
+                  title: Text(l10n.isAdmin),
                 ),
               ],
             ),
@@ -71,7 +71,7 @@ class _GestionUsuariosPageState extends State<GestionUsuariosPage> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancelar'),
+            child: Text(l10n.cancel),
           ),
           ElevatedButton(
             onPressed: () {
@@ -88,7 +88,7 @@ class _GestionUsuariosPageState extends State<GestionUsuariosPage> {
               Navigator.pop(context);
               setState(() {});
             },
-            child: const Text('Crear'),
+            child: Text(l10n.create),
           ),
         ],
       ),
@@ -96,6 +96,7 @@ class _GestionUsuariosPageState extends State<GestionUsuariosPage> {
   }
 
   void _mostrarDialogoEditarUsuario(Usuarios u) {
+    final l10n = AppLocalizations.of(context)!;
     final formKey = GlobalKey<FormState>();
     final nombreController = TextEditingController(text: u.nombre);
     final passController = TextEditingController(text: u.contrasena);
@@ -111,7 +112,7 @@ class _GestionUsuariosPageState extends State<GestionUsuariosPage> {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: Text('Editar usuario: ${u.nombre}'),
+        title: Text(l10n.editUser(u.nombre)),
         content: Form(
           key: formKey,
           child: SingleChildScrollView(
@@ -120,46 +121,42 @@ class _GestionUsuariosPageState extends State<GestionUsuariosPage> {
               children: [
                 TextFormField(
                   controller: nombreController,
-                  decoration: const InputDecoration(
-                    labelText: 'Nombre de usuario',
-                  ),
+                  decoration: InputDecoration(labelText: l10n.userName),
                   validator: (v) =>
-                      v == null || v.isEmpty ? 'Obligatorio' : null,
+                      v == null || v.isEmpty ? l10n.requiredField : null,
                 ),
                 TextFormField(
                   controller: passController,
-                  decoration: const InputDecoration(labelText: 'Contraseña'),
+                  decoration: InputDecoration(labelText: l10n.password),
                   obscureText: true,
                   validator: (v) =>
-                      v == null || v.isEmpty ? 'Obligatorio' : null,
+                      v == null || v.isEmpty ? l10n.requiredField : null,
                 ),
                 TextFormField(
                   controller: emailController,
-                  decoration: const InputDecoration(labelText: 'Email'),
+                  decoration: InputDecoration(labelText: l10n.email),
                 ),
                 TextFormField(
                   controller: telefonoController,
-                  decoration: const InputDecoration(labelText: 'Teléfono'),
+                  decoration: InputDecoration(labelText: l10n.phone),
                 ),
                 TextFormField(
                   controller: edadController,
-                  decoration: const InputDecoration(labelText: 'Edad'),
+                  decoration: InputDecoration(labelText: l10n.age),
                 ),
                 TextFormField(
                   controller: lugarController,
-                  decoration: const InputDecoration(
-                    labelText: 'Lugar de nacimiento',
-                  ),
+                  decoration: InputDecoration(labelText: l10n.birthPlace),
                 ),
                 const SizedBox(height: 8),
                 DropdownButtonFormField<String>(
                   value: tratamiento,
-                  items: const [
-                    DropdownMenuItem(value: 'Sr', child: Text('Sr')),
-                    DropdownMenuItem(value: 'Sra', child: Text('Sra')),
-                    DropdownMenuItem(value: 'Otro', child: Text('Otro')),
+                  items: [
+                    DropdownMenuItem(value: 'Sr', child: Text(l10n.mr)),
+                    DropdownMenuItem(value: 'Sra', child: Text(l10n.mrs)),
+                    DropdownMenuItem(value: 'Otro', child: Text(l10n.other)),
                   ],
-                  decoration: const InputDecoration(labelText: 'Tratamiento'),
+                  decoration: InputDecoration(labelText: l10n.gender),
                   onChanged: (value) {
                     tratamiento = value;
                   },
@@ -172,7 +169,7 @@ class _GestionUsuariosPageState extends State<GestionUsuariosPage> {
                       esAdmin = value;
                     });
                   },
-                  title: const Text('Es administrador'),
+                  title: Text(l10n.isAdmin),
                 ),
               ],
             ),
@@ -181,7 +178,7 @@ class _GestionUsuariosPageState extends State<GestionUsuariosPage> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancelar'),
+            child: Text(l10n.cancel),
           ),
           ElevatedButton(
             onPressed: () {
@@ -209,7 +206,7 @@ class _GestionUsuariosPageState extends State<GestionUsuariosPage> {
               Navigator.pop(context);
               setState(() {});
             },
-            child: const Text('Guardar'),
+            child: Text(l10n.save),
           ),
         ],
       ),
@@ -218,11 +215,12 @@ class _GestionUsuariosPageState extends State<GestionUsuariosPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final usuarios = _controladorUsuariosAdmin.getUsuariosGestionables();
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Gestión de usuarios'),
+        title: Text(l10n.userManagement),
         backgroundColor: const Color.fromARGB(255, 120, 190, 255),
       ),
       floatingActionButton: FloatingActionButton(
@@ -230,7 +228,7 @@ class _GestionUsuariosPageState extends State<GestionUsuariosPage> {
         child: const Icon(Icons.add),
       ),
       body: usuarios.isEmpty
-          ? const Center(child: Text('No hay usuarios que gestionar'))
+          ? Center(child: Text(l10n.noUsersToManage))
           : ListView.builder(
               itemCount: usuarios.length,
               itemBuilder: (context, index) {
@@ -247,9 +245,9 @@ class _GestionUsuariosPageState extends State<GestionUsuariosPage> {
                     ),
                     title: Text(u.nombre),
                     subtitle: Text(
-                      'Email: ${u.email}\n'
-                      'Teléfono: ${u.telefono}\n'
-                      'Estado: ${u.isBlocked ? 'Bloqueado' : 'Activo'}',
+                      '${l10n.email}: ${u.email}\n'
+                      '${l10n.phone}: ${u.telefono}\n'
+                      '${l10n.status}: ${u.isBlocked ? l10n.blocked : l10n.active}',
                     ),
                     isThreeLine: true,
                     trailing: PopupMenuButton<String>(
@@ -270,25 +268,22 @@ class _GestionUsuariosPageState extends State<GestionUsuariosPage> {
                         }
                       },
                       itemBuilder: (context) => [
-                        const PopupMenuItem(
-                          value: 'editar',
-                          child: Text('Editar'),
-                        ),
+                        PopupMenuItem(value: 'editar', child: Text(l10n.edit)),
                         if (!u.isBlocked)
-                          const PopupMenuItem(
+                          PopupMenuItem(
                             value: 'bloquear',
-                            child: Text('Bloquear'),
+                            child: Text(l10n.block),
                           )
                         else
-                          const PopupMenuItem(
+                          PopupMenuItem(
                             value: 'desbloquear',
-                            child: Text('Desbloquear'),
+                            child: Text(l10n.unblock),
                           ),
-                        const PopupMenuItem(
+                        PopupMenuItem(
                           value: 'eliminar',
                           child: Text(
-                            'Eliminar',
-                            style: TextStyle(color: Colors.red),
+                            l10n.delete,
+                            style: const TextStyle(color: Colors.red),
                           ),
                         ),
                       ],

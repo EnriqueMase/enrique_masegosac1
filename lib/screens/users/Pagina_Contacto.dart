@@ -1,3 +1,4 @@
+import 'package:enrique_masegosac1/l10n/app_localizations.dart';
 import 'package:enrique_masegosac1/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -23,11 +24,12 @@ class _PaginaContactoState extends State<PaginaContacto> {
   }
 
   void _enviar() {
+    final l10n = AppLocalizations.of(context)!;
     if (!_formKey.currentState!.validate()) return;
 
     ScaffoldMessenger.of(
       context,
-    ).showSnackBar(const SnackBar(content: Text('Mensaje enviado (simulado)')));
+    ).showSnackBar(SnackBar(content: Text(l10n.messageSent)));
 
     _formKey.currentState!.reset();
     _nombreController.clear();
@@ -37,10 +39,11 @@ class _PaginaContactoState extends State<PaginaContacto> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       drawer: Cdrawer(),
       appBar: AppBar(
-        title: const Text('Contacto'),
+        title: Text(l10n.contact),
         backgroundColor: const Color.fromARGB(255, 120, 190, 255),
       ),
       body: SingleChildScrollView(
@@ -51,40 +54,38 @@ class _PaginaContactoState extends State<PaginaContacto> {
             children: [
               TextFormField(
                 controller: _nombreController,
-                decoration: const InputDecoration(
-                  labelText: 'Nombre',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: l10n.name,
+                  border: const OutlineInputBorder(),
                 ),
-                validator: (value) => value == null || value.isEmpty
-                    ? 'Introduce tu nombre'
-                    : null,
+                validator: (value) =>
+                    value == null || value.isEmpty ? l10n.name : null,
               ),
               const SizedBox(height: 12),
               TextFormField(
                 controller: _emailController,
-                decoration: const InputDecoration(
-                  labelText: 'Email',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: l10n.email,
+                  border: const OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 12),
               TextFormField(
                 controller: _mensajeController,
                 maxLines: 5,
-                decoration: const InputDecoration(
-                  labelText: 'Mensaje',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: l10n.message,
+                  border: const OutlineInputBorder(),
                 ),
-                validator: (value) => value == null || value.isEmpty
-                    ? 'Introduce un mensaje'
-                    : null,
+                validator: (value) =>
+                    value == null || value.isEmpty ? l10n.message : null,
               ),
               const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: _enviar,
-                  child: const Text('Enviar'),
+                  child: Text(l10n.sendMessage),
                 ),
               ),
             ],

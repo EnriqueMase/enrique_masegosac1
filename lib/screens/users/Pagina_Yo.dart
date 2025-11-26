@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:enrique_masegosac1/l10n/app_localizations.dart';
 import 'package:enrique_masegosac1/screens/auth/Pantalla_login.dart';
 import 'package:enrique_masegosac1/services/Logica_Usuarios.dart';
 import 'package:enrique_masegosac1/widgets/drawer.dart';
@@ -10,6 +11,7 @@ class PaginaYo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final user = LogicaUsuarios().getUsuarioActual();
 
     if (user == null) {
@@ -26,7 +28,7 @@ class PaginaYo extends StatelessWidget {
     return Scaffold(
       drawer: Cdrawer(),
       appBar: AppBar(
-        title: const Text('Mi perfil'),
+        title: Text(l10n.myProfile),
         backgroundColor: const Color.fromARGB(255, 120, 190, 255),
       ),
       body: Center(
@@ -49,11 +51,11 @@ class PaginaYo extends StatelessWidget {
               style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            Text('Email: ${user.email}'),
-            Text('Teléfono: ${user.telefono}'),
+            Text('${l10n.email}: ${user.email}'),
+            Text('${l10n.phone}: ${user.telefono}'),
             const SizedBox(height: 8),
-            Text('Edad: ${user.getEdad()}'),
-            Text('Lugar de nacimiento: ${user.getLugarNacimiento()}'),
+            Text('${l10n.age}: ${user.getEdad()}'),
+            Text('${l10n.birthPlace}: ${user.getLugarNacimiento()}'),
           ],
         ),
       ),

@@ -9,187 +9,283 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appTitle => 'Lord Team App';
+  String get appTitle => 'My App';
 
   @override
-  String get loginWelcome => 'Welcome to the Lord Team App';
+  String get login => 'Login';
 
   @override
-  String get loginUserLabel => 'Username';
+  String get loginTitle => 'Sign in';
 
   @override
-  String get loginUserHint => 'Enter your username';
+  String get username => 'Username';
 
   @override
-  String get loginPasswordLabel => 'Password';
+  String get password => 'Password';
 
   @override
-  String get loginPasswordHint => 'Enter your password';
+  String get forgotPassword => 'Forgot your password?';
 
   @override
-  String get loginButton => 'Sign in';
+  String get signIn => 'Sign in';
 
   @override
-  String get registerButton => 'Sign up';
+  String get signInWithGoogle => 'Sign in with Google';
 
   @override
-  String get forgotPassword => 'Forgot your username or password?';
+  String get noAccount => 'Don\'t have an account?';
 
   @override
-  String get googleSignInButton => 'Sign in with Google';
+  String get register => 'Register';
 
   @override
-  String get loginEmptyUserOrPassword =>
-      'Username and password cannot be empty';
+  String get registerTitle => 'Register';
 
   @override
-  String get loginUserNotFoundOrWrongPassword =>
-      'User not found or wrong password';
+  String get recoverPassword => 'Recover password';
 
   @override
-  String get loginUserNotFound => 'User not found';
+  String get recoverPasswordTitle => 'Recover Password';
 
   @override
-  String get recoverPasswordTitle => 'Recover password';
+  String get send => 'Send';
 
   @override
-  String get recoverPasswordUserLabel => 'User';
+  String get cancel => 'Cancel';
 
   @override
-  String get recoverPasswordUserHint => 'Enter your username';
+  String userNotFound(Object username) {
+    return 'User \"$username\" not found';
+  }
 
   @override
-  String get recoverPasswordCancel => 'Cancel';
+  String userAndPassword(Object password, Object username) {
+    return 'User: $username\nPassword: $password';
+  }
 
   @override
-  String get recoverPasswordSend => 'Send';
+  String get gender => 'Gender';
 
   @override
-  String get registerTitle => 'Sign up';
+  String get mr => 'Mr';
 
   @override
-  String get registerSubtitle => 'Fill in your details to sign up';
+  String get mrs => 'Mrs';
 
   @override
-  String get registerNameLabel => 'Name';
+  String get other => 'Other';
 
   @override
-  String get registerPasswordLabel => 'Password';
+  String get age => 'Age';
 
   @override
-  String get registerConfirmPasswordLabel => 'Confirm password';
+  String get birthPlace => 'Place of birth';
 
   @override
-  String get registerTreatmentLabel => 'Treatment';
+  String get email => 'Email';
 
   @override
-  String get registerTreatmentSr => 'Mr.';
+  String get phone => 'Phone';
 
   @override
-  String get registerTreatmentSra => 'Ms.';
+  String get selectImage => 'Select image';
 
   @override
-  String get registerTreatmentOtro => 'Other';
+  String get registrationCompleted => 'Registration completed';
 
   @override
-  String get registerAgeLabel => 'Age';
+  String userExists(Object username) {
+    return 'User \"$username\" already exists';
+  }
 
   @override
-  String get registerBirthPlaceLabel => 'Place of birth';
+  String get name => 'Name';
 
   @override
-  String get registerEmailLabel => 'Email';
+  String get description => 'Description';
 
   @override
-  String get registerPhoneLabel => 'Phone';
+  String get price => 'Price';
 
   @override
-  String get registerImageButton => 'Select image';
+  String get stock => 'Stock';
 
   @override
-  String get registerTermsText => 'I accept the terms and conditions';
+  String get imagePath => 'Image path (asset)';
 
   @override
-  String get registerMustAcceptTerms =>
-      'You must accept the terms and conditions';
+  String get requiredField => 'Required';
 
   @override
-  String get registerCancel => 'Cancel';
+  String get confirm => 'Confirm';
 
   @override
-  String get registerSuccess => 'User successfully registered';
+  String get edit => 'Edit';
 
   @override
-  String get homeTab => 'Home';
+  String get delete => 'Delete';
 
   @override
-  String get ordersTab => 'Orders';
+  String get block => 'Block';
 
   @override
-  String get meTab => 'Me';
+  String get unblock => 'Unblock';
 
   @override
-  String get contactTab => 'Contact';
+  String get active => 'Active';
 
   @override
-  String get homeTitle => 'Home';
+  String get blocked => 'Blocked';
 
   @override
-  String get homeWelcomePrefix => 'Welcome,';
+  String get save => 'Save';
 
   @override
-  String get homeEmpty => 'Shopping page';
+  String get create => 'Create';
 
   @override
-  String get ordersTitle => 'My orders';
+  String get add => 'Add';
 
   @override
-  String get ordersEmpty => 'You have no orders yet.';
+  String get adminPanel => 'Administration Panel';
 
   @override
-  String get profileTitle => 'My profile';
+  String get userManagement => 'User Management';
 
   @override
-  String get profileEditButton => 'Edit profile';
+  String get productManagement => 'Product Management';
 
   @override
-  String get contactTitle => 'Contact';
+  String get orderManagement => 'Order Management';
 
   @override
-  String get contactIntro =>
-      'If you have any questions or issues, fill in the form:';
+  String adminWelcome(Object username) {
+    return 'Administrator $username';
+  }
 
   @override
-  String get contactNameLabel => 'Name';
+  String get createUser => 'Create user';
 
   @override
-  String get contactEmailLabel => 'Email';
+  String editUser(Object username) {
+    return 'Edit user: $username';
+  }
 
   @override
-  String get contactMessageLabel => 'Message';
+  String get isAdmin => 'Is administrator';
 
   @override
-  String get contactSendButton => 'Send';
+  String get userName => 'Username';
 
   @override
-  String get contactSentSnackbar => 'Message sent (simulated)';
+  String get noUsersToManage => 'No users to manage';
 
   @override
-  String get adminPanelTitle => 'Admin panel';
+  String get status => 'Status';
 
   @override
-  String get adminInfoTitle => 'Administrator information';
+  String get createProduct => 'Create product';
 
   @override
-  String get adminOptionsTitle =>
-      'Administrator options (pending implementation)';
+  String editProduct(Object productName) {
+    return 'Edit product: $productName';
+  }
 
   @override
-  String get adminUsersOption => 'User management';
+  String get productId => 'Product ID';
 
   @override
-  String get adminProductsOption => 'Product management';
+  String get noProducts => 'No products';
 
   @override
-  String get adminOrdersOption => 'Order management';
+  String get order => 'Order';
+
+  @override
+  String get orders => 'Orders';
+
+  @override
+  String get myOrders => 'My orders';
+
+  @override
+  String orderId(Object id) {
+    return 'Order $id';
+  }
+
+  @override
+  String get date => 'Date';
+
+  @override
+  String get total => 'Total';
+
+  @override
+  String get ordered => 'Ordered';
+
+  @override
+  String get inProduction => 'In Production';
+
+  @override
+  String get inDelivery => 'In Delivery';
+
+  @override
+  String get delivered => 'Delivered';
+
+  @override
+  String get user => 'User';
+
+  @override
+  String get quantity => 'Quantity';
+
+  @override
+  String get subtotal => 'Subtotal';
+
+  @override
+  String get noOrders => 'No orders';
+
+  @override
+  String get noOrdersYet => 'You don\'t have any orders yet';
+
+  @override
+  String get noRegisteredOrders => 'No registered orders';
+
+  @override
+  String get welcome => 'Welcome';
+
+  @override
+  String welcomeUser(Object username) {
+    return 'Welcome $username';
+  }
+
+  @override
+  String get makePurchase => 'Make purchase';
+
+  @override
+  String get confirmPurchase => 'Confirm purchase';
+
+  @override
+  String get confirmPurchaseQuestion =>
+      'Are you sure you want to make the purchase?';
+
+  @override
+  String get purchaseSuccess => 'Purchase completed successfully';
+
+  @override
+  String get purchaseError => 'Error making purchase';
+
+  @override
+  String get insufficientStock => 'Insufficient stock';
+
+  @override
+  String get contact => 'Contact';
+
+  @override
+  String get message => 'Message';
+
+  @override
+  String get sendMessage => 'Send';
+
+  @override
+  String get messageSent => 'Message sent (simulated)';
+
+  @override
+  String get myProfile => 'My Profile';
 }

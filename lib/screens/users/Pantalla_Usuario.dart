@@ -41,7 +41,10 @@ class _Pantalla_UsuarioState extends State<Pantalla_Usuario> {
 
         // barra de abajo
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart),
+            label: 'Tienda',
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.receipt_long),
             label: 'Pedidos',

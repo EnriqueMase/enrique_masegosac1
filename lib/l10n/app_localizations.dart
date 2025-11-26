@@ -98,113 +98,67 @@ abstract class AppLocalizations {
     Locale('es'),
   ];
 
+  String? shop;
+
   /// No description provided for @appTitle.
   ///
   /// In es, this message translates to:
-  /// **'App de Lord Team'**
+  /// **'Mi Aplicación'**
   String get appTitle;
 
-  /// No description provided for @loginWelcome.
-  ///
-  /// In es, this message translates to:
-  /// **'Bienvenido a la App de Lord Team'**
-  String get loginWelcome;
-
-  /// No description provided for @loginUserLabel.
-  ///
-  /// In es, this message translates to:
-  /// **'Nombre de usuario'**
-  String get loginUserLabel;
-
-  /// No description provided for @loginUserHint.
-  ///
-  /// In es, this message translates to:
-  /// **'Ingresa tu nombre de usuario'**
-  String get loginUserHint;
-
-  /// No description provided for @loginPasswordLabel.
-  ///
-  /// In es, this message translates to:
-  /// **'Contraseña'**
-  String get loginPasswordLabel;
-
-  /// No description provided for @loginPasswordHint.
-  ///
-  /// In es, this message translates to:
-  /// **'Ingresa tu contraseña'**
-  String get loginPasswordHint;
-
-  /// No description provided for @loginButton.
+  /// No description provided for @login.
   ///
   /// In es, this message translates to:
   /// **'Iniciar sesión'**
-  String get loginButton;
+  String get login;
 
-  /// No description provided for @registerButton.
+  /// No description provided for @loginTitle.
   ///
   /// In es, this message translates to:
-  /// **'Registrarse'**
-  String get registerButton;
+  /// **'Inicio de sesión'**
+  String get loginTitle;
+
+  /// No description provided for @username.
+  ///
+  /// In es, this message translates to:
+  /// **'Usuario'**
+  String get username;
+
+  /// No description provided for @password.
+  ///
+  /// In es, this message translates to:
+  /// **'Contraseña'**
+  String get password;
 
   /// No description provided for @forgotPassword.
   ///
   /// In es, this message translates to:
-  /// **'¿Has olvidado tu usuario o contraseña?'**
+  /// **'¿Has olvidado tu contraseña?'**
   String get forgotPassword;
 
-  /// No description provided for @googleSignInButton.
+  /// No description provided for @signIn.
+  ///
+  /// In es, this message translates to:
+  /// **'Iniciar sesión'**
+  String get signIn;
+
+  /// No description provided for @signInWithGoogle.
   ///
   /// In es, this message translates to:
   /// **'Iniciar sesión con Google'**
-  String get googleSignInButton;
+  String get signInWithGoogle;
 
-  /// No description provided for @loginEmptyUserOrPassword.
+  /// No description provided for @noAccount.
   ///
   /// In es, this message translates to:
-  /// **'El nombre de usuario y la contraseña no pueden estar vacíos'**
-  String get loginEmptyUserOrPassword;
+  /// **'¿No tienes cuenta?'**
+  String get noAccount;
 
-  /// No description provided for @loginUserNotFoundOrWrongPassword.
+  /// No description provided for @register.
   ///
   /// In es, this message translates to:
-  /// **'Usuario no encontrado o contraseña incorrecta'**
-  String get loginUserNotFoundOrWrongPassword;
-
-  /// No description provided for @loginUserNotFound.
-  ///
-  /// In es, this message translates to:
-  /// **'Usuario no encontrado'**
-  String get loginUserNotFound;
-
-  /// No description provided for @recoverPasswordTitle.
-  ///
-  /// In es, this message translates to:
-  /// **'Recuperar contraseña'**
-  String get recoverPasswordTitle;
-
-  /// No description provided for @recoverPasswordUserLabel.
-  ///
-  /// In es, this message translates to:
-  /// **'Usuario'**
-  String get recoverPasswordUserLabel;
-
-  /// No description provided for @recoverPasswordUserHint.
-  ///
-  /// In es, this message translates to:
-  /// **'Ingresa tu nombre de usuario'**
-  String get recoverPasswordUserHint;
-
-  /// No description provided for @recoverPasswordCancel.
-  ///
-  /// In es, this message translates to:
-  /// **'Cancelar'**
-  String get recoverPasswordCancel;
-
-  /// No description provided for @recoverPasswordSend.
-  ///
-  /// In es, this message translates to:
-  /// **'Enviar'**
-  String get recoverPasswordSend;
+  /// **'Regístrate'**
+  String get register;
 
   /// No description provided for @registerTitle.
   ///
@@ -212,251 +166,467 @@ abstract class AppLocalizations {
   /// **'Registrarse'**
   String get registerTitle;
 
-  /// No description provided for @registerSubtitle.
+  /// No description provided for @recoverPassword.
   ///
   /// In es, this message translates to:
-  /// **'Completa tus datos para registrarte'**
-  String get registerSubtitle;
+  /// **'Recuperar contraseña'**
+  String get recoverPassword;
 
-  /// No description provided for @registerNameLabel.
+  /// No description provided for @recoverPasswordTitle.
   ///
   /// In es, this message translates to:
-  /// **'Nombre'**
-  String get registerNameLabel;
+  /// **'Recuperar Contraseña'**
+  String get recoverPasswordTitle;
 
-  /// No description provided for @registerPasswordLabel.
-  ///
-  /// In es, this message translates to:
-  /// **'Contraseña'**
-  String get registerPasswordLabel;
-
-  /// No description provided for @registerConfirmPasswordLabel.
-  ///
-  /// In es, this message translates to:
-  /// **'Confirmar contraseña'**
-  String get registerConfirmPasswordLabel;
-
-  /// No description provided for @registerTreatmentLabel.
-  ///
-  /// In es, this message translates to:
-  /// **'Tratamiento'**
-  String get registerTreatmentLabel;
-
-  /// No description provided for @registerTreatmentSr.
-  ///
-  /// In es, this message translates to:
-  /// **'Sr.'**
-  String get registerTreatmentSr;
-
-  /// No description provided for @registerTreatmentSra.
-  ///
-  /// In es, this message translates to:
-  /// **'Sra.'**
-  String get registerTreatmentSra;
-
-  /// No description provided for @registerTreatmentOtro.
-  ///
-  /// In es, this message translates to:
-  /// **'Otro'**
-  String get registerTreatmentOtro;
-
-  /// No description provided for @registerAgeLabel.
-  ///
-  /// In es, this message translates to:
-  /// **'Edad'**
-  String get registerAgeLabel;
-
-  /// No description provided for @registerBirthPlaceLabel.
-  ///
-  /// In es, this message translates to:
-  /// **'Lugar de nacimiento'**
-  String get registerBirthPlaceLabel;
-
-  /// No description provided for @registerEmailLabel.
-  ///
-  /// In es, this message translates to:
-  /// **'Correo electrónico'**
-  String get registerEmailLabel;
-
-  /// No description provided for @registerPhoneLabel.
-  ///
-  /// In es, this message translates to:
-  /// **'Teléfono'**
-  String get registerPhoneLabel;
-
-  /// No description provided for @registerImageButton.
-  ///
-  /// In es, this message translates to:
-  /// **'Seleccionar imagen'**
-  String get registerImageButton;
-
-  /// No description provided for @registerTermsText.
-  ///
-  /// In es, this message translates to:
-  /// **'Acepto los términos y condiciones'**
-  String get registerTermsText;
-
-  /// No description provided for @registerMustAcceptTerms.
-  ///
-  /// In es, this message translates to:
-  /// **'Debes aceptar los términos y condiciones'**
-  String get registerMustAcceptTerms;
-
-  /// No description provided for @registerCancel.
-  ///
-  /// In es, this message translates to:
-  /// **'Cancelar'**
-  String get registerCancel;
-
-  /// No description provided for @registerSuccess.
-  ///
-  /// In es, this message translates to:
-  /// **'Usuario registrado correctamente'**
-  String get registerSuccess;
-
-  /// No description provided for @homeTab.
-  ///
-  /// In es, this message translates to:
-  /// **'Home'**
-  String get homeTab;
-
-  /// No description provided for @ordersTab.
-  ///
-  /// In es, this message translates to:
-  /// **'Pedidos'**
-  String get ordersTab;
-
-  /// No description provided for @meTab.
-  ///
-  /// In es, this message translates to:
-  /// **'Yo'**
-  String get meTab;
-
-  /// No description provided for @contactTab.
-  ///
-  /// In es, this message translates to:
-  /// **'Contacto'**
-  String get contactTab;
-
-  /// No description provided for @homeTitle.
-  ///
-  /// In es, this message translates to:
-  /// **'Home'**
-  String get homeTitle;
-
-  /// No description provided for @homeWelcomePrefix.
-  ///
-  /// In es, this message translates to:
-  /// **'Bienvenido,'**
-  String get homeWelcomePrefix;
-
-  /// No description provided for @homeEmpty.
-  ///
-  /// In es, this message translates to:
-  /// **'Página de compras'**
-  String get homeEmpty;
-
-  /// No description provided for @ordersTitle.
-  ///
-  /// In es, this message translates to:
-  /// **'Mis pedidos'**
-  String get ordersTitle;
-
-  /// No description provided for @ordersEmpty.
-  ///
-  /// In es, this message translates to:
-  /// **'Todavía no hay pedidos registrados.'**
-  String get ordersEmpty;
-
-  /// No description provided for @profileTitle.
-  ///
-  /// In es, this message translates to:
-  /// **'Mi perfil'**
-  String get profileTitle;
-
-  /// No description provided for @profileEditButton.
-  ///
-  /// In es, this message translates to:
-  /// **'Editar perfil'**
-  String get profileEditButton;
-
-  /// No description provided for @contactTitle.
-  ///
-  /// In es, this message translates to:
-  /// **'Contacto'**
-  String get contactTitle;
-
-  /// No description provided for @contactIntro.
-  ///
-  /// In es, this message translates to:
-  /// **'Si tienes alguna duda o incidencia, rellena el formulario:'**
-  String get contactIntro;
-
-  /// No description provided for @contactNameLabel.
-  ///
-  /// In es, this message translates to:
-  /// **'Nombre'**
-  String get contactNameLabel;
-
-  /// No description provided for @contactEmailLabel.
-  ///
-  /// In es, this message translates to:
-  /// **'Correo electrónico'**
-  String get contactEmailLabel;
-
-  /// No description provided for @contactMessageLabel.
-  ///
-  /// In es, this message translates to:
-  /// **'Mensaje'**
-  String get contactMessageLabel;
-
-  /// No description provided for @contactSendButton.
+  /// No description provided for @send.
   ///
   /// In es, this message translates to:
   /// **'Enviar'**
-  String get contactSendButton;
+  String get send;
 
-  /// No description provided for @contactSentSnackbar.
+  /// No description provided for @cancel.
   ///
   /// In es, this message translates to:
-  /// **'Mensaje enviado (simulado)'**
-  String get contactSentSnackbar;
+  /// **'Cancelar'**
+  String get cancel;
 
-  /// No description provided for @adminPanelTitle.
+  /// No description provided for @userNotFound.
   ///
   /// In es, this message translates to:
-  /// **'Panel administrador'**
-  String get adminPanelTitle;
+  /// **'Usuario \"{username}\" no encontrado'**
+  String userNotFound(Object username);
 
-  /// No description provided for @adminInfoTitle.
+  /// No description provided for @userAndPassword.
   ///
   /// In es, this message translates to:
-  /// **'Información del administrador'**
-  String get adminInfoTitle;
+  /// **'Usuario: {username}\nContraseña: {password}'**
+  String userAndPassword(Object password, Object username);
 
-  /// No description provided for @adminOptionsTitle.
+  /// No description provided for @gender.
   ///
   /// In es, this message translates to:
-  /// **'Opciones del administrador (pendientes de implementar)'**
-  String get adminOptionsTitle;
+  /// **'Género'**
+  String get gender;
 
-  /// No description provided for @adminUsersOption.
+  /// No description provided for @mr.
+  ///
+  /// In es, this message translates to:
+  /// **'Sr'**
+  String get mr;
+
+  /// No description provided for @mrs.
+  ///
+  /// In es, this message translates to:
+  /// **'Sra'**
+  String get mrs;
+
+  /// No description provided for @other.
+  ///
+  /// In es, this message translates to:
+  /// **'Otro'**
+  String get other;
+
+  /// No description provided for @age.
+  ///
+  /// In es, this message translates to:
+  /// **'Edad'**
+  String get age;
+
+  /// No description provided for @birthPlace.
+  ///
+  /// In es, this message translates to:
+  /// **'Lugar de nacimiento'**
+  String get birthPlace;
+
+  /// No description provided for @email.
+  ///
+  /// In es, this message translates to:
+  /// **'Email'**
+  String get email;
+
+  /// No description provided for @phone.
+  ///
+  /// In es, this message translates to:
+  /// **'Teléfono'**
+  String get phone;
+
+  /// No description provided for @selectImage.
+  ///
+  /// In es, this message translates to:
+  /// **'Seleccionar imagen'**
+  String get selectImage;
+
+  /// No description provided for @registrationCompleted.
+  ///
+  /// In es, this message translates to:
+  /// **'Registro completado'**
+  String get registrationCompleted;
+
+  /// No description provided for @userExists.
+  ///
+  /// In es, this message translates to:
+  /// **'El usuario \"{username}\" ya existe'**
+  String userExists(Object username);
+
+  /// No description provided for @name.
+  ///
+  /// In es, this message translates to:
+  /// **'Nombre'**
+  String get name;
+
+  /// No description provided for @description.
+  ///
+  /// In es, this message translates to:
+  /// **'Descripción'**
+  String get description;
+
+  /// No description provided for @price.
+  ///
+  /// In es, this message translates to:
+  /// **'Precio'**
+  String get price;
+
+  /// No description provided for @stock.
+  ///
+  /// In es, this message translates to:
+  /// **'Stock'**
+  String get stock;
+
+  /// No description provided for @imagePath.
+  ///
+  /// In es, this message translates to:
+  /// **'Ruta imagen (asset)'**
+  String get imagePath;
+
+  /// No description provided for @requiredField.
+  ///
+  /// In es, this message translates to:
+  /// **'Obligatorio'**
+  String get requiredField;
+
+  /// No description provided for @confirm.
+  ///
+  /// In es, this message translates to:
+  /// **'Confirmar'**
+  String get confirm;
+
+  /// No description provided for @edit.
+  ///
+  /// In es, this message translates to:
+  /// **'Editar'**
+  String get edit;
+
+  /// No description provided for @delete.
+  ///
+  /// In es, this message translates to:
+  /// **'Eliminar'**
+  String get delete;
+
+  /// No description provided for @block.
+  ///
+  /// In es, this message translates to:
+  /// **'Bloquear'**
+  String get block;
+
+  /// No description provided for @unblock.
+  ///
+  /// In es, this message translates to:
+  /// **'Desbloquear'**
+  String get unblock;
+
+  /// No description provided for @active.
+  ///
+  /// In es, this message translates to:
+  /// **'Activo'**
+  String get active;
+
+  /// No description provided for @blocked.
+  ///
+  /// In es, this message translates to:
+  /// **'Bloqueado'**
+  String get blocked;
+
+  /// No description provided for @save.
+  ///
+  /// In es, this message translates to:
+  /// **'Guardar'**
+  String get save;
+
+  /// No description provided for @create.
+  ///
+  /// In es, this message translates to:
+  /// **'Crear'**
+  String get create;
+
+  /// No description provided for @add.
+  ///
+  /// In es, this message translates to:
+  /// **'Añadir'**
+  String get add;
+
+  /// No description provided for @adminPanel.
+  ///
+  /// In es, this message translates to:
+  /// **'Panel de administración'**
+  String get adminPanel;
+
+  /// No description provided for @userManagement.
   ///
   /// In es, this message translates to:
   /// **'Gestión de usuarios'**
-  String get adminUsersOption;
+  String get userManagement;
 
-  /// No description provided for @adminProductsOption.
+  /// No description provided for @productManagement.
   ///
   /// In es, this message translates to:
   /// **'Gestión de productos'**
-  String get adminProductsOption;
+  String get productManagement;
 
-  /// No description provided for @adminOrdersOption.
+  /// No description provided for @orderManagement.
   ///
   /// In es, this message translates to:
   /// **'Gestión de pedidos'**
-  String get adminOrdersOption;
+  String get orderManagement;
+
+  /// No description provided for @adminWelcome.
+  ///
+  /// In es, this message translates to:
+  /// **'Administrador {username}'**
+  String adminWelcome(Object username);
+
+  /// No description provided for @createUser.
+  ///
+  /// In es, this message translates to:
+  /// **'Crear usuario'**
+  String get createUser;
+
+  /// No description provided for @editUser.
+  ///
+  /// In es, this message translates to:
+  /// **'Editar usuario: {username}'**
+  String editUser(Object username);
+
+  /// No description provided for @isAdmin.
+  ///
+  /// In es, this message translates to:
+  /// **'Es administrador'**
+  String get isAdmin;
+
+  /// No description provided for @userName.
+  ///
+  /// In es, this message translates to:
+  /// **'Nombre de usuario'**
+  String get userName;
+
+  /// No description provided for @noUsersToManage.
+  ///
+  /// In es, this message translates to:
+  /// **'No hay usuarios que gestionar'**
+  String get noUsersToManage;
+
+  /// No description provided for @status.
+  ///
+  /// In es, this message translates to:
+  /// **'Estado'**
+  String get status;
+
+  /// No description provided for @createProduct.
+  ///
+  /// In es, this message translates to:
+  /// **'Crear producto'**
+  String get createProduct;
+
+  /// No description provided for @editProduct.
+  ///
+  /// In es, this message translates to:
+  /// **'Editar producto: {productName}'**
+  String editProduct(Object productName);
+
+  /// No description provided for @productId.
+  ///
+  /// In es, this message translates to:
+  /// **'ID producto'**
+  String get productId;
+
+  /// No description provided for @noProducts.
+  ///
+  /// In es, this message translates to:
+  /// **'No hay productos'**
+  String get noProducts;
+
+  /// No description provided for @order.
+  ///
+  /// In es, this message translates to:
+  /// **'Pedido'**
+  String get order;
+
+  /// No description provided for @orders.
+  ///
+  /// In es, this message translates to:
+  /// **'Pedidos'**
+  String get orders;
+
+  /// No description provided for @myOrders.
+  ///
+  /// In es, this message translates to:
+  /// **'Mis pedidos'**
+  String get myOrders;
+
+  /// No description provided for @orderId.
+  ///
+  /// In es, this message translates to:
+  /// **'Pedido {id}'**
+  String orderId(Object id);
+
+  /// No description provided for @date.
+  ///
+  /// In es, this message translates to:
+  /// **'Fecha'**
+  String get date;
+
+  /// No description provided for @total.
+  ///
+  /// In es, this message translates to:
+  /// **'Total'**
+  String get total;
+
+  /// No description provided for @ordered.
+  ///
+  /// In es, this message translates to:
+  /// **'Pedido'**
+  String get ordered;
+
+  /// No description provided for @inProduction.
+  ///
+  /// In es, this message translates to:
+  /// **'En Producción'**
+  String get inProduction;
+
+  /// No description provided for @inDelivery.
+  ///
+  /// In es, this message translates to:
+  /// **'En Reparto'**
+  String get inDelivery;
+
+  /// No description provided for @delivered.
+  ///
+  /// In es, this message translates to:
+  /// **'Entregado'**
+  String get delivered;
+
+  /// No description provided for @user.
+  ///
+  /// In es, this message translates to:
+  /// **'Usuario'**
+  String get user;
+
+  /// No description provided for @quantity.
+  ///
+  /// In es, this message translates to:
+  /// **'Cantidad'**
+  String get quantity;
+
+  /// No description provided for @subtotal.
+  ///
+  /// In es, this message translates to:
+  /// **'Subtotal'**
+  String get subtotal;
+
+  /// No description provided for @noOrders.
+  ///
+  /// In es, this message translates to:
+  /// **'No hay pedidos'**
+  String get noOrders;
+
+  /// No description provided for @noOrdersYet.
+  ///
+  /// In es, this message translates to:
+  /// **'No tienes ningún pedido aún'**
+  String get noOrdersYet;
+
+  /// No description provided for @noRegisteredOrders.
+  ///
+  /// In es, this message translates to:
+  /// **'No hay pedidos registrados'**
+  String get noRegisteredOrders;
+
+  /// No description provided for @welcome.
+  ///
+  /// In es, this message translates to:
+  /// **'Bienvenido'**
+  String get welcome;
+
+  /// No description provided for @welcomeUser.
+  ///
+  /// In es, this message translates to:
+  /// **'Bienvenido {username}'**
+  String welcomeUser(Object username);
+
+  /// No description provided for @makePurchase.
+  ///
+  /// In es, this message translates to:
+  /// **'Realizar compra'**
+  String get makePurchase;
+
+  /// No description provided for @confirmPurchase.
+  ///
+  /// In es, this message translates to:
+  /// **'Confirmar compra'**
+  String get confirmPurchase;
+
+  /// No description provided for @confirmPurchaseQuestion.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Estás seguro de que quieres realizar la compra?'**
+  String get confirmPurchaseQuestion;
+
+  /// No description provided for @purchaseSuccess.
+  ///
+  /// In es, this message translates to:
+  /// **'Compra realizada con éxito'**
+  String get purchaseSuccess;
+
+  /// No description provided for @purchaseError.
+  ///
+  /// In es, this message translates to:
+  /// **'Error al realizar la compra'**
+  String get purchaseError;
+
+  /// No description provided for @insufficientStock.
+  ///
+  /// In es, this message translates to:
+  /// **'Stock insuficiente'**
+  String get insufficientStock;
+
+  /// No description provided for @contact.
+  ///
+  /// In es, this message translates to:
+  /// **'Contacto'**
+  String get contact;
+
+  /// No description provided for @message.
+  ///
+  /// In es, this message translates to:
+  /// **'Mensaje'**
+  String get message;
+
+  /// No description provided for @sendMessage.
+  ///
+  /// In es, this message translates to:
+  /// **'Enviar'**
+  String get sendMessage;
+
+  /// No description provided for @messageSent.
+  ///
+  /// In es, this message translates to:
+  /// **'Mensaje enviado (simulado)'**
+  String get messageSent;
+
+  /// No description provided for @myProfile.
+  ///
+  /// In es, this message translates to:
+  /// **'Mi perfil'**
+  String get myProfile;
 }
 
 class _AppLocalizationsDelegate

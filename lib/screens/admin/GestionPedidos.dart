@@ -1,5 +1,6 @@
+import 'package:enrique_masegosac1/l10n/app_localizations.dart';
+import 'package:enrique_masegosac1/widgets/drawer.dart';
 import 'package:flutter/material.dart';
-
 import 'package:enrique_masegosac1/controllers/administrador/controlador_pedidos_admin.dart';
 import 'package:enrique_masegosac1/models/pedidos.dart';
 
@@ -13,28 +14,32 @@ class _GestionPedidosPageState extends State<GestionPedidosPage> {
   final ControladorPedidosAdmin _controladorPedidosAdmin =
       ControladorPedidosAdmin();
 
-  String _estadoToText(Pedidos estado) {
+  String _estadoToText(Pedidos estado, AppLocalizations l10n) {
     switch (estado) {
       case Pedidos.pedido:
-        return 'Pedido';
+        return l10n.ordered;
       case Pedidos.produccion:
-        return 'En Producción';
+        return l10n.inProduction;
       case Pedidos.reparto:
-        return 'En Reparto';
+        return l10n.inDelivery;
       case Pedidos.entregado:
-        return 'Entregado';
+        return l10n.delivered;
     }
   }
 
-  Pedidos _textToEstado(String text) {
+  Pedidos _textToEstado(String text, AppLocalizations l10n) {
     switch (text) {
       case 'En Producción':
+      case 'In Production':
         return Pedidos.produccion;
       case 'En Reparto':
+      case 'In Delivery':
         return Pedidos.reparto;
       case 'Entregado':
+      case 'Delivered':
         return Pedidos.entregado;
       case 'Pedido':
+      case 'Ordered':
       default:
         return Pedidos.pedido;
     }
@@ -42,15 +47,16 @@ class _GestionPedidosPageState extends State<GestionPedidosPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final pedidos = _controladorPedidosAdmin.getTodosPedidos();
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Gestión de pedidos'),
+        title: Text(l10n.orderManagement),
         backgroundColor: const Color.fromARGB(255, 120, 190, 255),
       ),
       body: pedidos.isEmpty
-          ? const Center(child: Text('No hay pedidos registrados'))
+          ? Center(child: Text(l10n.noRegisteredOrders))
           : ListView.builder(
               itemCount: pedidos.length,
               itemBuilder: (context, index) {
@@ -63,13 +69,13 @@ class _GestionPedidosPageState extends State<GestionPedidosPage> {
                   ),
                   child: ExpansionTile(
                     title: Text(
-                      'Pedido ${order.id}',
+                      l10n.orderId(order.id),
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     subtitle: Text(
-                      'Usuario: ${order.userName}\n'
-                      'Fecha: ${order.fecha}\n'
-                      'Total: ${order.total.toStringAsFixed(2)} €',
+                      '${l10n.user}: ${order.userName}\n'
+                      '${l10n.date}: ${order.fecha}\n'
+                      '${l10n.total}: ${order.total.toStringAsFixed(2)} €',
                     ),
                     children: [
                       Padding(
@@ -79,31 +85,31 @@ class _GestionPedidosPageState extends State<GestionPedidosPage> {
                         ),
                         child: Row(
                           children: [
-                            const Text('Estado: '),
+                            Text('${l10n.status}: '),
                             const SizedBox(width: 8),
                             DropdownButton<String>(
-                              value: _estadoToText(order.estado),
-                              items: const [
+                              value: _estadoToText(order.estado, l10n),
+                              items: [
                                 DropdownMenuItem(
-                                  value: 'Pedido',
-                                  child: Text('Pedido'),
+                                  value: l10n.ordered,
+                                  child: Text(l10n.ordered),
                                 ),
                                 DropdownMenuItem(
-                                  value: 'En Producción',
-                                  child: Text('En Producción'),
+                                  value: l10n.inProduction,
+                                  child: Text(l10n.inProduction),
                                 ),
                                 DropdownMenuItem(
-                                  value: 'En Reparto',
-                                  child: Text('En Reparto'),
+                                  value: l10n.inDelivery,
+                                  child: Text(l10n.inDelivery),
                                 ),
                                 DropdownMenuItem(
-                                  value: 'Entregado',
-                                  child: Text('Entregado'),
+                                  value: l10n.delivered,
+                                  child: Text(l10n.delivered),
                                 ),
                               ],
                               onChanged: (value) {
                                 if (value == null) return;
-                                final nuevoEstado = _textToEstado(value);
+                                final nuevoEstado = _textToEstado(value, l10n);
                                 _controladorPedidosAdmin.cambiarEstadoPedido(
                                   order.id,
                                   nuevoEstado,
@@ -119,8 +125,8 @@ class _GestionPedidosPageState extends State<GestionPedidosPage> {
                         (item) => ListTile(
                           title: Text(item.productos.nombre),
                           subtitle: Text(
-                            'Cantidad: ${item.cantidad}\n'
-                            'Subtotal: ${item.subtotal.toStringAsFixed(2)} €',
+                            '${l10n.quantity}: ${item.cantidad}\n'
+                            '${l10n.subtotal}: ${item.subtotal.toStringAsFixed(2)} €',
                           ),
                         ),
                       ),

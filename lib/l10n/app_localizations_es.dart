@@ -9,187 +9,283 @@ class AppLocalizationsEs extends AppLocalizations {
   AppLocalizationsEs([String locale = 'es']) : super(locale);
 
   @override
-  String get appTitle => 'App de Lord Team';
+  String get appTitle => 'Mi Aplicación';
 
   @override
-  String get loginWelcome => 'Bienvenido a la App de Lord Team';
+  String get login => 'Iniciar sesión';
 
   @override
-  String get loginUserLabel => 'Nombre de usuario';
+  String get loginTitle => 'Inicio de sesión';
 
   @override
-  String get loginUserHint => 'Ingresa tu nombre de usuario';
+  String get username => 'Usuario';
 
   @override
-  String get loginPasswordLabel => 'Contraseña';
+  String get password => 'Contraseña';
 
   @override
-  String get loginPasswordHint => 'Ingresa tu contraseña';
+  String get forgotPassword => '¿Has olvidado tu contraseña?';
 
   @override
-  String get loginButton => 'Iniciar sesión';
+  String get signIn => 'Iniciar sesión';
 
   @override
-  String get registerButton => 'Registrarse';
+  String get signInWithGoogle => 'Iniciar sesión con Google';
 
   @override
-  String get forgotPassword => '¿Has olvidado tu usuario o contraseña?';
+  String get noAccount => '¿No tienes cuenta?';
 
   @override
-  String get googleSignInButton => 'Iniciar sesión con Google';
-
-  @override
-  String get loginEmptyUserOrPassword =>
-      'El nombre de usuario y la contraseña no pueden estar vacíos';
-
-  @override
-  String get loginUserNotFoundOrWrongPassword =>
-      'Usuario no encontrado o contraseña incorrecta';
-
-  @override
-  String get loginUserNotFound => 'Usuario no encontrado';
-
-  @override
-  String get recoverPasswordTitle => 'Recuperar contraseña';
-
-  @override
-  String get recoverPasswordUserLabel => 'Usuario';
-
-  @override
-  String get recoverPasswordUserHint => 'Ingresa tu nombre de usuario';
-
-  @override
-  String get recoverPasswordCancel => 'Cancelar';
-
-  @override
-  String get recoverPasswordSend => 'Enviar';
+  String get register => 'Regístrate';
 
   @override
   String get registerTitle => 'Registrarse';
 
   @override
-  String get registerSubtitle => 'Completa tus datos para registrarte';
+  String get recoverPassword => 'Recuperar contraseña';
 
   @override
-  String get registerNameLabel => 'Nombre';
+  String get recoverPasswordTitle => 'Recuperar Contraseña';
 
   @override
-  String get registerPasswordLabel => 'Contraseña';
+  String get send => 'Enviar';
 
   @override
-  String get registerConfirmPasswordLabel => 'Confirmar contraseña';
+  String get cancel => 'Cancelar';
 
   @override
-  String get registerTreatmentLabel => 'Tratamiento';
+  String userNotFound(Object username) {
+    return 'Usuario \"$username\" no encontrado';
+  }
 
   @override
-  String get registerTreatmentSr => 'Sr.';
+  String userAndPassword(Object password, Object username) {
+    return 'Usuario: $username\nContraseña: $password';
+  }
 
   @override
-  String get registerTreatmentSra => 'Sra.';
+  String get gender => 'Género';
 
   @override
-  String get registerTreatmentOtro => 'Otro';
+  String get mr => 'Sr';
 
   @override
-  String get registerAgeLabel => 'Edad';
+  String get mrs => 'Sra';
 
   @override
-  String get registerBirthPlaceLabel => 'Lugar de nacimiento';
+  String get other => 'Otro';
 
   @override
-  String get registerEmailLabel => 'Correo electrónico';
+  String get age => 'Edad';
 
   @override
-  String get registerPhoneLabel => 'Teléfono';
+  String get birthPlace => 'Lugar de nacimiento';
 
   @override
-  String get registerImageButton => 'Seleccionar imagen';
+  String get email => 'Email';
 
   @override
-  String get registerTermsText => 'Acepto los términos y condiciones';
+  String get phone => 'Teléfono';
 
   @override
-  String get registerMustAcceptTerms =>
-      'Debes aceptar los términos y condiciones';
+  String get selectImage => 'Seleccionar imagen';
 
   @override
-  String get registerCancel => 'Cancelar';
+  String get registrationCompleted => 'Registro completado';
 
   @override
-  String get registerSuccess => 'Usuario registrado correctamente';
+  String userExists(Object username) {
+    return 'El usuario \"$username\" ya existe';
+  }
 
   @override
-  String get homeTab => 'Home';
+  String get name => 'Nombre';
 
   @override
-  String get ordersTab => 'Pedidos';
+  String get description => 'Descripción';
 
   @override
-  String get meTab => 'Yo';
+  String get price => 'Precio';
 
   @override
-  String get contactTab => 'Contacto';
+  String get stock => 'Stock';
 
   @override
-  String get homeTitle => 'Home';
+  String get imagePath => 'Ruta imagen (asset)';
 
   @override
-  String get homeWelcomePrefix => 'Bienvenido,';
+  String get requiredField => 'Obligatorio';
 
   @override
-  String get homeEmpty => 'Página de compras';
+  String get confirm => 'Confirmar';
 
   @override
-  String get ordersTitle => 'Mis pedidos';
+  String get edit => 'Editar';
 
   @override
-  String get ordersEmpty => 'Todavía no hay pedidos registrados.';
+  String get delete => 'Eliminar';
 
   @override
-  String get profileTitle => 'Mi perfil';
+  String get block => 'Bloquear';
 
   @override
-  String get profileEditButton => 'Editar perfil';
+  String get unblock => 'Desbloquear';
 
   @override
-  String get contactTitle => 'Contacto';
+  String get active => 'Activo';
 
   @override
-  String get contactIntro =>
-      'Si tienes alguna duda o incidencia, rellena el formulario:';
+  String get blocked => 'Bloqueado';
 
   @override
-  String get contactNameLabel => 'Nombre';
+  String get save => 'Guardar';
 
   @override
-  String get contactEmailLabel => 'Correo electrónico';
+  String get create => 'Crear';
 
   @override
-  String get contactMessageLabel => 'Mensaje';
+  String get add => 'Añadir';
 
   @override
-  String get contactSendButton => 'Enviar';
+  String get adminPanel => 'Panel de administración';
 
   @override
-  String get contactSentSnackbar => 'Mensaje enviado (simulado)';
+  String get userManagement => 'Gestión de usuarios';
 
   @override
-  String get adminPanelTitle => 'Panel administrador';
+  String get productManagement => 'Gestión de productos';
 
   @override
-  String get adminInfoTitle => 'Información del administrador';
+  String get orderManagement => 'Gestión de pedidos';
 
   @override
-  String get adminOptionsTitle =>
-      'Opciones del administrador (pendientes de implementar)';
+  String adminWelcome(Object username) {
+    return 'Administrador $username';
+  }
 
   @override
-  String get adminUsersOption => 'Gestión de usuarios';
+  String get createUser => 'Crear usuario';
 
   @override
-  String get adminProductsOption => 'Gestión de productos';
+  String editUser(Object username) {
+    return 'Editar usuario: $username';
+  }
 
   @override
-  String get adminOrdersOption => 'Gestión de pedidos';
+  String get isAdmin => 'Es administrador';
+
+  @override
+  String get userName => 'Nombre de usuario';
+
+  @override
+  String get noUsersToManage => 'No hay usuarios que gestionar';
+
+  @override
+  String get status => 'Estado';
+
+  @override
+  String get createProduct => 'Crear producto';
+
+  @override
+  String editProduct(Object productName) {
+    return 'Editar producto: $productName';
+  }
+
+  @override
+  String get productId => 'ID producto';
+
+  @override
+  String get noProducts => 'No hay productos';
+
+  @override
+  String get order => 'Pedido';
+
+  @override
+  String get orders => 'Pedidos';
+
+  @override
+  String get myOrders => 'Mis pedidos';
+
+  @override
+  String orderId(Object id) {
+    return 'Pedido $id';
+  }
+
+  @override
+  String get date => 'Fecha';
+
+  @override
+  String get total => 'Total';
+
+  @override
+  String get ordered => 'Pedido';
+
+  @override
+  String get inProduction => 'En Producción';
+
+  @override
+  String get inDelivery => 'En Reparto';
+
+  @override
+  String get delivered => 'Entregado';
+
+  @override
+  String get user => 'Usuario';
+
+  @override
+  String get quantity => 'Cantidad';
+
+  @override
+  String get subtotal => 'Subtotal';
+
+  @override
+  String get noOrders => 'No hay pedidos';
+
+  @override
+  String get noOrdersYet => 'No tienes ningún pedido aún';
+
+  @override
+  String get noRegisteredOrders => 'No hay pedidos registrados';
+
+  @override
+  String get welcome => 'Bienvenido';
+
+  @override
+  String welcomeUser(Object username) {
+    return 'Bienvenido $username';
+  }
+
+  @override
+  String get makePurchase => 'Realizar compra';
+
+  @override
+  String get confirmPurchase => 'Confirmar compra';
+
+  @override
+  String get confirmPurchaseQuestion =>
+      '¿Estás seguro de que quieres realizar la compra?';
+
+  @override
+  String get purchaseSuccess => 'Compra realizada con éxito';
+
+  @override
+  String get purchaseError => 'Error al realizar la compra';
+
+  @override
+  String get insufficientStock => 'Stock insuficiente';
+
+  @override
+  String get contact => 'Contacto';
+
+  @override
+  String get message => 'Mensaje';
+
+  @override
+  String get sendMessage => 'Enviar';
+
+  @override
+  String get messageSent => 'Mensaje enviado (simulado)';
+
+  @override
+  String get myProfile => 'Mi perfil';
 }
