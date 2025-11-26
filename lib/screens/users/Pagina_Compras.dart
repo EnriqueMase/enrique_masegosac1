@@ -71,7 +71,7 @@ class _PaginaComprasState extends State<PaginaCompras> {
         padding: const EdgeInsets.all(12),
         child: Row(
           children: [
-            // IMAGEN DEL PRODUCTO (pondrás la tuya en assets)
+            // cambiar imagenes
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image.asset(
@@ -85,7 +85,7 @@ class _PaginaComprasState extends State<PaginaCompras> {
             ),
             const SizedBox(width: 12),
 
-            // INFO DEL PRODUCTO
+            // Info del producto que vendemos
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,7 +107,7 @@ class _PaginaComprasState extends State<PaginaCompras> {
               ),
             ),
 
-            // CONTROLES CANTIDAD
+            // controlar cantidad
             Row(
               children: [
                 IconButton(

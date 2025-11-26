@@ -16,7 +16,7 @@ class ControladorProductos {
 
   late List<int> _cantidades;
 
-  ProductController() {
+  ControladorProductos() {
     final products = _productService.getProducts();
     _cantidades = List<int>.filled(products.length, 0);
   }

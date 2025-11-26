@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:enrique_masegosac1/screens/users/Pantalla_Usuario.dart';
 import 'package:enrique_masegosac1/config/utils/musica.dart';
 import 'package:enrique_masegosac1/config/utils/Validadores.dart';
-import 'package:enrique_masegosac1/config/resources/botones_estilo.dart';
+import 'package:enrique_masegosac1/config/resources/Botones/botones_estilo.dart';
 import 'package:enrique_masegosac1/controllers/usuario/user_controller.dart';
 import 'package:enrique_masegosac1/controllers/controlador_autenticacion.dart';
 
@@ -240,7 +240,7 @@ class PantallaLoginState extends State<PantallaLogin> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: _iniciarSesion,
-                        style: BotonesEstilo.primaryButton,
+                        style: BotonesEstilo.primary,
                         child: const Text('Iniciar sesión'),
                       ),
                     ),
