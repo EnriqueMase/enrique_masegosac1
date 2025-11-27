@@ -25,72 +25,88 @@ class _GestionUsuariosPageState extends State<GestionUsuariosPage> {
 
     showDialog(
       context: context,
-      builder: (_) => AlertDialog(
-        title: Text(l10n.createUser),
-        content: Form(
-          key: formKey,
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextFormField(
-                  controller: nombreController,
-                  decoration: InputDecoration(labelText: l10n.userName),
-                  validator: (v) =>
-                      v == null || v.isEmpty ? l10n.requiredField : null,
-                ),
-                TextFormField(
-                  controller: passController,
-                  decoration: InputDecoration(labelText: l10n.password),
-                  obscureText: true,
-                  validator: (v) =>
-                      v == null || v.isEmpty ? l10n.requiredField : null,
-                ),
-                TextFormField(
-                  controller: emailController,
-                  decoration: InputDecoration(labelText: l10n.email),
-                ),
-                TextFormField(
-                  controller: telefonoController,
-                  decoration: InputDecoration(labelText: l10n.phone),
-                ),
-                const SizedBox(height: 8),
-                SwitchListTile(
-                  value: esAdmin,
-                  onChanged: (value) {
-                    setState(() {
-                      esAdmin = value;
-                    });
-                  },
-                  title: Text(l10n.isAdmin),
-                ),
-              ],
+      builder: (_) => StatefulBuilder(
+        builder: (context, setStateDialog) => AlertDialog(
+          title: Text(l10n.createUser),
+          content: Form(
+            key: formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextFormField(
+                    controller: nombreController,
+                    decoration: InputDecoration(labelText: l10n.userName),
+                    validator: (v) =>
+                        v == null || v.isEmpty ? l10n.requiredField : null,
+                  ),
+                  TextFormField(
+                    controller: passController,
+                    decoration: InputDecoration(labelText: l10n.password),
+                    obscureText: true,
+                    validator: (v) =>
+                        v == null || v.isEmpty ? l10n.requiredField : null,
+                  ),
+                  TextFormField(
+                    controller: emailController,
+                    decoration: InputDecoration(labelText: l10n.email),
+                  ),
+                  TextFormField(
+                    controller: telefonoController,
+                    decoration: InputDecoration(labelText: l10n.phone),
+                  ),
+                  const SizedBox(height: 8),
+                  SwitchListTile(
+                    value: esAdmin,
+                    onChanged: (value) {
+                      setStateDialog(() {
+                        esAdmin = value;
+                      });
+                    },
+                    title: Text(l10n.isAdmin),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: OutlinedButton.icon(
+                      onPressed: () => setStateDialog(() => esAdmin = !esAdmin),
+                      icon: Icon(
+                        esAdmin
+                            ? Icons.admin_panel_settings
+                            : Icons.add_moderator,
+                      ),
+                      label: Text(
+                        esAdmin ? l10n.isAdmin : '${l10n.isAdmin} (+)',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text(l10n.cancel),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (!formKey.currentState!.validate()) return;
+
+                _controladorUsuariosAdmin.crearUsuario(
+                  nombre: nombreController.text.trim(),
+                  contrasena: passController.text.trim(),
+                  email: emailController.text.trim(),
+                  telefono: telefonoController.text.trim(),
+                  isAdmin: esAdmin,
+                );
+
+                Navigator.pop(context);
+                setState(() {});
+              },
+              child: Text(l10n.create),
+            ),
+          ],
         ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(l10n.cancel),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              if (!formKey.currentState!.validate()) return;
-
-              _controladorUsuariosAdmin.crearUsuario(
-                nombre: nombreController.text.trim(),
-                contrasena: passController.text.trim(),
-                email: emailController.text.trim(),
-                telefono: telefonoController.text.trim(),
-                isAdmin: esAdmin,
-              );
-
-              Navigator.pop(context);
-              setState(() {});
-            },
-            child: Text(l10n.create),
-          ),
-        ],
       ),
     );
   }

@@ -49,4 +49,8 @@ class ControladorUsuariosAdmin {
   }) {
     _logicaUsuarios.actualizarUsuario(nombreOriginal, datosNuevos);
   }
+
+  void asignarAdmin(String nombre, bool esAdmin) {
+    _logicaUsuarios.setAdmin(nombre, esAdmin);
+  }
 }

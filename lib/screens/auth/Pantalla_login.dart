@@ -42,7 +42,7 @@ class PantallaLoginState extends State<PantallaLogin> {
   Future<void> _iniciarSesion() async {
     if (!_formKey.currentState!.validate()) return;
 
-    await Musica.reproducir();
+    await Musica.reproducirLoop();
 
     await _controladorAutenticacion.iniciarSesion(
       context: context,

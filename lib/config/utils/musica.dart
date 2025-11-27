@@ -6,34 +6,59 @@ class Musica {
   static final AudioPlayer _audioPlayer = AudioPlayer();
   static String? _localFilePath;
 
-  /// Reproduce la música actual.
-  /// - Si hay archivo local seleccionado -> lo usa.
-  /// - Si no -> reproduce el asset por defecto.
-  static Future<void> reproducir() async {
+  // Reproduce en loop a volumen bajo (fondo).
+  static Future<void> reproducirLoop({double volumen = 0.2}) async {
     try {
+      await _audioPlayer.setReleaseMode(ReleaseMode.loop);
+      await _audioPlayer.setVolume(volumen);
+
       if (_localFilePath != null) {
         await _audioPlayer.play(DeviceFileSource(_localFilePath!));
       } else {
         await _audioPlayer.play(AssetSource('music/applepay.mp3'));
-        print('Reproduciendo sonido de inicio de sesión...');
+        print('Reproduciendo sonido de fondo en loop...');
       }
     } catch (e) {
-      print('Error al reproducir la música: $e');
+      print('Error al reproducir en loop: $e');
     }
   }
 
-  /// Pausa la música actual.
+  // Reproduce una sola vez.
+  static Future<void> reproducir() async {
+    try {
+      await _audioPlayer.setReleaseMode(ReleaseMode.stop);
+      if (_localFilePath != null) {
+        await _audioPlayer.play(DeviceFileSource(_localFilePath!));
+      } else {
+        await _audioPlayer.play(AssetSource('music/applepay.mp3'));
+        print('Reproduciendo sonido de inicio de sesion...');
+      }
+    } catch (e) {
+      print('Error al reproducir: $e');
+    }
+  }
+
   static Future<void> pausar() async {
     try {
       await _audioPlayer.pause();
-      print('⏸ Música pausada.');
+      print('Musica pausada.');
     } catch (e) {
-      print('Error al pausar la música: $e');
+      print('Error al pausar: $e');
     }
   }
 
-  /// Permite elegir un archivo de música y lo guarda como pista actual.
-  /// Devuelve un mensaje para mostrar al usuario.
+  // Detiene y quita el loop.
+  static Future<void> parar() async {
+    try {
+      await _audioPlayer.stop();
+      await _audioPlayer.setReleaseMode(ReleaseMode.stop);
+      print('Musica detenida.');
+    } catch (e) {
+      print('Error al detener: $e');
+    }
+  }
+
+  // Permite elegir un archivo de musica y lo guarda como pista actual.
   static Future<String> anadirMusica() async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
@@ -43,13 +68,13 @@ class Musica {
     if (result != null && result.files.isNotEmpty) {
       final filePath = result.files.single.path!;
       _localFilePath = filePath;
-      return 'Se ha cargado la música correctamente';
+      return 'Se ha cargado la musica correctamente';
     } else {
-      return 'No se ha seleccionado ningún archivo de música.';
+      return 'No se ha seleccionado ningun archivo de musica.';
     }
   }
 
-  /// Helper para usar desde la UI (por ejemplo, un botón en Ajustes).
+  // Helper para usar desde la UI (por ejemplo, un boton en Ajustes).
   void cargarMusica(BuildContext context) async {
     final audioCargado = await Musica.anadirMusica();
     final snackBar = SnackBar(content: Text(audioCargado));

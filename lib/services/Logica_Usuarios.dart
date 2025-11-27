@@ -1,4 +1,5 @@
 import 'package:enrique_masegosac1/models/usuarios.dart';
+import 'package:enrique_masegosac1/config/utils/musica.dart';
 
 class LogicaUsuarios {
   static final LogicaUsuarios _instancia = LogicaUsuarios._internal();
@@ -77,6 +78,7 @@ class LogicaUsuarios {
 
   void cerrarSesion() {
     _usuarioActual = null;
+    Musica.parar();
   }
 
   // ===== Usuarios =====
@@ -145,6 +147,31 @@ class LogicaUsuarios {
         fotoBytes: u.fotoBytes,
         isAdmin: u.isAdmin,
         isBlocked: bloqueado,
+        email: u.email,
+        telefono: u.telefono,
+      );
+
+      if (_usuarioActual?.nombre == u.nombre) {
+        _usuarioActual = _usuarios[index];
+      }
+    }
+  }
+
+  // Asigna o quita permisos de administrador.
+  void setAdmin(String nombre, bool esAdmin) {
+    final u = buscarUsuarioPorNombre(nombre);
+    if (u != null) {
+      final index = _usuarios.indexOf(u);
+      _usuarios[index] = Usuarios(
+        nombre: u.nombre,
+        contrasena: u.contrasena,
+        tratamiento: u.tratamiento,
+        edad: u.edad,
+        lugarnacimiento: u.lugarnacimiento,
+        fotoPath: u.fotoPath,
+        fotoBytes: u.fotoBytes,
+        isAdmin: esAdmin,
+        isBlocked: u.isBlocked,
         email: u.email,
         telefono: u.telefono,
       );
