@@ -41,14 +41,23 @@ class _RegistrarseState extends State<Registrarse> {
   Future<void> _seleccionarImagen() async {
     final picker = ImagePicker();
     final picked = await picker.pickImage(source: ImageSource.gallery);
+    await _procesarImagen(picked);
+  }
+  // foto desde camara del movil
 
-    if (picked != null) {
-      final bytes = await picked.readAsBytes();
-      setState(() {
-        _pickedImage = File(picked.path);
-        _pickedImageBytes = bytes;
-      });
-    }
+  Future<void> _tomarFoto() async {
+    final picker = ImagePicker();
+    final picked = await picker.pickImage(source: ImageSource.camera);
+    await _procesarImagen(picked);
+  }
+
+  Future<void> _procesarImagen(XFile? picked) async {
+    if (picked == null) return;
+    final bytes = await picked.readAsBytes();
+    setState(() {
+      _pickedImage = File(picked.path);
+      _pickedImageBytes = bytes;
+    });
   }
 
   void _registrarUsuario() {
@@ -124,7 +133,7 @@ class _RegistrarseState extends State<Registrarse> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Añadir imagen',
+          'Anadir imagen',
           style: TextStyle(fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 8),
@@ -158,9 +167,20 @@ class _RegistrarseState extends State<Registrarse> {
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: OutlinedButton(
-                  onPressed: _seleccionarImagen,
-                  child: const Text('Cargar imagen'),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    OutlinedButton(
+                      onPressed: _seleccionarImagen,
+                      child: const Text('Cargar imagen'),
+                    ),
+                    const SizedBox(height: 8),
+                    OutlinedButton.icon(
+                      onPressed: _tomarFoto,
+                      icon: const Icon(Icons.photo_camera),
+                      label: const Text('Camara'),
+                    ),
+                  ],
                 ),
               ),
             ],

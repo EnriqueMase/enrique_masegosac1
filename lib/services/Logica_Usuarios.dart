@@ -1,12 +1,15 @@
 import 'package:enrique_masegosac1/models/usuarios.dart';
 import 'package:enrique_masegosac1/config/utils/musica.dart';
 
+/// Gestor en memoria de usuarios y sesión actual.
 class LogicaUsuarios {
   static final LogicaUsuarios _instancia = LogicaUsuarios._internal();
 
   factory LogicaUsuarios() => _instancia;
 
+  // Lista en memoria con todos los usuarios registrados.
   final List<Usuarios> _usuarios = [];
+  // Usuario autenticado actualmente.
   Usuarios? _usuarioActual;
 
   LogicaUsuarios._internal() {
@@ -14,8 +17,10 @@ class LogicaUsuarios {
   }
 
   void _initUsuariosPorDefecto() {
+    // Evita volver a inicializar si ya hay datos.
     if (_usuarios.isNotEmpty) return;
 
+    // Admin por defecto.
     _usuarios.add(
       Usuarios(
         nombre: 'admin',
@@ -29,6 +34,7 @@ class LogicaUsuarios {
       ),
     );
 
+    // Usuarios de ejemplo.
     _usuarios.add(
       Usuarios(
         nombre: 'Enrique',
@@ -99,6 +105,7 @@ class LogicaUsuarios {
   }
 
   void registrarUsuario(Usuarios user) {
+    // Evita duplicados por nombre (case insensitive).
     if (_usuarios.any(
       (u) => u.nombre.toLowerCase() == user.nombre.toLowerCase(),
     )) {
@@ -107,7 +114,7 @@ class LogicaUsuarios {
     _usuarios.add(user);
   }
 
-  /// Actualiza un usuario (busca por nombre original)
+  /// Actualiza un usuario (busca por nombre original).
   void actualizarUsuario(String nombreOriginal, Usuarios datosNuevos) {
     for (int i = 0; i < _usuarios.length; i++) {
       if (_usuarios[i].nombre.toLowerCase() == nombreOriginal.toLowerCase()) {
@@ -122,7 +129,7 @@ class LogicaUsuarios {
     }
   }
 
-  /// Elimina un usuario (irreversible)
+  /// Elimina un usuario (irreversible).
   void eliminarUsuario(String nombre) {
     _usuarios.removeWhere(
       (u) => u.nombre.toLowerCase() == nombre.toLowerCase(),
@@ -132,7 +139,7 @@ class LogicaUsuarios {
     }
   }
 
-  /// Bloquear / desbloquear usuario
+  /// Bloquear / desbloquear usuario.
   void setBloqueado(String nombre, bool bloqueado) {
     final u = buscarUsuarioPorNombre(nombre);
     if (u != null) {
@@ -157,7 +164,7 @@ class LogicaUsuarios {
     }
   }
 
-  // Asigna o quita permisos de administrador.
+  /// Asigna o quita permisos de administrador.
   void setAdmin(String nombre, bool esAdmin) {
     final u = buscarUsuarioPorNombre(nombre);
     if (u != null) {

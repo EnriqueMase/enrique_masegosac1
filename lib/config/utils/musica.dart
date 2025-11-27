@@ -6,7 +6,7 @@ class Musica {
   static final AudioPlayer _audioPlayer = AudioPlayer();
   static String? _localFilePath;
 
-  // Reproduce en loop a volumen bajo (fondo).
+  // la linea de abajo es para el volumen
   static Future<void> reproducirLoop({double volumen = 0.2}) async {
     try {
       await _audioPlayer.setReleaseMode(ReleaseMode.loop);

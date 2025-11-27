@@ -34,6 +34,7 @@ class _GestionUsuariosPageState extends State<GestionUsuariosPage> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  // Datos básicos para el alta
                   TextFormField(
                     controller: nombreController,
                     decoration: InputDecoration(labelText: l10n.userName),
@@ -65,6 +66,7 @@ class _GestionUsuariosPageState extends State<GestionUsuariosPage> {
                     },
                     title: Text(l10n.isAdmin),
                   ),
+                  // Botón rápido para alternar admin
                   Align(
                     alignment: Alignment.centerLeft,
                     child: OutlinedButton.icon(
@@ -135,6 +137,7 @@ class _GestionUsuariosPageState extends State<GestionUsuariosPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                // Campos editables del usuario seleccionado
                 TextFormField(
                   controller: nombreController,
                   decoration: InputDecoration(labelText: l10n.userName),
@@ -186,6 +189,19 @@ class _GestionUsuariosPageState extends State<GestionUsuariosPage> {
                     });
                   },
                   title: Text(l10n.isAdmin),
+                ),
+                // Botón rápido para alternar admin
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: OutlinedButton.icon(
+                    onPressed: () => setState(() => esAdmin = !esAdmin),
+                    icon: Icon(
+                      esAdmin ? Icons.admin_panel_settings : Icons.add_moderator,
+                    ),
+                    label: Text(
+                      esAdmin ? l10n.isAdmin : '${l10n.isAdmin} (+)',
+                    ),
+                  ),
                 ),
               ],
             ),
