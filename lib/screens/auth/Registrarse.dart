@@ -272,7 +272,7 @@ class _RegistrarseState extends State<Registrarse> {
                       ),
                       const SizedBox(height: 12),
                       DropdownButtonFormField<String>(
-                        value: _lugarNacimiento,
+                        initialValue: _lugarNacimiento,
                         decoration: const InputDecoration(
                           labelText: 'Lugar de nacimiento',
                           border: OutlineInputBorder(),

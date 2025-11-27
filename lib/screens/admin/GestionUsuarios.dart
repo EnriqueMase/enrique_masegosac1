@@ -129,118 +129,124 @@ class _GestionUsuariosPageState extends State<GestionUsuariosPage> {
 
     showDialog(
       context: context,
-      builder: (_) => AlertDialog(
-        title: Text(l10n.editUser(u.nombre)),
-        content: Form(
-          key: formKey,
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // Campos editables del usuario seleccionado
-                TextFormField(
-                  controller: nombreController,
-                  decoration: InputDecoration(labelText: l10n.userName),
-                  validator: (v) =>
-                      v == null || v.isEmpty ? l10n.requiredField : null,
-                ),
-                TextFormField(
-                  controller: passController,
-                  decoration: InputDecoration(labelText: l10n.password),
-                  obscureText: true,
-                  validator: (v) =>
-                      v == null || v.isEmpty ? l10n.requiredField : null,
-                ),
-                TextFormField(
-                  controller: emailController,
-                  decoration: InputDecoration(labelText: l10n.email),
-                ),
-                TextFormField(
-                  controller: telefonoController,
-                  decoration: InputDecoration(labelText: l10n.phone),
-                ),
-                TextFormField(
-                  controller: edadController,
-                  decoration: InputDecoration(labelText: l10n.age),
-                ),
-                TextFormField(
-                  controller: lugarController,
-                  decoration: InputDecoration(labelText: l10n.birthPlace),
-                ),
-                const SizedBox(height: 8),
-                DropdownButtonFormField<String>(
-                  value: tratamiento,
-                  items: [
-                    DropdownMenuItem(value: 'Sr', child: Text(l10n.mr)),
-                    DropdownMenuItem(value: 'Sra', child: Text(l10n.mrs)),
-                    DropdownMenuItem(value: 'Otro', child: Text(l10n.other)),
-                  ],
-                  decoration: InputDecoration(labelText: l10n.gender),
-                  onChanged: (value) {
-                    tratamiento = value;
-                  },
-                ),
-                const SizedBox(height: 8),
-                SwitchListTile(
-                  value: esAdmin,
-                  onChanged: (value) {
-                    setState(() {
-                      esAdmin = value;
-                    });
-                  },
-                  title: Text(l10n.isAdmin),
-                ),
-                // Botón rápido para alternar admin
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: OutlinedButton.icon(
-                    onPressed: () => setState(() => esAdmin = !esAdmin),
-                    icon: Icon(
-                      esAdmin ? Icons.admin_panel_settings : Icons.add_moderator,
-                    ),
-                    label: Text(
-                      esAdmin ? l10n.isAdmin : '${l10n.isAdmin} (+)',
+      // El problema es que si no uso StatefulBuilder, los cambios en el switch no se ven
+      builder: (_) => StatefulBuilder(
+        builder: (context, setStateDialog) => AlertDialog(
+          title: Text(l10n.editUser(u.nombre)),
+          content: Form(
+            key: formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Campos editables del usuario seleccionado
+                  TextFormField(
+                    controller: nombreController,
+                    decoration: InputDecoration(labelText: l10n.userName),
+                    validator: (v) =>
+                        v == null || v.isEmpty ? l10n.requiredField : null,
+                  ),
+                  TextFormField(
+                    controller: passController,
+                    decoration: InputDecoration(labelText: l10n.password),
+                    obscureText: true,
+                    validator: (v) =>
+                        v == null || v.isEmpty ? l10n.requiredField : null,
+                  ),
+                  TextFormField(
+                    controller: emailController,
+                    decoration: InputDecoration(labelText: l10n.email),
+                  ),
+                  TextFormField(
+                    controller: telefonoController,
+                    decoration: InputDecoration(labelText: l10n.phone),
+                  ),
+                  TextFormField(
+                    controller: edadController,
+                    decoration: InputDecoration(labelText: l10n.age),
+                  ),
+                  TextFormField(
+                    controller: lugarController,
+                    decoration: InputDecoration(labelText: l10n.birthPlace),
+                  ),
+                  const SizedBox(height: 8),
+                  DropdownButtonFormField<String>(
+                    initialValue: tratamiento,
+                    items: [
+                      DropdownMenuItem(value: 'Sr', child: Text(l10n.mr)),
+                      DropdownMenuItem(value: 'Sra', child: Text(l10n.mrs)),
+                      DropdownMenuItem(value: 'Otro', child: Text(l10n.other)),
+                    ],
+                    decoration: InputDecoration(labelText: l10n.gender),
+                    onChanged: (value) {
+                      tratamiento = value;
+                    },
+                  ),
+                  const SizedBox(height: 8),
+                  SwitchListTile(
+                    value: esAdmin,
+                    onChanged: (value) {
+                      setStateDialog(() {
+                        esAdmin = value;
+                      });
+                    },
+                    title: Text(l10n.isAdmin),
+                  ),
+                  // Botón rápido para alternar admin
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: OutlinedButton.icon(
+                      // el error aquí es no usar setStateDialog y por eso no me iba el boton de admin
+                      onPressed: () => setStateDialog(() => esAdmin = !esAdmin),
+                      icon: Icon(
+                        esAdmin
+                            ? Icons.admin_panel_settings
+                            : Icons.add_moderator,
+                      ),
+                      label: Text(
+                        esAdmin ? l10n.isAdmin : '${l10n.isAdmin} (+)',
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text(l10n.cancel),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (!formKey.currentState!.validate()) return;
+
+                final nuevo = Usuarios(
+                  nombre: nombreController.text.trim(),
+                  contrasena: passController.text.trim(),
+                  tratamiento: tratamiento,
+                  edad: edadController.text.trim(),
+                  lugarnacimiento: lugarController.text.trim(),
+                  email: emailController.text.trim(),
+                  telefono: telefonoController.text.trim(),
+                  isAdmin: esAdmin,
+                  isBlocked: u.isBlocked,
+                  fotoPath: u.fotoPath,
+                  fotoBytes: u.fotoBytes,
+                );
+
+                _controladorUsuariosAdmin.editarUsuario(
+                  nombreOriginal: u.nombre,
+                  datosNuevos: nuevo,
+                );
+
+                Navigator.pop(context);
+                setState(() {});
+              },
+              child: Text(l10n.save),
+            ),
+          ],
         ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(l10n.cancel),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              if (!formKey.currentState!.validate()) return;
-
-              final nuevo = Usuarios(
-                nombre: nombreController.text.trim(),
-                contrasena: passController.text.trim(),
-                tratamiento: tratamiento,
-                edad: edadController.text.trim(),
-                lugarnacimiento: lugarController.text.trim(),
-                email: emailController.text.trim(),
-                telefono: telefonoController.text.trim(),
-                isAdmin: esAdmin,
-                isBlocked: u.isBlocked,
-                fotoPath: u.fotoPath,
-                fotoBytes: u.fotoBytes,
-              );
-
-              _controladorUsuariosAdmin.editarUsuario(
-                nombreOriginal: u.nombre,
-                datosNuevos: nuevo,
-              );
-
-              Navigator.pop(context);
-              setState(() {});
-            },
-            child: Text(l10n.save),
-          ),
-        ],
       ),
     );
   }

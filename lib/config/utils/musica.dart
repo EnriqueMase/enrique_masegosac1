@@ -15,7 +15,7 @@ class Musica {
       if (_localFilePath != null) {
         await _audioPlayer.play(DeviceFileSource(_localFilePath!));
       } else {
-        await _audioPlayer.play(AssetSource('music/applepay.mp3'));
+        await _audioPlayer.play(AssetSource('music/cancion.mp3'));
         print('Reproduciendo sonido de fondo en loop...');
       }
     } catch (e) {
@@ -30,7 +30,7 @@ class Musica {
       if (_localFilePath != null) {
         await _audioPlayer.play(DeviceFileSource(_localFilePath!));
       } else {
-        await _audioPlayer.play(AssetSource('music/applepay.mp3'));
+        await _audioPlayer.play(AssetSource('music/cancion.mp3'));
         print('Reproduciendo sonido de inicio de sesion...');
       }
     } catch (e) {

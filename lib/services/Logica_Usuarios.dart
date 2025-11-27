@@ -30,7 +30,7 @@ class LogicaUsuarios {
         lugarnacimiento: 'Zaragoza',
         isAdmin: true,
         email: 'admin@example.com',
-        telefono: '600000000',
+        telefono: '600000',
       ),
     );
 
@@ -43,7 +43,7 @@ class LogicaUsuarios {
         edad: '20',
         lugarnacimiento: 'Zaragoza',
         email: 'enrique@example.com',
-        telefono: '600000001',
+        telefono: '600001',
       ),
     );
 
@@ -55,7 +55,7 @@ class LogicaUsuarios {
         edad: '20',
         lugarnacimiento: 'Zaragoza',
         email: 'ruben@example.com',
-        telefono: '600000002',
+        telefono: '600002',
       ),
     );
 
@@ -68,13 +68,13 @@ class LogicaUsuarios {
           edad: '18',
           lugarnacimiento: 'Zaragoza',
           email: 'user@example.com',
-          telefono: '600000003',
+          telefono: '600003',
         ),
       );
     }
   }
 
-  // ===== Usuario actual =====
+  // Usuario actual
 
   Usuarios? getUsuarioActual() => _usuarioActual;
 

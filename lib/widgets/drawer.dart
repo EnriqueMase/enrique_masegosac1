@@ -2,7 +2,6 @@ import 'package:enrique_masegosac1/l10n/app_localizations.dart';
 import 'package:enrique_masegosac1/locale_bloc/locale_bloc.dart';
 import 'package:enrique_masegosac1/locale_bloc/locale_state.dart';
 import 'package:enrique_masegosac1/screens/auth/Pantalla_login.dart';
-import 'package:enrique_masegosac1/screens/users/Pagina_Yo.dart';
 import 'package:enrique_masegosac1/services/Logica_Usuarios.dart';
 import 'package:enrique_masegosac1/widgets/cambio_lenguajes.dart';
 import 'package:flutter/material.dart';

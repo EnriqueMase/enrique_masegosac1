@@ -20,7 +20,7 @@ class LogicaProductos {
         nombre: 'Teclado',
         precio: 39.99,
         stock: 50,
-        descripcion: 'Descripción del Producto 1',
+        descripcion: 'Teclado de mambrana RGB',
         imagenAsset: 'assets/images/teclado.jpg',
       ),
       Productos(
@@ -28,7 +28,7 @@ class LogicaProductos {
         nombre: 'Raton',
         precio: 119.99,
         stock: 70,
-        descripcion: 'Descripción del Producto 2',
+        descripcion: 'Logitech G PRO X SUPERLIGHT 2 LIGHTSPEED',
         imagenAsset: 'assets/images/raton.jpg',
       ),
       Productos(
@@ -36,7 +36,7 @@ class LogicaProductos {
         nombre: 'Cascos Speed',
         precio: 49.99,
         stock: 10,
-        descripcion: 'Descripción del Producto 3',
+        descripcion: 'Speed please I need this',
         imagenAsset: 'assets/images/speed.jpg',
       ),
     ]);
