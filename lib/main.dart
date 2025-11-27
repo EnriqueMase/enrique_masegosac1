@@ -11,8 +11,10 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Inicializamos Firebase antes de montar la app para que los servicios estén listos.
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
+  // Inyectamos el bloc de idioma a toda la app.
   runApp(BlocProvider(create: (_) => LocaleBloc(), child: const MyApp()));
 }
 

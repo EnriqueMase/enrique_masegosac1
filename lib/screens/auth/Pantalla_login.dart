@@ -13,6 +13,7 @@ import 'package:enrique_masegosac1/config/utils/Validadores.dart';
 import 'package:enrique_masegosac1/config/resources/Botones/botones_estilo.dart';
 import 'package:enrique_masegosac1/controllers/usuario/user_controller.dart';
 import 'package:enrique_masegosac1/controllers/controlador_autenticacion.dart';
+import 'package:enrique_masegosac1/services/Logica_Usuarios.dart';
 import 'package:enrique_masegosac1/widgets/cambio_lenguajes.dart';
 
 class PantallaLogin extends StatefulWidget {
@@ -44,6 +45,7 @@ class PantallaLoginState extends State<PantallaLogin> {
 
     await Musica.reproducirLoop();
 
+    // Autenticación local (admin/user) y redirección según rol.
     await _controladorAutenticacion.iniciarSesion(
       context: context,
       nombre: _nombreController.text,
@@ -52,18 +54,21 @@ class PantallaLoginState extends State<PantallaLogin> {
   }
 
   Future<void> _loginConGoogle() async {
-    final cred = await controladorUsuario.signInWithGoogleWeb();
+    // Login federado y creación/selección del usuario en memoria.
+    final cred = await controladorUsuario.signInWithGoogle();
 
     if (!mounted) return;
 
-    if (cred != null) {
+    final usuarioActual = LogicaUsuarios().getUsuarioActual();
+
+    if (cred != null && usuarioActual != null) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => const Pantalla_Usuario()),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('No se pudo iniciar sesión con Google')),
+        const SnackBar(content: Text('No se pudo iniciar sesion con Google')),
       );
     }
   }

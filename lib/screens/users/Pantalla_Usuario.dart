@@ -4,6 +4,7 @@ import 'package:enrique_masegosac1/screens/users/Pagina_Pedidos.dart';
 import 'package:enrique_masegosac1/screens/users/Pagina_Yo.dart';
 import 'package:flutter/material.dart';
 
+import 'package:enrique_masegosac1/l10n/app_localizations.dart';
 import 'package:enrique_masegosac1/widgets/drawer.dart';
 
 class Pantalla_Usuario extends StatefulWidget {
@@ -25,8 +26,10 @@ class _Pantalla_UsuarioState extends State<Pantalla_Usuario> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       drawer: const Cdrawer(),
+      // Páginas principales; se mantiene en memoria para preservar estado.
       body: _paginas[_paginaActual],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _paginaActual,
@@ -40,19 +43,19 @@ class _Pantalla_UsuarioState extends State<Pantalla_Usuario> {
         type: BottomNavigationBarType.fixed,
 
         // barra de abajo
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: 'Tienda',
+            icon: const Icon(Icons.shopping_cart),
+            label: l10n.store,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.receipt_long),
-            label: 'Pedidos',
+            icon: const Icon(Icons.receipt_long),
+            label: l10n.orders,
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Yo'),
+          BottomNavigationBarItem(icon: const Icon(Icons.person), label: l10n.me),
           BottomNavigationBarItem(
-            icon: Icon(Icons.contact_mail),
-            label: 'Contacto',
+            icon: const Icon(Icons.contact_mail),
+            label: l10n.contact,
           ),
         ],
       ),

@@ -326,6 +326,24 @@ abstract class AppLocalizations {
   /// **'Registro completado'**
   String get registrationCompleted;
 
+  /// No description provided for @addImage.
+  ///
+  /// In es, this message translates to:
+  /// **'Anadir imagen'**
+  String get addImage;
+
+  /// No description provided for @uploadImage.
+  ///
+  /// In es, this message translates to:
+  /// **'Cargar imagen'**
+  String get uploadImage;
+
+  /// No description provided for @takePhoto.
+  ///
+  /// In es, this message translates to:
+  /// **'Camara'**
+  String get takePhoto;
+
   /// No description provided for @name.
   ///
   /// In es, this message translates to:
@@ -367,6 +385,12 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Confirmar'**
   String get confirm;
+
+  /// No description provided for @confirmPassword.
+  ///
+  /// In es, this message translates to:
+  /// **'Repite la contrasena'**
+  String get confirmPassword;
 
   /// No description provided for @edit.
   ///
@@ -433,6 +457,24 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Introduce un mensaje'**
   String get enterAMessage;
+
+  /// No description provided for @termsAndConditionsLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Aceptas los terminos y condiciones'**
+  String get termsAndConditionsLabel;
+
+  /// No description provided for @mustAcceptTerms.
+  ///
+  /// In es, this message translates to:
+  /// **'Debes aceptar los terminos y condiciones'**
+  String get mustAcceptTerms;
+
+  /// No description provided for @store.
+  ///
+  /// In es, this message translates to:
+  /// **'Tienda'**
+  String get store;
 
   /// No description provided for @home.
   ///
@@ -703,6 +745,24 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Mensaje enviado (simulado)'**
   String get messageSent;
+
+  /// No description provided for @companyInfoTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Datos de la empresa'**
+  String get companyInfoTitle;
+
+  /// No description provided for @companyNameLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Empresa'**
+  String get companyNameLabel;
+
+  /// No description provided for @companyAddressLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Direccion'**
+  String get companyAddressLabel;
 
   /// No description provided for @myProfile.
   ///

@@ -129,6 +129,7 @@ class _PaginaYoState extends State<PaginaYo> {
     final user = _usuario;
 
     if (user == null) {
+      // Si no hay sesión activa, redirige de inmediato al login.
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Navigator.pushReplacement(
           context,

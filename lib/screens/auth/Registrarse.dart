@@ -2,10 +2,15 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:enrique_masegosac1/config/utils/Validadores.dart';
+import 'package:enrique_masegosac1/l10n/app_localizations.dart';
+import 'package:enrique_masegosac1/locale_bloc/locale_bloc.dart';
+import 'package:enrique_masegosac1/locale_bloc/locale_state.dart';
 import 'package:enrique_masegosac1/models/usuarios.dart';
 import 'package:enrique_masegosac1/screens/auth/Pantalla_login.dart';
 import 'package:enrique_masegosac1/services/Logica_Usuarios.dart';
+import 'package:enrique_masegosac1/widgets/cambio_lenguajes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Registrarse extends StatefulWidget {
@@ -60,10 +65,12 @@ class _RegistrarseState extends State<Registrarse> {
     });
   }
 
+  // Ejecuta validaciones y registra en memoria, manteniendo compatibilidad con admin/usuario.
   void _registrarUsuario() {
+    final l10n = AppLocalizations.of(context)!;
     if (!_formKey.currentState!.validate()) return;
     if (!_aceptaTerminos) {
-      _mostrarError('Debes aceptar los términos y condiciones');
+      _mostrarError(l10n.mustAcceptTerms);
       return;
     }
 
@@ -74,8 +81,9 @@ class _RegistrarseState extends State<Registrarse> {
     final nombre = _nombreController.text.trim();
     final contrasena = _passwordController.text.trim();
 
+    // Evitamos duplicados por nombre antes de registrar.
     if (logica.buscarUsuarioPorNombre(nombre) != null) {
-      _mostrarError('El usuario "$nombre" ya existe');
+      _mostrarError(l10n.userExists(nombre));
       return;
     }
 
@@ -92,8 +100,8 @@ class _RegistrarseState extends State<Registrarse> {
     logica.registrarUsuario(nuevoUsuario);
 
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Registro completado'),
+      SnackBar(
+        content: Text(l10n.registrationCompleted),
         backgroundColor: Colors.green,
       ),
     );
@@ -128,13 +136,14 @@ class _RegistrarseState extends State<Registrarse> {
     );
   }
 
-  Widget _buildImagePicker() {
+  // Selector de imagen reutilizable para mantener el widget principal más limpio.
+  Widget _buildImagePicker(AppLocalizations l10n) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Anadir imagen',
-          style: TextStyle(fontWeight: FontWeight.w600),
+        Text(
+          l10n.addImage,
+          style: const TextStyle(fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 8),
         Container(
@@ -172,13 +181,13 @@ class _RegistrarseState extends State<Registrarse> {
                   children: [
                     OutlinedButton(
                       onPressed: _seleccionarImagen,
-                      child: const Text('Cargar imagen'),
+                      child: Text(l10n.uploadImage),
                     ),
                     const SizedBox(height: 8),
                     OutlinedButton.icon(
                       onPressed: _tomarFoto,
                       icon: const Icon(Icons.photo_camera),
-                      label: const Text('Camara'),
+                      label: Text(l10n.takePhoto),
                     ),
                   ],
                 ),
@@ -190,11 +199,32 @@ class _RegistrarseState extends State<Registrarse> {
     );
   }
 
+  // Campo de entrada reutilizable para mantener el widget principal más limpio.
+  Widget _buildInputField({
+    required TextEditingController controller,
+    required String label,
+    TextInputType keyboardType = TextInputType.text,
+    bool obscureText = false,
+    String? Function(String?)? validator,
+  }) {
+    return TextFormField(
+      controller: controller,
+      keyboardType: keyboardType,
+      obscureText: obscureText,
+      decoration: InputDecoration(
+        labelText: label,
+        border: const OutlineInputBorder(),
+      ),
+      validator: validator,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Registros'),
+        title: Text(l10n.registerTitle),
         backgroundColor: Colors.lightBlueAccent,
       ),
       body: SingleChildScrollView(
@@ -214,68 +244,67 @@ class _RegistrarseState extends State<Registrarse> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Tratamiento:',
-                        style: TextStyle(fontSize: 16),
+                      // Cambio de idioma, igual que en login y drawer.
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: BlocBuilder<LocaleBloc, LocaleState>(
+                          builder: (context, state) => buildLanguageSwitch(
+                            context,
+                            Theme.of(context),
+                            state,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        '${l10n.gender}:',
+                        style: const TextStyle(fontSize: 16),
                       ),
                       Row(
                         children: [
-                          _buildTratamientoOption('Sr', 'Sr.'),
-                          _buildTratamientoOption('Sra', 'Sra.'),
+                          _buildTratamientoOption('Sr', l10n.mr),
+                          _buildTratamientoOption('Sra', l10n.mrs),
                         ],
                       ),
                       const SizedBox(height: 8),
-                      TextFormField(
+                      _buildInputField(
                         controller: _nombreController,
-                        decoration: const InputDecoration(
-                          labelText: 'Nombre',
-                          border: OutlineInputBorder(),
-                        ),
-                        validator: (value) => Validadores.validateEmpty(
-                            value, 'nombre de usuario'),
-                      ),
-                      const SizedBox(height: 12),
-                      TextFormField(
-                        controller: _passwordController,
-                        obscureText: true,
-                        decoration: const InputDecoration(
-                          labelText: 'Contraseña',
-                          border: OutlineInputBorder(),
-                        ),
+                        label: l10n.name,
                         validator: (value) =>
-                            Validadores.validateEmpty(value, 'contraseña'),
+                            Validadores.validateEmpty(value, l10n.userName),
                       ),
                       const SizedBox(height: 12),
-                      TextFormField(
-                        controller: _confirmPasswordController,
+                      _buildInputField(
+                        controller: _passwordController,
+                        label: l10n.password,
                         obscureText: true,
-                        decoration: const InputDecoration(
-                          labelText: 'Repite la contraseña',
-                          border: OutlineInputBorder(),
-                        ),
+                        validator: (value) =>
+                            Validadores.validateEmpty(value, l10n.password),
+                      ),
+                      const SizedBox(height: 12),
+                      _buildInputField(
+                        controller: _confirmPasswordController,
+                        label: l10n.confirmPassword,
+                        obscureText: true,
                         validator: (value) => Validadores.validatePasswordMatch(
                           _passwordController.text,
                           value,
                         ),
                       ),
                       const SizedBox(height: 16),
-                      _buildImagePicker(),
+                      _buildImagePicker(l10n),
                       const SizedBox(height: 16),
-                      TextFormField(
+                      _buildInputField(
                         controller: _edadController,
+                        label: l10n.age,
                         keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(
-                          labelText: 'Edad',
-                          border: OutlineInputBorder(),
-                        ),
                         validator: Validadores.validateAge,
                       ),
                       const SizedBox(height: 12),
                       DropdownButtonFormField<String>(
                         initialValue: _lugarNacimiento,
-                        decoration: const InputDecoration(
-                          labelText: 'Lugar de nacimiento',
-                          border: OutlineInputBorder(),
+                        decoration: InputDecoration(
+                          labelText: l10n.birthPlace,
+                          border: const OutlineInputBorder(),
                         ),
                         items: const [
                           DropdownMenuItem(
@@ -295,9 +324,10 @@ class _RegistrarseState extends State<Registrarse> {
                             setState(() => _lugarNacimiento = value),
                       ),
                       const SizedBox(height: 16),
+                      // Aceptación antes de registrar.
                       CheckboxListTile(
                         contentPadding: EdgeInsets.zero,
-                        title: const Text('Aceptas los términos y condiciones'),
+                        title: Text(l10n.termsAndConditionsLabel),
                         value: _aceptaTerminos,
                         onChanged: (value) =>
                             setState(() => _aceptaTerminos = value ?? false),
@@ -315,7 +345,7 @@ class _RegistrarseState extends State<Registrarse> {
                             ),
                             padding: const EdgeInsets.symmetric(vertical: 14),
                           ),
-                          child: const Text('Aceptar'),
+                          child: Text(l10n.confirm),
                         ),
                       ),
                     ],

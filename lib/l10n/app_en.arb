@@ -41,6 +41,9 @@
   "phone": "Phone",
   "selectImage": "Select image",
   "registrationCompleted": "Registration completed",
+  "addImage": "Add image",
+  "uploadImage": "Upload image",
+  "takePhoto": "Camera",
   
   "name": "Name",
   "description": "Description",
@@ -49,6 +52,7 @@
   "imagePath": "Image path (asset)",
   "requiredField": "Required",
   "confirm": "Confirm",
+  "confirmPassword": "Repeat password",
   "edit": "Edit",
   "delete": "Delete",
   "block": "Block",
@@ -60,7 +64,10 @@
   "add": "Add",
   "enterYourName": "Enter your name",
   "enterAMessage": "Enter a message",
+  "termsAndConditionsLabel": "Accept terms and conditions",
+  "mustAcceptTerms": "You must accept the terms and conditions",
   
+  "store": "Store",
   "home": "Home",
   "me": "Me",
   
@@ -113,6 +120,9 @@
   "message": "Message",
   "sendMessage": "Send",
   "messageSent": "Message sent (simulated)",
+  "companyInfoTitle": "Company info",
+  "companyNameLabel": "Company",
+  "companyAddressLabel": "Address",
   
   "myProfile": "My Profile"
 }

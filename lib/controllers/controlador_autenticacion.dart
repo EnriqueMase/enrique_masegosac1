@@ -7,6 +7,7 @@ import 'package:enrique_masegosac1/screens/users/Pantalla_Usuario.dart';
 class ControladorAutenticacion {
   final LogicaUsuarios _usuarios = LogicaUsuarios();
 
+  /// Valida credenciales locales y redirige según rol admin/usuario.
   Future<void> iniciarSesion({
     required BuildContext context,
     required String nombre,

@@ -129,6 +129,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get registrationCompleted => 'Registration completed';
 
   @override
+  String get addImage => 'Add image';
+
+  @override
+  String get uploadImage => 'Upload image';
+
+  @override
+  String get takePhoto => 'Camera';
+
+  @override
   String get name => 'Name';
 
   @override
@@ -148,6 +157,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get confirm => 'Confirm';
+
+  @override
+  String get confirmPassword => 'Repeat password';
 
   @override
   String get edit => 'Edit';
@@ -181,6 +193,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get enterAMessage => 'Enter a message';
+
+  @override
+  String get termsAndConditionsLabel => 'Accept terms and conditions';
+
+  @override
+  String get mustAcceptTerms => 'You must accept the terms and conditions';
+
+  @override
+  String get store => 'Store';
 
   @override
   String get home => 'Home';
@@ -327,6 +348,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get messageSent => 'Message sent (simulated)';
+
+  @override
+  String get companyInfoTitle => 'Company info';
+
+  @override
+  String get companyNameLabel => 'Company';
+
+  @override
+  String get companyAddressLabel => 'Address';
 
   @override
   String get myProfile => 'My Profile';
