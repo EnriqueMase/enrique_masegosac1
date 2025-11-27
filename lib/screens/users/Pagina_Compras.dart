@@ -34,6 +34,77 @@ class _PaginaComprasState extends State<PaginaCompras> {
     setState(() {});
   }
 
+  Future<void> _mostrarConfirmacionCompra() async {
+    final l10n = AppLocalizations.of(context)!;
+    final productos = _controladorProductos.productos;
+    final cantidades = _controladorProductos.cantidades;
+
+    final seleccionados = <Widget>[];
+    double total = 0;
+
+    for (int i = 0; i < productos.length; i++) {
+      final qty = cantidades[i];
+      if (qty <= 0) continue;
+      final prod = productos[i];
+      final subtotal = prod.precio * qty;
+      total += subtotal;
+      seleccionados.add(
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: Row(
+            children: [
+              Expanded(child: Text('${prod.nombre} x$qty')),
+              Text('${l10n.total}: ${subtotal.toStringAsFixed(2)} EUR'),
+            ],
+          ),
+        ),
+      );
+    }
+
+    if (seleccionados.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(l10n.noOrdersYet)),
+      );
+      return;
+    }
+
+    final confirmar = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(l10n.confirmPurchase),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ...seleccionados,
+              const Divider(),
+              Row(
+                children: [
+                  Expanded(child: Text(l10n.total)),
+                  Text('${total.toStringAsFixed(2)} EUR'),
+                ],
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text(l10n.cancel),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text(l10n.confirm),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmar == true) {
+      _realizarCompra();
+    }
+  }
+
   void _realizarCompra() {
     final l10n = AppLocalizations.of(context)!;
     final user = _usuarios.getUsuarioActual();
@@ -182,29 +253,7 @@ class _PaginaComprasState extends State<PaginaCompras> {
               child: ElevatedButton.icon(
                 icon: const Icon(Icons.shopping_cart_outlined),
                 label: Text(l10n.makePurchase),
-                onPressed: () async {
-                  final confirmar = await showDialog<bool>(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: Text(l10n.confirmPurchase),
-                      content: Text(l10n.confirmPurchaseQuestion),
-                      actions: [
-                        TextButton(
-                          onPressed: () => Navigator.of(context).pop(false),
-                          child: Text(l10n.cancel),
-                        ),
-                        ElevatedButton(
-                          onPressed: () => Navigator.of(context).pop(true),
-                          child: Text(l10n.confirm),
-                        ),
-                      ],
-                    ),
-                  );
-
-                  if (confirmar == true) {
-                    _realizarCompra();
-                  }
-                },
+                onPressed: _mostrarConfirmacionCompra,
               ),
             ),
           ),

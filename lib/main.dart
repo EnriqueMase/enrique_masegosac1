@@ -6,6 +6,7 @@ import 'package:enrique_masegosac1/config/utils/lenguajes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:enrique_masegosac1/config/resources/Botones/botones_colores.dart';
 
 import 'firebase_options.dart';
 
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            colorScheme: ColorScheme.fromSeed(seedColor: ButtonColors.Principal),
             useMaterial3: true,
           ),
           home: const PantallaLogin(),

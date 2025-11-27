@@ -11,6 +11,7 @@ import 'package:enrique_masegosac1/screens/users/Pantalla_Usuario.dart';
 import 'package:enrique_masegosac1/config/utils/musica.dart';
 import 'package:enrique_masegosac1/config/utils/Validadores.dart';
 import 'package:enrique_masegosac1/config/resources/Botones/botones_estilo.dart';
+import 'package:enrique_masegosac1/config/resources/Texto/texto_estilos.dart';
 import 'package:enrique_masegosac1/controllers/usuario/user_controller.dart';
 import 'package:enrique_masegosac1/controllers/controlador_autenticacion.dart';
 import 'package:enrique_masegosac1/services/Logica_Usuarios.dart';
@@ -180,13 +181,7 @@ class PantallaLoginState extends State<PantallaLogin> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         CircleAvatar(child: EstilosPersonalizados.logoImage()),
-                        Text(
-                          l10n.loginTitle,
-                          style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        Text(l10n.loginTitle, style: AppTextStyles.h1),
                         const SizedBox(height: 24),
                         Form(
                           key: _formKey,
@@ -266,6 +261,7 @@ class PantallaLoginState extends State<PantallaLogin> {
                           child: OutlinedButton.icon(
                             onPressed: _loginConGoogle,
                             icon: const Icon(Icons.login),
+                            style: BotonesEstilo.outlined,
                             label: Text(l10n.signInWithGoogle),
                           ),
                         ),

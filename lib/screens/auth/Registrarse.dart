@@ -9,6 +9,9 @@ import 'package:enrique_masegosac1/models/usuarios.dart';
 import 'package:enrique_masegosac1/screens/auth/Pantalla_login.dart';
 import 'package:enrique_masegosac1/services/Logica_Usuarios.dart';
 import 'package:enrique_masegosac1/widgets/cambio_lenguajes.dart';
+import 'package:enrique_masegosac1/config/resources/Botones/botones_estilo.dart';
+import 'package:enrique_masegosac1/config/resources/Botones/botones_colores.dart';
+import 'package:enrique_masegosac1/config/resources/Texto/texto_estilos.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -181,12 +184,14 @@ class _RegistrarseState extends State<Registrarse> {
                   children: [
                     OutlinedButton(
                       onPressed: _seleccionarImagen,
+                      style: BotonesEstilo.outlined,
                       child: Text(l10n.uploadImage),
                     ),
                     const SizedBox(height: 8),
                     OutlinedButton.icon(
                       onPressed: _tomarFoto,
                       icon: const Icon(Icons.photo_camera),
+                      style: BotonesEstilo.outlined,
                       label: Text(l10n.takePhoto),
                     ),
                   ],
@@ -224,8 +229,8 @@ class _RegistrarseState extends State<Registrarse> {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.registerTitle),
-        backgroundColor: Colors.lightBlueAccent,
+        title: Text(l10n.registerTitle, style: AppTextStyles.h2),
+        backgroundColor: ButtonColors.Principal,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
@@ -338,13 +343,7 @@ class _RegistrarseState extends State<Registrarse> {
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: _registrarUsuario,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.lightBlueAccent,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24),
-                            ),
-                            padding: const EdgeInsets.symmetric(vertical: 14),
-                          ),
+                          style: BotonesEstilo.primary,
                           child: Text(l10n.confirm),
                         ),
                       ),
